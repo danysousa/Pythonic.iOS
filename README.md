@@ -5,33 +5,33 @@ Pythonic.swift is a Swift library implementating selected parts of Python's stan
 ```import Pythonic``` allows you to write Python flavored code such as:
 
 ```
-#!/usr/bin/env xcrun swift -i -I .
+#!/usr/bin/env xcrun swift -I .
 
 import Pythonic
 
 if re.search("^foo", "foobar") {
-  println(["foo", "bar", "zonk"].index("foo")) // 0
-  println(["foo", "bar", "zonk"].count("bar")) // 1
-  println(["foo", "bar", "zonk"].count("zoo")) // 0
+    println(["foo", "bar", "zonk"].index("foo")) // 0
+    println(["foo", "bar", "zonk"].count("bar")) // 1
+    println(["foo", "bar", "zonk"].count("zoo")) // 0
 }
 
 if any(["foo", "bar", "zonk"]) {
-  println(chr(ord("a"))) // a
+    println(chr(ord("a"))) // a
 }
 
 var strings = ["foo", "bar"]
 println(":".join(strings)) // foo:bar
 if strings {
-  println(strings[0]) // foo
+    println(strings[0]) // foo
 }
 if len(strings) == 2 {
-  println(strings[1].upper()) // BAR
-  println(strings[1].split("a")) // ["b", "r"]
+    println(strings[1].upper()) // BAR
+    println(strings[1].split("a")) // ["b", "r"]
 }
 
 var greeting = "   hello pythonista   "
 if greeting.strip().startswith("hello") {
-  println(greeting.strip().title()) // Hello Pythonista
+    println(greeting.strip().title()) // Hello Pythonista
 }
 
 var numbers = [1, 2, 3, 4, 5]
@@ -52,7 +52,7 @@ mkdir my-pythonic-app/
 cd my-pythonic-app/
 cp ../Pythonic.swiftdoc ../Pythonic.swiftmodule ../libPythonic.dylib .
 cat << EOF > my_pythonic_app.swift
-#!/usr/bin/env xcrun swift -I . -i
+#!/usr/bin/env xcrun swift -I .
 
 import Pythonic
 
