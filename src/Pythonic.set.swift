@@ -21,7 +21,7 @@
 //
 //   assert(Set([1, 1, 1, 2, 2, 3, 3, 4]) == Set([1, 2, 3, 4]))
 
-public final class Set<T: Hashable> : ArrayLiteralConvertible, CollectionType,
+public final class Set<T : Hashable> : ArrayLiteralConvertible, CollectionType,
     Comparable, Equatable, ExtensibleCollectionType, Hashable, BooleanType,
     Printable, SequenceType {
     // final to speed up things:
@@ -161,7 +161,7 @@ public final class Set<T: Hashable> : ArrayLiteralConvertible, CollectionType,
 }
 
 // Implement Comparable (allows for "if set1 < set2 { … }")
-public func <<T: Hashable>(lhs: Set<T>, rhs: Set<T>) -> Bool {
+public func <<T : Hashable>(lhs: Set<T>, rhs: Set<T>) -> Bool {
     if lhs == rhs {
         return false
     }
@@ -174,17 +174,17 @@ public func <<T: Hashable>(lhs: Set<T>, rhs: Set<T>) -> Bool {
 }
 
 // Implement Equatable (allows for "if set1 == set2 { … }")
-public func ==<T: Hashable>(lhs: Set<T>, rhs: Set<T>) -> Bool {
+public func ==<T : Hashable>(lhs: Set<T>, rhs: Set<T>) -> Bool {
     return lhs.hashValue == rhs.hashValue
 }
 
-public func +<T: Hashable>(lhs: Set<T>, rhs: Set<T>) -> Set<T> {
+public func +<T : Hashable>(lhs: Set<T>, rhs: Set<T>) -> Set<T> {
     var newSet = Set<T>(lhs)
     newSet.extend(rhs)
     return newSet
 }
 
-public func -<T: Hashable>(lhs: Set<T>, rhs: Set<T>) -> Set<T> {
+public func -<T : Hashable>(lhs: Set<T>, rhs: Set<T>) -> Set<T> {
     var newSet = Set<T>(lhs)
     for entry in rhs {
         newSet.remove(entry)
@@ -192,23 +192,23 @@ public func -<T: Hashable>(lhs: Set<T>, rhs: Set<T>) -> Set<T> {
     return newSet
 }
 
-public func &<T: Hashable>(lhs: Set<T>, rhs: Set<T>) -> Set<T> {
+public func &<T : Hashable>(lhs: Set<T>, rhs: Set<T>) -> Set<T> {
     return lhs.intersection(rhs)
 }
 
-public func |<T: Hashable>(lhs: Set<T>, rhs: Set<T>) -> Set<T> {
+public func |<T : Hashable>(lhs: Set<T>, rhs: Set<T>) -> Set<T> {
     return lhs + rhs
 }
 
-public func +=<T: Hashable>(inout lhs: Set<T>, rhs: Set<T>) {
+public func +=<T : Hashable>(inout lhs: Set<T>, rhs: Set<T>) {
     lhs.extend(rhs)
 }
 
-public func |=<T: Hashable>(inout lhs: Set<T>, rhs: Set<T>) {
+public func |=<T : Hashable>(inout lhs: Set<T>, rhs: Set<T>) {
     lhs.extend(rhs)
 }
 
-public func &=<T: Hashable>(inout lhs: Set<T>, rhs: Set<T>) {
+public func &=<T : Hashable>(inout lhs: Set<T>, rhs: Set<T>) {
     for entry in lhs {
         if rhs.contains(entry) {
             lhs.add(entry)
@@ -218,31 +218,31 @@ public func &=<T: Hashable>(inout lhs: Set<T>, rhs: Set<T>) {
     }
 }
 
-public func +=<T: Hashable>(inout lhs: Set<T>, rhs: T) {
+public func +=<T : Hashable>(inout lhs: Set<T>, rhs: T) {
     lhs.add(rhs)
 }
 
-public func -=<T: Hashable>(inout lhs: Set<T>, rhs: Set<T>) {
+public func -=<T : Hashable>(inout lhs: Set<T>, rhs: Set<T>) {
     for entry in rhs {
         lhs.remove(entry)
     }
 }
 
-public func -=<T: Hashable>(inout lhs: Set<T>, rhs: T) {
+public func -=<T : Hashable>(inout lhs: Set<T>, rhs: T) {
     lhs.remove(rhs)
 }
 
 // For Python compatibility.
-public func set<T: Hashable>() -> Set<T> {
+public func set<T : Hashable>() -> Set<T> {
     return Set()
 }
 
 // For Python compatibility.
-public func set<T: Hashable>(initialArray: [T]) -> Set<T> {
+public func set<T : Hashable>(initialArray: [T]) -> Set<T> {
     return Set(initialArray)
 }
 
 // For Python compatibility.
-public func set<T: Hashable>(initialSet: Set<T>) -> Set<T> {
+public func set<T : Hashable>(initialSet: Set<T>) -> Set<T> {
     return Set(initialSet)
 }

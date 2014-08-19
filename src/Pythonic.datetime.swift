@@ -288,7 +288,7 @@ public extension NSDate {
                     return nil
                 }
                 i = i.successor()
-                let token:String = "%\(format[i])"
+                let token = "%\(format[i])"
                 if inQuotedText {
                     newFormat += "'"
                     inQuotedText = false

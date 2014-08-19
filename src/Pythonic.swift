@@ -135,7 +135,7 @@ public func hex(i: Int) -> String {
     return "0x" + o
 }
 
-public func len<C: _CollectionType>(x: C) -> Int {
+public func len<C : CollectionType>(x: C) -> Int {
     return Swift.countElements(x) as Int
 }
 
@@ -281,15 +281,13 @@ extension NSObject : BooleanType {
 }
 
 // Comparison of 2-part tuples
-public func == <T:Equatable> (tuple1:(T,T),tuple2:(T,T)) -> Bool
-{
-    return (tuple1.0 == tuple2.0) && (tuple1.1 == tuple2.1)
+public func ==<T : Equatable>(tuple1:(T, T),tuple2:(T, T)) -> Bool {
+    return tuple1.0 == tuple2.0 && tuple1.1 == tuple2.1
 }
 
 // Comparison of 3-part tuples
-public func == <T:Equatable> (tuple1:(T,T,T),tuple2:(T,T,T)) -> Bool
-{
-    return (tuple1.0 == tuple2.0) && (tuple1.1 == tuple2.1) && (tuple1.2 == tuple2.2)
+public func ==<T : Equatable>(tuple1:(T, T, T),tuple2:(T, T, T)) -> Bool {
+    return tuple1.0 == tuple2.0 && tuple1.1 == tuple2.1 && tuple1.2 == tuple2.2
 }
 
 // TODO: Python functions to implement
@@ -427,30 +425,30 @@ public func == <T:Equatable> (tuple1:(T,T,T),tuple2:(T,T,T)) -> Bool
 // viewkeys()
 // viewvalues()
 
-public func %<A0: CVarArgType>(lhs: String, rhs: (A0)) -> String {
+public func %<A0 : CVarArgType>(lhs: String, rhs: (A0)) -> String {
     return String(format: lhs.replace("%s", "%@"), rhs.0)
 }
 
-public func %<A0: CVarArgType, A1: CVarArgType>(lhs: String, rhs: (A0, A1)) -> String {
+public func %<A0 : CVarArgType, A1 : CVarArgType>(lhs: String, rhs: (A0, A1)) -> String {
     return String(format: lhs.replace("%s", "%@"), rhs.0, rhs.1)
 }
 
-public func %<A0: CVarArgType, A1: CVarArgType, A2: CVarArgType>(lhs: String, rhs: (A0, A1, A2)) -> String {
+public func %<A0 : CVarArgType, A1 : CVarArgType, A2 : CVarArgType>(lhs: String, rhs: (A0, A1, A2)) -> String {
     return String(format: lhs.replace("%s", "%@"), rhs.0, rhs.1, rhs.2)
 }
 
-public func %<A0: CVarArgType, A1: CVarArgType, A2: CVarArgType, A3: CVarArgType>(lhs: String, rhs: (A0, A1, A2, A3)) -> String {
+public func %<A0 : CVarArgType, A1 : CVarArgType, A2 : CVarArgType, A3 : CVarArgType>(lhs: String, rhs: (A0, A1, A2, A3)) -> String {
     return String(format: lhs.replace("%s", "%@"), rhs.0, rhs.1, rhs.2, rhs.3)
 }
 
-public func %<A0: CVarArgType, A1: CVarArgType, A2: CVarArgType, A3: CVarArgType, A4: CVarArgType>(lhs: String, rhs: (A0, A1, A2, A3, A4)) -> String {
+public func %<A0 : CVarArgType, A1 : CVarArgType, A2 : CVarArgType, A3 : CVarArgType, A4 : CVarArgType>(lhs: String, rhs: (A0, A1, A2, A3, A4)) -> String {
     return String(format: lhs.replace("%s", "%@"), rhs.0, rhs.1, rhs.2, rhs.3, rhs.4)
 }
 
-public func %<A0: CVarArgType, A1: CVarArgType, A2: CVarArgType, A3: CVarArgType, A4: CVarArgType, A5: CVarArgType>(lhs: String, rhs: (A0, A1, A2, A3, A4, A5)) -> String {
+public func %<A0 : CVarArgType, A1 : CVarArgType, A2 : CVarArgType, A3 : CVarArgType, A4 : CVarArgType, A5 : CVarArgType>(lhs: String, rhs: (A0, A1, A2, A3, A4, A5)) -> String {
     return String(format: lhs.replace("%s", "%@"), rhs.0, rhs.1, rhs.2, rhs.3, rhs.4, rhs.5)
 }
 
-public func %<A0: CVarArgType, A1: CVarArgType, A2: CVarArgType, A3: CVarArgType, A4: CVarArgType, A5: CVarArgType, A6: CVarArgType>(lhs: String, rhs: (A0, A1, A2, A3, A4, A5, A6)) -> String {
+public func %<A0 : CVarArgType, A1 : CVarArgType, A2 : CVarArgType, A3 : CVarArgType, A4 : CVarArgType, A5 : CVarArgType, A6 : CVarArgType>(lhs: String, rhs: (A0, A1, A2, A3, A4, A5, A6)) -> String {
     return String(format: lhs.replace("%s", "%@"), rhs.0, rhs.1, rhs.2, rhs.3, rhs.4, rhs.5, rhs.6)
 }
