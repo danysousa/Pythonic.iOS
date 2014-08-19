@@ -29,11 +29,11 @@ extension Array : BooleanType {
         return len(self) != 0
     }
 
-    mutating public func clear() {
+    public mutating func clear() {
         self.removeAll()
     }
 
-    mutating public func reverseInPlace() {
+    public mutating func reverseInPlace() {
         var newArrayElements = Array(self.reverse())
         self.clear()
         self.extend(newArrayElements)
@@ -46,7 +46,7 @@ extension Array : BooleanType {
         return 0
     }
 
-    mutating public func remove<T where T : Equatable>(element: T) {
+    public mutating func remove<T where T : Equatable>(element: T) {
         if let i = index(element) {
             self.removeAtIndex(i)
         }

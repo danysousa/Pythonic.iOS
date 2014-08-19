@@ -43,7 +43,7 @@ extension Dictionary : BooleanType {
 }
 
 public extension Dictionary {
-    mutating public func clear() {
+    public mutating func clear() {
         self.removeAll()
     }
 }

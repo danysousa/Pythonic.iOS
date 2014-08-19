@@ -605,7 +605,7 @@ public extension Dictionary {
         return hasKey(key)
     }
 
-    mutating public func pop(key: Key) -> Value? {
+    public mutating func pop(key: Key) -> Value? {
         if let val = self.get(key) {
             self.removeValueForKey(key)
             return val
@@ -613,7 +613,7 @@ public extension Dictionary {
         return nil
     }
 
-    mutating public func popItem() -> (Key, Value)? {
+    public mutating func popItem() -> (Key, Value)? {
         if self.count == 0 {
             return nil
         }
@@ -622,7 +622,7 @@ public extension Dictionary {
         return (key, value)
     }
 
-    mutating public func popitem() -> (Key, Value)? {
+    public mutating func popitem() -> (Key, Value)? {
         return popItem()
     }
 
