@@ -57,7 +57,9 @@ public extension NSFileHandle {
     }
 
     public func write(s: String) {
-        self.writeData(s.dataUsingEncoding(NSUTF8StringEncoding))
+        if let data = s.dataUsingEncoding(NSUTF8StringEncoding) {
+            self.writeData(data)
+        }
     }
 }
 

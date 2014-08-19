@@ -65,10 +65,10 @@ assert(1.0.is_integer())
 // TODO: Missing test.
 
 // float
-assert(!float(0.0))
-assert(float(0 + 0.0001))
-assert(float(0.00000001))
-assert(float(1.0))
+assert(!bool(float(0.0)))
+assert(bool(float(0 + 0.0001)))
+assert(bool(float(0.00000001)))
+assert(bool(float(1.0)))
 
 // float.is_integer
 assert(!float(1.1).is_integer())
@@ -107,9 +107,9 @@ assert(list([1, 2, 3]) == [1, 2, 3])
 assert(list([1, 2, 3]).count(1) == 1)
 
 // list (truthness)
-assert([1, 2, 3])
-assert([1, 2])
-assert([1])
+assert(bool([1, 2, 3]))
+assert(bool([1, 2]))
+assert(bool([1]))
 
 // list(set)
 assert(list(set([1, 2, 3, 1, 2, 3, 4])) == [1, 2, 3, 4])
@@ -189,7 +189,7 @@ assert(min([1, 2, 3]) == 1)
 assert(min([1, 2]) == 1)
 
 // object
-assert(object())
+assert(bool(object()))
 
 // oct
 assert(oct(0) == "0")
@@ -207,7 +207,7 @@ assert(ord("a") == 97)
 assert(ord(chr(98)) == 98)
 
 // os.getcwd()
-assert(os.getcwd())
+assert(bool(os.getcwd()))
 
 // os.path.exists
 assert(!os.path.exists("/tmp.foo/"))
@@ -247,11 +247,11 @@ assert(!re.search("^bar", "foobarbaz"))
 assert(!re.search("hello", "foobarbaz"))
 assert(re.search("[\r\n]", "foo\rfoo").group(0) == "\r")
 assert(re.search("\r\n", "foo\r\nfoo").group(0) == "\r\n")
-assert(re.search("^foo", "foobarbaz"))
+assert(bool(re.search("^foo", "foobarbaz")))
 assert(re.search("^foo", "foobarbaz").group(0) == "foo")
-assert(re.search("^foo.*baz$", "foobarbaz"))
-assert(re.search("foo", "foobarbaz"))
-assert(re.search("o", "foobarbaz"))
+assert(bool(re.search("^foo.*baz$", "foobarbaz")))
+assert(bool(re.search("foo", "foobarbaz")))
+assert(bool(re.search("o", "foobarbaz")))
 
 // re.match
 assert(!re.match("^(.*)(([fo]+|[bar]+)|([bar]+|[baz+]))(.*)$", "foobarbazfoobarbaz").groups()[2])
@@ -279,9 +279,9 @@ assert(re.match("^((foo|bar|baz)|foobar)*$", "foobarbazfoobarbaz").groups()[1] =
 assert(re.match("^(.*)(([fo]+|[bar]+)|([bar]+|[baz+]))(.*)$", "foobarbazfoobarbaz").groups()[0] == "foobarbazfoobarba")
 assert(re.match("^(.*)(([fo]+|[bar]+)|([bar]+|[baz+]))(.*)$", "foobarbazfoobarbaz").groups()[1] == "z")
 assert(re.match("^(.*)(([fo]+|[bar]+)|([bar]+|[baz+]))(.*)$", "foobarbazfoobarbaz").groups()[3] == "z")
-assert(re.match("^foo", "foobarbaz"))
-assert(re.match("foo", "foobarbaz"))
-assert(re.search("foo", "barfoobar"))
+assert(bool(re.match("^foo", "foobarbaz")))
+assert(bool(re.match("foo", "foobarbaz")))
+assert(bool(re.search("foo", "barfoobar")))
 
 // re.split
 assert(re.split("/", "") == [""])
@@ -329,11 +329,11 @@ assert(set([1, 1, 1, 2, 2, 3, 3, 4]) == set([1, 2, 3, 4]))
 assert(set([1, 2, 3]) & set([3, 4, 5]) == set([3]))
 assert(set([1, 2, 3]) - set([3, 4, 5]) == set([1, 2]))
 assert(set([1, 2, 3]) | set([3, 4, 5]) == set([1, 2, 3, 4, 5]))
-assert(set([1, 2, 3]))
+assert(bool(set([1, 2, 3])))
 assert(set([1, 2]) < set([1, 2, 3]))
-assert(set([1, 2]))
+assert(bool(set([1, 2])))
 assert(set([1]) < set([1, 2, 3]))
-assert(set([1]))
+assert(bool(set([1])))
 
 // set.isdisjoint
 assert(!set([1, 2, 3]).isdisjoint(set([3, 4, 5])))
@@ -349,7 +349,7 @@ assert("\r\t"[0] == "\r")
 assert("\r\t"[1] == "\t")
 
 // str (truthness)
-assert(" ")
+assert(bool(" "))
 assert(!bool(""))
 
 // str (positive and negative indexing)
@@ -663,6 +663,15 @@ public extension Dictionary {
 //     return false
 // }
 
+// This could probably be turned into valid Python code if we implemented the StringIO module
+func fileHandleFromString(text: String) -> NSFileHandle {
+    let pipe = NSPipe()
+    let input = pipe.fileHandleForWriting
+    input.writeData(text.dataUsingEncoding(NSUTF8StringEncoding)!)
+    input.closeFile()
+    return pipe.fileHandleForReading
+}
+
 let performPythonIncompatibleTests = true
 if performPythonIncompatibleTests {
     // dict (semantics + copy())
@@ -684,7 +693,7 @@ if performPythonIncompatibleTests {
 
     // dict
     assert(!dict<str, str>())
-    assert(["foo": "bar"])
+    assert(bool(["foo": "bar"]))
     assert(len(dict<str, str>()) == 0)
 
     // dict.fromkeys
@@ -802,11 +811,9 @@ if performPythonIncompatibleTests {
     // open(…) [modes: w, a, r (default)] + fh.write + fh.close + os.path.exists
     let temporaryTestFile = "/tmp/pythonic-io.txt"
     var f = open(temporaryTestFile, "w")
-    assert(f)
     f.write("foo")
     f.close()
     f = open(temporaryTestFile, "a")
-    assert(f)
     f.write("bar\n")
     f.close()
     f = open(temporaryTestFile)
@@ -858,7 +865,7 @@ if performPythonIncompatibleTests {
     // assert(set([1, 2, 3]) + set([3, 4, 5]) == set([1, 2, 3, 4, 5])) // Swift compiler bug: Enabling this test increases compilation time by roughly 1.5 seconds.
     // assert(set([set([1, 2, 3]), set([1, 2, 3]), set([2, 4, 8])]) != set([set([1, 2, 3]), set([2, 4, 9])])) // Swift compiler bug: Enabling this test increases compilation time by >60 seconds.
     // assert(set([set([1, 2, 3]), set([1, 2, 3]), set([2, 4, 8])]) == set([set([1, 2, 3]), set([2, 4, 8])])) // Swift compiler bug: Enabling this test increases compilation time by >60 seconds.
-    assert(set([1, 2, 3]))
+    assert(bool(set([1, 2, 3])))
     var set1 = Set<Int>()
     assert(countElements(set1) == 0)
     set1 += 1
@@ -952,12 +959,12 @@ if performPythonIncompatibleTests {
     // str.title
     assert("they're bill's friends from the UK".title() == "They're Bill's Friends From The Uk")
 
-    // str[Int?, Int?]
-    assert("Python"[nil, 2] == "Py")
-    assert("Python"[2, nil] == "thon")
-    assert("Python"[2, 4] == "th")
-    assert("Python"[nil, -3] == "Pyt")
-    assert("Python"[-3, nil] == "hon")
+    // str[(Int?, Int?)]
+    assert("Python"[(nil, 2)] == "Py")
+    assert("Python"[(2, nil)] == "thon")
+    assert("Python"[(2, 4)] == "th")
+    assert("Python"[(nil, -3)] == "Pyt")
+    assert("Python"[(-3, nil)] == "hon")
 
     // str[range]
     assert("foobar"[0..<3] == "foo")
@@ -993,15 +1000,6 @@ if performPythonIncompatibleTests {
     var (l2, r2) = zipped[1]
     assert(l2 == 4 && r2 == 16)
 
-    // This could probably be turned into valid Python code if we implemented the StringIO module
-    func fileHandleFromString(text: String) -> NSFileHandle {
-        let pipe = NSPipe()
-        let input = pipe.fileHandleForWriting
-        input.writeData(text.dataUsingEncoding(NSUTF8StringEncoding))
-        input.closeFile()
-        return pipe.fileHandleForReading
-    }
-
     // file.__iter__ , as in "for line in open(filename)"
     var filehandletest = ""
     for line in fileHandleFromString("line 1\nline 2\n") {
@@ -1018,7 +1016,7 @@ if performPythonIncompatibleTests {
 
     // Others:
     assert("foobar"[0..<2] == "fo")
-    assert("x" as Character)
+    assert(bool("x" as Character))
 }
 
 var performTestsRequiringNetworkConnectivity = false

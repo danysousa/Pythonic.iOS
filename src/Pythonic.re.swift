@@ -67,10 +67,6 @@ public class RegularExpressionMatch: BooleanType {
         return self.matchedStrings.count != 0
     }
 
-    public func __conversion() -> [String] {
-        return self.matchedStrings
-    }
-
     public subscript (index: Int) -> String? {
         return self.group(index)
     }

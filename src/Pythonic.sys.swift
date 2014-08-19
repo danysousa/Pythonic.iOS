@@ -82,7 +82,7 @@ var assignedArgv: [String]!
 public class sys {
     public class var argv: [String] {
         get {
-            return assignedArgv ? assignedArgv : Process.arguments
+            return assignedArgv ?? Process.arguments
         }
         set {
             assignedArgv = newValue

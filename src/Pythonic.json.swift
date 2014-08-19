@@ -24,12 +24,15 @@ import Foundation
 public class json {
     public class func dumps(obj: AnyObject) -> String {
         var jsonData = NSJSONSerialization.dataWithJSONObject(obj, options: .PrettyPrinted, error: nil)
-        return NSString(data: jsonData, encoding: NSUTF8StringEncoding)
+        if let jsonData = jsonData {
+            return NSString(data: jsonData, encoding: NSUTF8StringEncoding)
+        }
+        return ""
     }
 
     public class func loads(json: String) -> AnyObject {
         var jsonData = json.dataUsingEncoding(NSUTF8StringEncoding)
-        var jsonObject: AnyObject = NSJSONSerialization.JSONObjectWithData(jsonData, options: .MutableContainers, error: nil)
+        var jsonObject: AnyObject = NSJSONSerialization.JSONObjectWithData(jsonData!, options: .MutableContainers, error: nil)!
         return jsonObject
     }
 }

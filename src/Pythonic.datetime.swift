@@ -122,9 +122,11 @@ public extension NSDate {
         components.minute = minute
         components.second = second
         components.nanosecond = microsecond * 1000
-        let date = NSCalendar.currentCalendar().dateFromComponents(components)
-        
-        self.init(timeIntervalSinceReferenceDate: date.timeIntervalSinceReferenceDate)
+        if let date = NSCalendar.currentCalendar().dateFromComponents(components) {
+            self.init(timeIntervalSinceReferenceDate: date.timeIntervalSinceReferenceDate)
+        } else {
+            self.init()
+        }
     }
     
     public class func utcnow() -> NSDate {
@@ -170,7 +172,7 @@ public extension NSDate {
             return components.nanosecond / 1000
     }
     
-    public func replace(year: Int? = nil, month: Int? = nil, day: Int? = nil, hour: Int? = nil, minute: Int? = nil, second: Int? = nil, microsecond: Int? = nil) -> NSDate! {
+    public func replace(year: Int? = nil, month: Int? = nil, day: Int? = nil, hour: Int? = nil, minute: Int? = nil, second: Int? = nil, microsecond: Int? = nil) -> NSDate {
         var components = NSCalendar.currentCalendar().components(
             NSCalendarUnit.CalendarUnitYear |
                 NSCalendarUnit.CalendarUnitMonth |
@@ -204,7 +206,7 @@ public extension NSDate {
         if let microsecond = microsecond {
             components.nanosecond = microsecond * 1000
         }
-        return NSCalendar.currentCalendar().dateFromComponents(components)
+        return NSCalendar.currentCalendar().dateFromComponents(components)!
     }
     
     public func weekday() -> Int {
@@ -303,7 +305,7 @@ public extension NSDate {
                     newFormat += "'"
                 }
                 
-                newFormat += format[i]
+                newFormat += String(format[i])
             }
             
             i = i.successor()
@@ -315,15 +317,19 @@ public extension NSDate {
         return newFormat
     }
     
-    public class func strptime(dateString: String, _ format: String) -> NSDate! {
+    public class func strptime(dateString: String, _ format: String) -> NSDate {
         let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = NSDate.convertFormat(format) ?? ""
+        if let format = NSDate.convertFormat(format) {
+            dateFormatter.dateFormat = format
+        } else {
+            dateFormatter.dateFormat = ""
+        }
         // fix so weekdays can be Sunday = 0, not Sunday = 1
         dateFormatter.veryShortStandaloneWeekdaySymbols = ["0", "1", "2", "3", "4", "5", "6"]
-        return dateFormatter.dateFromString(dateString)
+        return dateFormatter.dateFromString(dateString)!
     }
     
-    public func strftime(format: String) -> String! {
+    public func strftime(format: String) -> String {
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = NSDate.convertFormat(format)
         // fix so weekdays can be Sunday = 0, not Sunday = 1
@@ -331,7 +337,7 @@ public extension NSDate {
         return dateFormatter.stringFromDate(self)
     }
     
-    public func isoformat(_ sep: String = "T") -> String! {
+    public func isoformat(_ sep: String = "T") -> String {
         var format = "%Y-%m-%d\(sep)%H:%M:%S"
         if self.microsecond != 0 {
             format += ".%f"

@@ -170,23 +170,20 @@ public func oct(i: Int) -> String {
 }
 
 public func open(path: String, _ mode: String = "") -> NSFileHandle {
-    // TODO: Not all modes are implemented.
-    var fh: NSFileHandle!
     switch mode {
         case "r":
-            fh = NSFileHandle(forReadingAtPath: path)
+            return NSFileHandle(forReadingAtPath: path)
         case "w":
             os.unlink(path)
             shutil.copyFile("/dev/null", path)
-            fh = NSFileHandle(forWritingAtPath: path)
+            return NSFileHandle(forWritingAtPath: path)
         case "a":
-            fh = NSFileHandle(forWritingAtPath: path)
+            let fh = NSFileHandle(forWritingAtPath: path)
             fh.seekToEndOfFile()
+            return fh
         default:
-            fh = NSFileHandle(forReadingAtPath: path)
+            return NSFileHandle(forReadingAtPath: path)
     }
-    assert(fh, "open(…) -> NSFileHandle failed.")
-    return fh
 }
 
 public func ord(c: Character) -> Int {
@@ -228,29 +225,19 @@ public func raw_input(prompt: String) -> String {
 }
 
 public func rawInput(prompt: String) -> String {
-    if (prompt != "") {
+    if prompt {
         // NOTE: Workaround for print(...) which appears not to flush properly.
         let nsPromptString = prompt as NSString
-        let nsPromptData = nsPromptString.dataUsingEncoding(NSUTF8StringEncoding)
-        let stdout = NSFileHandle.fileHandleWithStandardOutput()
-        stdout.writeData(nsPromptData)
-        stdout.synchronizeFile()
+        if let nsPromptData = nsPromptString.dataUsingEncoding(NSUTF8StringEncoding) {
+            let stdout = NSFileHandle.fileHandleWithStandardOutput()
+            stdout.writeData(nsPromptData)
+            stdout.synchronizeFile()
+        }
     }
     let stdin = NSFileHandle.fileHandleWithStandardInput()
-    if let data = stdin.availableData {
-        let inputString: String = NSString(data: data, encoding: NSUTF8StringEncoding)
-        if len(inputString) == 0 {
-            return ""
-        }
-        // TODO: Should use .rstrip("\n") here instead.
-        let lastChar = inputString[len(inputString) - 1]
-        if lastChar == "\n" {
-            return inputString[0..<len(inputString) - 1]
-        } else {
-            return inputString
-        }
-    }
-    return ""
+    let data = stdin.availableData
+    let inputString: String = NSString(data: data, encoding: NSUTF8StringEncoding)
+    return inputString.rstrip()
 }
 
 public func raw_input() -> String {

@@ -21,7 +21,7 @@
 //
 //   assert(Set([1, 1, 1, 2, 2, 3, 3, 4]) == Set([1, 2, 3, 4]))
 
-public class Set<T: Hashable> : ArrayLiteralConvertible, Swift.Collection,
+public final class Set<T: Hashable> : ArrayLiteralConvertible, CollectionType,
     Comparable, Equatable, ExtensibleCollectionType, Hashable, BooleanType,
     Printable, SequenceType {
     // final to speed up things:
@@ -121,11 +121,16 @@ public class Set<T: Hashable> : ArrayLiteralConvertible, Swift.Collection,
         }
     }
 
+    // Implement ExtensibleCollection
+    public func append(element: T) {
+        self.add(element)
+    }
+
     // Implement Hashable
     public var hashValue: Int {
         var totalHash = 0
         for entry in self {
-            totalHash += entry != nil ? entry.hashValue : 0
+            totalHash += entry.hashValue
         }
         return totalHash
     }

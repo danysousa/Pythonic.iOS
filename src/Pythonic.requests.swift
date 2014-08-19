@@ -49,7 +49,7 @@ public class HttpSession {
                     assert(false)
                 }
                 nsMutableUrlRequest.HTTPMethod = "POST"
-                var postData: NSData = NSString(string: stringToPost).dataUsingEncoding(NSUTF8StringEncoding)
+                var postData: NSData = NSString(string: stringToPost).dataUsingEncoding(NSUTF8StringEncoding)!
                 nsMutableUrlRequest.setValue("\(postData.length)", forHTTPHeaderField: "Content-Length")
                 nsMutableUrlRequest.setValue("application/x-www-form-urlencoded charset=utf-8", forHTTPHeaderField: "Content-Type")
                 nsMutableUrlRequest.HTTPBody = postData
@@ -60,7 +60,7 @@ public class HttpSession {
         // TODO: Proper error checking. Read HTTP status code.
         var text: String?
         var ok = false
-        if nsData != nil {
+        if let nsData = nsData {
             text = NSString(data: nsData, encoding: NSUTF8StringEncoding)
             ok = true
         }
