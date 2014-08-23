@@ -572,6 +572,7 @@ assert(list(xrange(10)) == [0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
 assert(list(xrange(1, 10)) == [1, 2, 3, 4, 5, 6, 7, 8, 9])
 
 // BUG: Due to a strange compiler bug (?) the following cannot be imported. Must be in same source file.
+//      Same as http://www.openradar.me/17500497 ?
 public extension Array {
     public mutating func pop(index: Int?) -> Array.Element? {
         var i = index ?? self.count - 1
@@ -589,6 +590,7 @@ public extension Array {
 }
 
 // BUG: Due to a strange compiler bug (?) the following cannot be imported. Must be in same source file.
+//      Same as http://www.openradar.me/17500497 ?
 public extension Dictionary {
     public func get(key: Key) -> Value? {
         return self[key]
