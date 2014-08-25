@@ -366,25 +366,31 @@ extension String : BooleanType {
         return self.expandTabs()
     }
 
-    // TODO: This is way way too slow. Needs to be optimized a lot. Cannot use
-    //       Foundation String functions here, since string length according to
-    //       Foundation can differ from string length according to Swift.
-    public func find(sub: String, _ start: Int? = nil, _ end: Int? = nil) -> Int {
-        var s = self
-        if len(s) - len(sub) + 1 < 0 {
+    // TODO: Cannot use Foundation String functions here, since string length
+    //       according to Foundation can differ from string length according
+    //       to Swift.
+    public func find(sub: String) -> Int {
+        let subArr = Array(sub)
+        if subArr.count == 0 {
+            return 0
+        }
+        let stringArr = Array(self)
+        if subArr.count > stringArr.count {
             return -1
         }
-        for i in 0..<(len(s) - len(sub) + 1) {
-            var part = s[i..<i + len(sub)]
-            if part == sub {
-                return i
+        for i in 0..<stringArr.count - subArr.count + 1 {
+            if stringArr[i] == subArr[0] {
+                let readAhead = stringArr[i..<i + subArr.count]
+                if equal(readAhead, subArr) {
+                    return i
+                }
             }
         }
         return -1
     }
 
-    public func index(sub: String, start: Int? = nil, end: Int? = nil) -> Int {
-        return self.find(sub, start, end)
+    public func index(sub: String) -> Int {
+        return self.find(sub)
     }
 
     public func zfill(length: Int) -> String {
