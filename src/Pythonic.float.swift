@@ -9,8 +9,6 @@
 //   is_integer: Implemented.
 //   real
 
-import Foundation
-
 public typealias float = Swift.Double
 
 extension Double : BooleanType {
@@ -19,7 +17,7 @@ extension Double : BooleanType {
     }
 
     public func isInteger() -> Bool {
-        return floor(self) == self
+        return math.floor(self) == self
     }
 
     public func is_integer() -> Bool {
@@ -33,7 +31,7 @@ extension Float : BooleanType {
     }
 
     public func isInteger() -> Bool {
-        return Darwin.floor(self) == self
+        return math.floor(Double(self)) == Double(self)
     }
 
     public func is_integer() -> Bool {

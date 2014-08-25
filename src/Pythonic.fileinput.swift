@@ -1,5 +1,3 @@
-import Foundation
-
 public class fileinput {
     public class func input() -> [String] {
         if len(sys.argv) >= 2 {

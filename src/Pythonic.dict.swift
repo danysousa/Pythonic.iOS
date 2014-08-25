@@ -27,8 +27,6 @@
 //   viewkeys
 //   viewvalues
 
-import Foundation
-
 public typealias dict = Swift.Dictionary
 
 extension Dictionary : BooleanType {

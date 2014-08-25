@@ -6,8 +6,6 @@
 //   numerator
 //   real
 
-import Foundation
-
 public typealias int = Swift.Int
 
 extension Int : BooleanType {

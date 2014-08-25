@@ -56,7 +56,7 @@
 //   tanh: Added.
 //   trunc: Added.
 
-import Foundation
+import Darwin
 
 public protocol FloatArithmetic : FloatLiteralConvertible {
     func +(lhs: Self, rhs: Self) -> Self

@@ -19,8 +19,6 @@
 //   reverse: Added as "reverseInPlace" to avoid name collision with built-in Array.reverse.
 //   sort: Failed to add. Name collision with built-in Array.sort. (TODO)
 
-import Foundation
-
 public typealias list = Swift.Array
 
 // TODO: Add negative indexing.

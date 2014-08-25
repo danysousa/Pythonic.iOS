@@ -51,8 +51,6 @@
 //   upper: Added.
 //   zfill: Added.
 
-import Foundation
-
 public typealias str = Swift.String
 
 extension String : BooleanType {
@@ -403,7 +401,7 @@ extension String : BooleanType {
         if !self {
             return true
         }
-        return (s as NSString).rangeOfString(self).length != 0
+        return s.find(self) != -1
     }
 }
 

@@ -36,7 +36,7 @@
 //   vonmisesvariate: TODO.
 //   weibullvariate: TODO.
 
-import Foundation
+import Darwin
 
 public class random {
     public class func random() -> Double {

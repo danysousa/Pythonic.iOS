@@ -1,8 +1,6 @@
 // https://docs.python.org/3/library/statistics.html#module-statistics
 // http://hg.python.org/cpython/file/3.4/Lib/statistics.py
 
-import Foundation
-
 public class statistics {
     public class func mean(data: [Double]) -> Double {
         let n = len(data)
