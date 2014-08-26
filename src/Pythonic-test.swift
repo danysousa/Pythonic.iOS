@@ -2,8 +2,6 @@
 
 import Pythonic
 
-import Foundation
-
 // ** (power operator)
 assert(1 + 2**2 + 2 == 7)
 assert(1 + 2.0**2.0 + 2 == 7)
