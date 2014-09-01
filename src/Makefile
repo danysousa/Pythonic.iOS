@@ -7,7 +7,7 @@ LIB_PATH=$(PWD)/$(LIB_NAME)
 SWIFT_MODULE_PATH=$(PWD)/$(MODULE_NAME).swiftmodule
 
 module: clean
-	xcrun -sdk macosx swiftc -emit-library -o $(LIB_PATH) -Xlinker -install_name -Xlinker @rpath/$(LIB_NAME) -emit-module -emit-module-path $(SWIFT_MODULE_PATH) -module-name $(MODULE_NAME) -module-link-name $(MODULE_NAME) $(MODULE_NAME).swift $(MODULE_NAME).*.swift
+	xcrun -sdk macosx swiftc -O -emit-library -o $(LIB_PATH) -Xlinker -install_name -Xlinker @rpath/$(LIB_NAME) -emit-module -emit-module-path $(SWIFT_MODULE_PATH) -module-name $(MODULE_NAME) -module-link-name $(MODULE_NAME) $(MODULE_NAME).swift $(MODULE_NAME).*.swift
 
 clean:
 	rm -f $(LIB_NAME) $(MODULE_NAME).swiftdoc $(MODULE_NAME).swiftmodule $(TEST_APPLICATION_SWIFT) $(TEST_APPLICATION_PYTHON) $(LINT_APPLICATION)
