@@ -85,7 +85,10 @@ public class re {
                 for match in matches {
                     for i in 0..<match.numberOfRanges {
                         var range = match.rangeAtIndex(i)
-                        var matchString: String = (string as NSString).substringWithRange(range)
+                        var matchString = ""
+                        if range.location != Int.max {
+                            matchString = (string as NSString).substringWithRange(range)
+                        }
                         matchedStrings += [matchString]
                     }
                 }

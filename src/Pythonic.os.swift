@@ -197,8 +197,10 @@ public class os {
             return 0
         }
         let task = NSTask()
-        // TODO: Use .pop() when no longer have to work around compiler bug.
-        task.launchPath = parts.first
+        // TODO: Use .pop() when we no longer have to work around compiler bug.
+        if let first = parts.first {
+            task.launchPath = first
+        }
         parts = Array(dropFirst(parts))
         if parts {
             task.arguments = parts
@@ -217,7 +219,9 @@ public class os {
         var parts = command.split(" ")
         assert(len(parts) > 0)
         let task = NSTask()
-        task.launchPath = parts.first
+        if let first = parts.first {
+            task.launchPath = first
+        }
         parts = Array(dropFirst(parts))
         if parts {
             task.arguments = parts
