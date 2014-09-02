@@ -33,7 +33,11 @@ func checkFile(fileName: String) -> Bool {
             println("ERROR – Line #\(lineNumber + 1) of \(fileName) has indentation of \(numberOfLeadingSpaces) spaces which is not a multiple of four (4):")
             println(originalLine)
             passed = false
-        } else if lineWithoutLeadingSpaces != lineWithoutLeadingSpaces.strip() {
+        } else if lineWithoutLeadingSpaces != lineWithoutLeadingSpaces.lstrip() {
+            println("ERROR – Line #\(lineNumber + 1) of \(fileName) contains leading whitespace:")
+            println(originalLine)
+            passed = false
+        } else if lineWithoutLeadingSpaces != lineWithoutLeadingSpaces.rstrip() {
             println("ERROR – Line #\(lineNumber + 1) of \(fileName) contains trailing whitespace:")
             println(originalLine)
             passed = false
