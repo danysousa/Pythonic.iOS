@@ -112,7 +112,12 @@ assert(bool([1, 2]))
 assert(bool([1]))
 
 // list(set)
-assert(list(set([1, 2, 3, 1, 2, 3, 4])) == [1, 2, 3, 4])
+assert(list(set([1, 2, 3, 1, 2, 3, 4])).count(0) == 0)
+assert(list(set([1, 2, 3, 1, 2, 3, 4])).count(1) == 1)
+assert(list(set([1, 2, 3, 1, 2, 3, 4])).count(2) == 1)
+assert(list(set([1, 2, 3, 1, 2, 3, 4])).count(3) == 1)
+assert(list(set([1, 2, 3, 1, 2, 3, 4])).count(4) == 1)
+assert(list(set([1, 2, 3, 1, 2, 3, 4])).count(5) == 0)
 
 // list.count
 assert([1, 2, 2, 3, 3, 3].count(1) == 1)

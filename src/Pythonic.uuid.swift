@@ -2,7 +2,7 @@ import Foundation
 
 public class uuid {
     public class func uuid4() -> NSUUID {
-        return NSUUID.UUID()
+        return NSUUID()
     }
 }
 
