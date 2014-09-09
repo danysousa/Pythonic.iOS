@@ -710,7 +710,7 @@ if performPythonIncompatibleTests {
     var h = ["foo": 1, "bar": 2, "baz": 3]
     var arrayOfTuples = h.items()
     arrayOfTuples.sort() { $0.1 < $1.1 }
-    
+
     assert(arrayOfTuples[0].0 == "foo" && arrayOfTuples[0].1 == 1)
     assert(arrayOfTuples[1].0 == "bar" && arrayOfTuples[1].1 == 2)
     assert(arrayOfTuples[2].0 == "baz" && arrayOfTuples[2].1 == 3)
@@ -978,14 +978,14 @@ if performPythonIncompatibleTests {
 
     // time.sleep
     time.sleep(0.001)
-    
+
     // datetime
     let day = NSDate.strptime("11/08/14 21:13", "%d/%m/%y %H:%M")
     assert(day.strftime("%a %A %w %d %b %B %m %y %Y") == "Mon Monday 1 11 Aug August 08 14 2014")
     assert(day.strftime("%H %I %p %M %S %f %j %%") == "21 09 pm 13 00 000000 223 %" || day.strftime("%H %I %p %M %S %f %j %%") == "21 09 PM 13 00 000000 223 %")
     assert(day.strftime("It's day number %d; the month is %B.") == "It's day number 11; the month is August.")
     assert(day.isoformat(" ") == "2014-08-11 21:13:00")
-    
+
     // timedelta
     let year = timedelta(days: 365)
     let anotherYear = timedelta(weeks: 40, days: 84, hours: 23, minutes: 50, seconds: 600)
