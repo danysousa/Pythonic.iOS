@@ -82,9 +82,9 @@ public extension NSTimeInterval {
         var seconds = (((weeks * 7 + days) * 24 + hours) * 60 + minutes) * 60 + seconds
         self = Double(seconds) + Double(milliseconds) / 1_000 + Double(microseconds) / 1_000_000
     }
-    
+
     private static var oneDay = 86400.0
-    
+
     public var days: Int {
         if self > 0 {
             return Int(self / NSTimeInterval.oneDay)
@@ -92,7 +92,7 @@ public extension NSTimeInterval {
             return Int(self / NSTimeInterval.oneDay) - 1
             }
     }
-    
+
     public var seconds: Int {
         if self > 0 {
             return Int(self % NSTimeInterval.oneDay)
@@ -100,12 +100,12 @@ public extension NSTimeInterval {
             return Int((self - (Double(self.days) * NSTimeInterval.oneDay)) % NSTimeInterval.oneDay)
             }
     }
-    
+
     public var microseconds: Int {
         // subtract integer portion of self, multiply what's left by 1_000_000, convert to Int
         return Int((self - floor(self)) * 1_000_000)
     }
-    
+
     public func total_seconds() -> Double {
         return self
     }
@@ -113,7 +113,6 @@ public extension NSTimeInterval {
 
 public extension NSDate {
     public convenience init(_ year: Int, _ month: Int, _ day: Int, hour: Int = 0, minute: Int = 0, second: Int = 0, microsecond: Int = 0) {
-        
         var components = NSDateComponents()
         components.year = year
         components.month = month
@@ -128,50 +127,50 @@ public extension NSDate {
             self.init()
         }
     }
-    
+
     public class func utcnow() -> NSDate {
         return NSDate()
     }
-    
+
     public class func today() -> NSDate {
         return NSDate()
     }
-    
+
     public var year: Int {
         let components = NSCalendar.currentCalendar().components(.CalendarUnitYear, fromDate: self)
             return components.year
     }
-    
+
     public var month: Int {
         let components = NSCalendar.currentCalendar().components(.CalendarUnitMonth, fromDate: self)
             return components.month
     }
-    
+
     public var day: Int {
         let components = NSCalendar.currentCalendar().components(.CalendarUnitDay, fromDate: self)
             return components.day
     }
-    
+
     public var hour: Int {
         let components = NSCalendar.currentCalendar().components(.CalendarUnitHour, fromDate: self)
             return components.hour
     }
-    
+
     public var minute: Int {
         let components = NSCalendar.currentCalendar().components(.CalendarUnitMinute, fromDate: self)
             return components.minute
     }
-    
+
     public var second: Int {
         let components = NSCalendar.currentCalendar().components(.CalendarUnitSecond, fromDate: self)
             return components.second
     }
-    
+
     public var microsecond: Int {
         let components = NSCalendar.currentCalendar().components(.CalendarUnitNanosecond, fromDate: self)
             return components.nanosecond / 1000
     }
-    
+
     public func replace(year: Int? = nil, month: Int? = nil, day: Int? = nil, hour: Int? = nil, minute: Int? = nil, second: Int? = nil, microsecond: Int? = nil) -> NSDate {
         var components = NSCalendar.currentCalendar().components(
             NSCalendarUnit.CalendarUnitYear |
@@ -208,12 +207,12 @@ public extension NSDate {
         }
         return NSCalendar.currentCalendar().dateFromComponents(components)!
     }
-    
+
     public func weekday() -> Int {
         let components = NSCalendar.currentCalendar().components(.CalendarUnitWeekday, fromDate: self)
         return (components.weekday + 5) % 7
     }
-    
+
     public func isoweekday() -> Int {
         return self.weekday() + 1
     }
@@ -278,7 +277,7 @@ public extension NSDate {
                 return ""
             }
         }
-        
+
         var newFormat = ""
         var inQuotedText = false
         var i = format.startIndex
@@ -294,7 +293,6 @@ public extension NSDate {
                     inQuotedText = false
                 }
                 newFormat += symbolForToken(token)
-                
             } else {
                 if contains("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", format[i]) {
                     if !inQuotedText {
@@ -304,19 +302,16 @@ public extension NSDate {
                 } else if format[i] == "'" {
                     newFormat += "'"
                 }
-                
                 newFormat += String(format[i])
             }
-            
             i = i.successor()
         }
-        
         if inQuotedText {
             newFormat += "'"
         }
         return newFormat
     }
-    
+
     public class func strptime(dateString: String, _ format: String) -> NSDate {
         let dateFormatter = NSDateFormatter()
         if let format = NSDate.convertFormat(format) {
@@ -328,7 +323,7 @@ public extension NSDate {
         dateFormatter.veryShortStandaloneWeekdaySymbols = ["0", "1", "2", "3", "4", "5", "6"]
         return dateFormatter.dateFromString(dateString)!
     }
-    
+
     public func strftime(format: String) -> String {
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = NSDate.convertFormat(format)
@@ -336,7 +331,7 @@ public extension NSDate {
         dateFormatter.veryShortStandaloneWeekdaySymbols = ["0", "1", "2", "3", "4", "5", "6"]
         return dateFormatter.stringFromDate(self)
     }
-    
+
     public func isoformat(_ sep: String = "T") -> String {
         var format = "%Y-%m-%d\(sep)%H:%M:%S"
         if self.microsecond != 0 {
@@ -345,4 +340,3 @@ public extension NSDate {
         return self.strftime(format)
     }
 }
-

@@ -282,7 +282,7 @@ extension String : BooleanType {
         }
         return (start, end)
     }
-    
+
     /// Get a substring using Pythonic string indexing.
     ///
     /// Usage:
@@ -295,7 +295,7 @@ extension String : BooleanType {
         let (start, end) = _sliceIndexes(arg1, arg2)
         return self[start..<end]
     }
-    
+
     /// Get a single-character string by Int index.
     public subscript (var index: Int) -> String {
         if index < 0 {
