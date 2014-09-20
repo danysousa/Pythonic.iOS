@@ -80,7 +80,7 @@ public class re {
         }
         // NOTE: Must use NSString:s below to avoid off-by-one issues when countElements(swiftString) != nsString.length.
         //       Example case: countElements("\r\n") [1] != ("\r\n" as NSString).length [2]
-        if let regex = NSRegularExpression.regularExpressionWithPattern(pattern, options: nil, error: nil) {
+        if let regex = NSRegularExpression(pattern: pattern, options: nil, error: nil) {
             if let matches = regex.matchesInString(string, options: nil, range: NSMakeRange(0, (string as NSString).length)) as? [NSTextCheckingResult] {
                 for match in matches {
                     for i in 0..<match.numberOfRanges {
@@ -108,7 +108,7 @@ public class re {
         var returnedMatches = [String]()
         // NOTE: Must use NSString:s below to avoid off-by-one issues when countElements(swiftString) != nsString.length.
         //       Example case: countElements("\r\n") [1] != ("\r\n" as NSString).length [2]
-        if let regex = NSRegularExpression.regularExpressionWithPattern(pattern, options: nil, error: nil) {
+        if let regex = NSRegularExpression(pattern: pattern, options: nil, error: nil) {
             if let matches = regex.matchesInString(string, options: nil, range: NSMakeRange(0, (string as NSString).length)) as? [NSTextCheckingResult] {
                 var includeDelimiters = false
                 // Heuristic detection of capture group(s) to try matching behaviour of Python's re.split. Room for improvement.
@@ -147,7 +147,7 @@ public class re {
         for i in 0...9 {
             replaceWithString = replaceWithString.replace("\\\(i)", "$\(i)")
         }
-        if let regex = NSRegularExpression.regularExpressionWithPattern(pattern, options: nil, error: nil) {
+        if let regex = NSRegularExpression(pattern: pattern, options: nil, error: nil) {
             return regex.stringByReplacingMatchesInString(string, options: nil, range: NSMakeRange(0, (string as NSString).length), withTemplate: replaceWithString)
         }
         return string

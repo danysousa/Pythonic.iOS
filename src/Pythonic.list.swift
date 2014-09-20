@@ -21,43 +21,43 @@
 
 public typealias list = Swift.Array
 
-// TODO: Add negative indexing.
-extension Array : BooleanType {
-    public var boolValue: Bool {
-        return len(self) != 0
-    }
-
-    public mutating func clear() {
-        self.removeAll()
-    }
-
-    public mutating func reverseInPlace() {
-        var newArrayElements = Array(self.reverse())
-        self.clear()
-        self.extend(newArrayElements)
-    }
-
-    public func count<T where T : Equatable>(element: T) -> Int {
-        if element is Array.Element {
-            return Swift.countElements(Swift.filter(Swift.unsafeBitCast(self, [T].self), { $0 == element }))
-        }
-        return 0
-    }
-
-    public mutating func remove<T where T : Equatable>(element: T) {
-        if let i = index(element) {
-            self.removeAtIndex(i)
-        }
-    }
-
-    public func index<T where T : Equatable>(element: T) -> Int? {
-        if element is Array.Element {
-            if let idx = Swift.find(Swift.unsafeBitCast(self, [T].self), element) {
-                return idx
-            }
-        }
-        return nil
-    }
-
-    // NOTE: pop(…) implemented directly in Pythonic-test.swift to work around compiler bug.
-}
+// // TODO: Add negative indexing.
+// extension Array : BooleanType {
+//     public var boolValue: Bool {
+//         return len(self) != 0
+//     }
+//
+//     public mutating func clear() {
+//         self.removeAll()
+//     }
+//
+//     public mutating func reverseInPlace() {
+//         var newArrayElements = Array(self.reverse())
+//         self.clear()
+//         self.extend(newArrayElements)
+//     }
+//
+//     public func count<T where T : Equatable>(element: T) -> Int {
+//         if element is Array.Element {
+//             return Swift.countElements(Swift.filter(Swift.unsafeBitCast(self, [T].self), { $0 == element }))
+//         }
+//         return 0
+//     }
+//
+//     public mutating func remove<T where T : Equatable>(element: T) {
+//         if let i = index(element) {
+//             self.removeAtIndex(i)
+//         }
+//     }
+//
+//     public func index<T where T : Equatable>(element: T) -> Int? {
+//         if element is Array.Element {
+//             if let idx = Swift.find(Swift.unsafeBitCast(self, [T].self), element) {
+//                 return idx
+//             }
+//         }
+//         return nil
+//     }
+//
+//     // NOTE: pop(…) implemented directly in Pythonic-test.swift to work around compiler bug.
+// }

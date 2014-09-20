@@ -35,7 +35,7 @@ public class HttpSession {
     private func makeHttpRequest(methodType: HttpMethod, url: String, data: [String : String]? = nil, dataAsString: String? = nil, params: [String : String]? = nil, auth: (String, String)? = nil, headers: [String : String]? = nil, timeout: Double? = 600, cookies: [String : String]? = nil) -> HttpResponse {
         // TODO: Handle all options.
         var nsUrl = NSURL(string: url)
-        var nsMutableUrlRequest = NSMutableURLRequest(URL: nsUrl, cachePolicy: .ReloadIgnoringLocalCacheData, timeoutInterval: timeout!)
+        var nsMutableUrlRequest = NSMutableURLRequest(URL: nsUrl!, cachePolicy: .ReloadIgnoringLocalCacheData, timeoutInterval: timeout!)
         switch (methodType) {
             case .GET:
                 nsMutableUrlRequest.HTTPMethod = "GET"

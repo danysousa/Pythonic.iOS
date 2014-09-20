@@ -172,17 +172,17 @@ public func oct(i: Int) -> String {
 public func open(path: String, _ mode: String = "") -> NSFileHandle {
     switch mode {
         case "r":
-            return NSFileHandle(forReadingAtPath: path)
+            return NSFileHandle(forReadingAtPath: path)!
         case "w":
             os.unlink(path)
             shutil.copyFile("/dev/null", path)
-            return NSFileHandle(forWritingAtPath: path)
+            return NSFileHandle(forWritingAtPath: path)!
         case "a":
-            let fh = NSFileHandle(forWritingAtPath: path)
+            let fh = NSFileHandle(forWritingAtPath: path)!
             fh.seekToEndOfFile()
             return fh
         default:
-            return NSFileHandle(forReadingAtPath: path)
+            return NSFileHandle(forReadingAtPath: path)!
     }
 }
 
@@ -236,7 +236,7 @@ public func rawInput(prompt: String) -> String {
     }
     let stdin = NSFileHandle.fileHandleWithStandardInput()
     let data = stdin.availableData
-    let inputString: String = NSString(data: data, encoding: NSUTF8StringEncoding)
+    let inputString: String = NSString(data: data, encoding: NSUTF8StringEncoding)!
     return inputString.rstrip()
 }
 

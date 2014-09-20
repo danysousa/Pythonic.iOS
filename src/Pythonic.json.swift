@@ -25,7 +25,7 @@ public class json {
     public class func dumps(obj: AnyObject) -> String {
         var jsonData = NSJSONSerialization.dataWithJSONObject(obj, options: .PrettyPrinted, error: nil)
         if let jsonData = jsonData {
-            return NSString(data: jsonData, encoding: NSUTF8StringEncoding)
+            return NSString(data: jsonData, encoding: NSUTF8StringEncoding)!
         }
         return ""
     }

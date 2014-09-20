@@ -41,7 +41,7 @@ public typealias file = NSFileHandle
 public extension NSFileHandle {
     public func read() -> String {
         let data: NSData = self.readDataToEndOfFile()
-        return NSString(data: data, encoding: NSUTF8StringEncoding)
+        return NSString(data: data, encoding: NSUTF8StringEncoding)!
     }
 
     public func readLines() -> [String] {

@@ -202,7 +202,7 @@ public class os {
             task.launchPath = first
         }
         parts = Array(dropFirst(parts))
-        if parts {
+        if len(parts) > 0 {
             task.arguments = parts
         }
         task.launch()
@@ -223,7 +223,7 @@ public class os {
             task.launchPath = first
         }
         parts = Array(dropFirst(parts))
-        if parts {
+        if len(parts) > 0 {
             task.arguments = parts
         }
         let stdinPipe = NSPipe()
