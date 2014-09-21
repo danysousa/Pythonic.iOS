@@ -130,7 +130,8 @@ public final class Set<T : Hashable> : ArrayLiteralConvertible, CollectionType,
     public var hashValue: Int {
         var totalHash = 0
         for entry in self {
-            totalHash += entry.hashValue
+            // Opt in to the overflow behavior when calculating totalHash
+            totalHash = totalHash &+ entry.hashValue
         }
         return totalHash
     }
