@@ -43,6 +43,11 @@ public final class Set<T : Hashable> : ArrayLiteralConvertible, CollectionType,
         self.extend(initialSequenceType)
     }
 
+    // Implement ArrayLiteralConvertible (allows for "var set: Set<Int> = [2, 4, 8]")
+    public init(arrayLiteral: T...) {
+        self.extend(arrayLiteral)
+    }
+
     public func contains(element: T) -> Bool {
         // "return self.internalDict[element] != nil" gives …
         // "error: 'T' is not convertible to 'DictionaryIndex<T, Void>'"
@@ -86,11 +91,6 @@ public final class Set<T : Hashable> : ArrayLiteralConvertible, CollectionType,
     // Lowercase name for Python compatibility.
     public func isdisjoint(other: Set<T>) -> Bool {
         return self.isDisjoint(other)
-    }
-
-    // Implement ArrayLiteralConvertible (allows for "var set: Set<Int> = [2, 4, 8]")
-    public class func convertFromArrayLiteral(elements: T...) -> Set<T> {
-        return Set(elements)
     }
 
     // Implement Collection (allows for "countElements(set)", etc.)

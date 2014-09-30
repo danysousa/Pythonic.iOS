@@ -52,8 +52,8 @@ assert(cmp(1, 0) == 1)
 // assert(cmp([1, 2, 3, 100], [2, 3, 4, 5]) == -1) – assertion fails
 
 // double (truthness)
-assert(0.00000001)
-assert(1.0)
+assert(bool(0.00000001))
+assert(bool(1.0))
 assert(!bool(0.0))
 
 // double.is_integer/isInteger
@@ -88,7 +88,7 @@ assert(int(1.1) == 1)
 assert(int(9.9) == 9)
 
 // int (truthness)
-assert(1)
+assert(bool(1))
 assert(!bool(0))
 
 // json
