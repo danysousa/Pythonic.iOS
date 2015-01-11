@@ -3,7 +3,7 @@
 //   all: Added.
 //   any: Added.
 //   apply
-//   bin
+//   bin: Added.
 //   bool: Added.
 //   buffer
 //   bytearray
@@ -102,6 +102,23 @@ public func any<R : SequenceType where R.Generator.Element : BooleanType>(iterab
         }
     }
     return false
+}
+
+public func bin(x: Int) -> String {
+
+    var i = x
+    var ret = ""
+    while i != 0 {
+        if i % 2 == 0 {
+            ret.insert("0", atIndex: ret.startIndex)
+        } else {
+            ret.insert("1", atIndex: ret.startIndex)
+        }
+        i = i >> 1
+    }
+    ret = "0b" + ret
+    return ret
+
 }
 
 public func chr(i: Int) -> String {

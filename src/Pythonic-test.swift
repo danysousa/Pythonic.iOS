@@ -29,6 +29,11 @@ assert(any(["", "foo", "bar", "baz"]))
 assert(any([0.1, 0]))
 assert(any([false, false, true]))
 
+// bin
+assert(bin(2) == "0b10")
+assert(bin(7) == "0b111")
+assert(bin(1024) == "0b10000000000")
+
 // bool
 assert(!bool(""))
 assert(!bool(0))
