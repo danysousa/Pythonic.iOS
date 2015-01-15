@@ -41,6 +41,10 @@ func checkFile(fileName: String) -> Bool {
             println("ERROR – Line #\(lineNumber + 1) of \(fileName) contains trailing whitespace:")
             println(originalLine)
             passed = false
+        } else if re.search(";$", originalLine) {
+            println("ERROR – Line #\(lineNumber + 1) of \(fileName) ends with a redundant \";\":")
+            println(originalLine)
+            passed = false
         } else if re.search("^[^\"]+[\\[(][a-z0-9]+,[a-z0-9]", originalLine) || re.search("^[^\"]*\"[^\"]*\"[^\"]*[\\[(][a-z0-9]+,[a-z0-9]", originalLine) {
             println("ERROR – Line #\(lineNumber + 1) of \(fileName) has variables listed without being separated by space (\"foo,bar\" instead of \"foo, bar\"):")
             println(originalLine)

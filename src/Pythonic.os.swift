@@ -178,11 +178,11 @@ public class os {
             return NSFileManager.defaultManager().fileExistsAtPath(path)
         }
         public class func join(path: String...) -> String {
-            var result = "";
+            var result = ""
             for pathItem in path {
                 result = result.stringByAppendingPathComponent(pathItem)
             }
-            return result;
+            return result
         }
     }
 
