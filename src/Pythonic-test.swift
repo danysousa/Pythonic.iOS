@@ -224,6 +224,10 @@ assert(!os.path.exists("/tmp.foo/"))
 assert(os.path.exists("/tmp/"))
 assert(os.path.exists("Pythonic-test.txt"))
 
+// os.path.join
+assert(os.path.join("a", "b", "c") == "a/b/c")
+assert(os.path.join("/a", "b", "c") == "/a/b/c")
+
 // os.system (+ os.unlink + os.path.exists)
 os.unlink("/tmp/pythonic-test.txt")
 assert(os.system("/usr/bin/touch /tmp/pythonic-test.txt") == 0)

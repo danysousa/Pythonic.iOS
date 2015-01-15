@@ -177,6 +177,13 @@ public class os {
         public class func exists(path: String) -> Bool {
             return NSFileManager.defaultManager().fileExistsAtPath(path)
         }
+        public class func join(path: String...) -> String {
+            var result = "";
+            for pathItem in path {
+                result = result.stringByAppendingPathComponent(pathItem)
+            }
+            return result;
+        }
     }
 
     public class func getcwd() -> String {
