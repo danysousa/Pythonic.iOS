@@ -190,6 +190,13 @@ public class os {
         return NSFileManager.defaultManager().currentDirectoryPath
     }
 
+    public class func getloadavg() -> (Double, Double, Double) {
+        var avg = [Double](count: 3, repeatedValue: 0)
+        Foundation.getloadavg(&avg, 3)
+
+        return (avg[0], avg[1], avg[2])
+    }
+
     public class func remove(path: String) {
         return os.unlink(path)
     }
