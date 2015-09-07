@@ -43,7 +43,7 @@ See the the test suite <a href="https://github.com/practicalswift/pythonic-swift
 
 ### Getting started
 
-```
+```shell
 git clone https://github.com/practicalswift/Pythonic.swift.git
 cd Pythonic.swift/src/
 make
