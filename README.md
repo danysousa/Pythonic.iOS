@@ -4,7 +4,7 @@ Pythonic.swift is a Swift library implementating selected parts of [Python's sta
 
 ```import Pythonic``` allows you to write Python flavored code such as:
 
-```
+```swift
 #!/usr/bin/env xcrun swift -I .
 
 import Pythonic
@@ -43,7 +43,7 @@ See the the test suite <a href="https://github.com/practicalswift/pythonic-swift
 
 ### Getting started
 
-```
+```shell
 git clone https://github.com/practicalswift/Pythonic.swift.git
 cd Pythonic.swift/src/
 make
