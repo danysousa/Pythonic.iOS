@@ -42,22 +42,7 @@ extension Set: BooleanType, Comparable {
     public func isdisjoint(other: Set<Element>) -> Bool {
         return self.isDisjointWith(other)
     }
-
-    // Implement CollectionType (allows for "set.count", etc.)
-    public subscript (i: Int) -> Element {
-        return Array(self)[i]
-    }
-
-    // Implement CollectionType (allows for "set.count", etc.)
-    public var startIndex: Int {
-        return 0
-    }
-
-    // Implement CollectionType (allows for "set.count", etc.)
-    public var endIndex: Int {
-        return self.count
-    }
-
+    
     // Implement CollectionType
     public mutating func append(element: Element) {
         self.add(element)
@@ -67,7 +52,6 @@ extension Set: BooleanType, Comparable {
     public var boolValue: Bool {
         return self.count != 0
     }
-
 }
 
 // Implement Comparable (allows for "if set1 < set2 { … }")
