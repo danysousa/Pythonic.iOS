@@ -589,13 +589,12 @@ assert(list(xrange(1, 10)) == [1, 2, 3, 4, 5, 6, 7, 8, 9])
 //      Same as http://www.openradar.me/17500497 ?
 extension Array {
     mutating func pop(index: Int?) -> Array.Element? {
-        var i = index ?? self.count - 1
-        if self.count == 0 || i < 0 || i >= self.count {
+        let i = index ?? self.count - 1
+        guard self.count == 0 || i < 0 || i >= self.count else {
             return nil
         }
-        var ret = self[i]
-        self.removeAtIndex(i)
-        return ret
+        defer { self.removeAtIndex(i) }
+        return self[i]
     }
 
     mutating func pop() -> Array.Element? {
@@ -671,7 +670,7 @@ extension Array {
 // //     var mirror = reflect(object)
 // //     for var propertyNumber = 0; propertyNumber < mirror.count; propertyNumber++ {
 // //         let (propertyName, propertyMirror) = mirror[propertyNumber]
-// //         // println("\(propertyName) = \(propertyMirror.summary), \(propertyMirror.count) children")
+// //         // print("\(propertyName) = \(propertyMirror.summary), \(propertyMirror.count) children")
 // //         if propertyName == searchedPropertyName {
 // //             return true
 // //         }
@@ -883,9 +882,9 @@ if performPythonIncompatibleTests {
     // assert(set([set([1, 2, 3]), set([1, 2, 3]), set([2, 4, 8])]) == set([set([1, 2, 3]), set([2, 4, 8])])) // Swift compiler bug: Enabling this test increases compilation time by >60 seconds.
     assert(bool(set([1, 2, 3])))
     var set1 = Set<Int>()
-    assert(countElements(set1) == 0)
+    assert(set1.isEmpty)
     set1 += 1
-    assert(countElements(set1) == 1)
+    assert(set1.count == 1)
     assert(set1 == Set([1]))
     set1.add(2)
     assert(set1 == Set([1, 2]))
@@ -1038,17 +1037,17 @@ if performPythonIncompatibleTests {
 var performTestsRequiringNetworkConnectivity = false
 if performTestsRequiringNetworkConnectivity &&
     performPythonIncompatibleTests {
-    var getTest = requests.get("http://httpbin.org/get")
-    println("GET:")
-    println(getTest.text)
-    var postDataString = "…"
-    var postTestWithString = requests.post("http://httpbin.org/post", postDataString)
-    println("POST(str):")
-    println(postTestWithString.text)
-    var postDataDict = ["…": "…", "key": "value", "number": "123"]
-    var postTestWithDict = requests.post("http://httpbin.org/post", postDataDict)
-    println("POST(dict):")
-    println(postTestWithDict.text)
+    let getTest = requests.get("http://httpbin.org/get")
+    print("GET:")
+    print(getTest.text)
+    let postDataString = "…"
+    let postTestWithString = requests.post("http://httpbin.org/post", postDataString)
+    print("POST(str):")
+    print(postTestWithString.text)
+    let postDataDict = ["…": "…", "key": "value", "number": "123"]
+    let postTestWithDict = requests.post("http://httpbin.org/post", postDataDict)
+    print("POST(dict):")
+    print(postTestWithDict.text)
 }
 
 sys.exit()

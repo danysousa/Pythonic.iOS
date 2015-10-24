@@ -125,7 +125,7 @@ public func chr(i: Int) -> String {
     return String(UnicodeScalar(i))
 }
 
-public func cmp<T : Comparable>(x: T, y: T) -> Int {
+public func cmp<T : Comparable>(x: T, _ y: T) -> Int {
     if x < y {
         return -1
     }
@@ -135,15 +135,15 @@ public func cmp<T : Comparable>(x: T, y: T) -> Int {
     return 0
 }
 
-public func divmod(x: Double, y: Double) -> (Double, Double) {
-    var l = (x - x % y) / y
-    var r = x % y
+public func divmod(x: Double, _ y: Double) -> (Double, Double) {
+    let l = (x - x % y) / y
+    let r = x % y
     return (l, r)
 }
 
-public func divmod(x: Int, y: Int) -> (Int, Int) {
-    var l = (x - x % y) / y
-    var r = x % y
+public func divmod(x: Int, _ y: Int) -> (Int, Int) {
+    let l = (x - x % y) / y
+    let r = x % y
     return (l, r)
 }
 
@@ -153,29 +153,33 @@ public func hex(i: Int) -> String {
 }
 
 public func len<C : CollectionType>(x: C) -> Int {
-    return Swift.countElements(x) as Int
+    return x.count as! Int
+}
+
+public func len(str: String) -> Int {
+    return str.characters.count
 }
 
 // NOTE: This max(…) function is totally redundant since [Int] fulfills requirements of the generics
 //       based max(…) function below. However, this version is needed to work around a compiler bug
 //       which caused the compilation time to increase +5 seconds per call.
 public func max(range: [Int]) -> Int {
-    return Swift.maxElement(range)
+    return range.maxElement()!
 }
 
 public func max<R : SequenceType where R.Generator.Element : Comparable>(range: R) -> R.Generator.Element {
-    return Swift.maxElement(range)
+    return range.maxElement()!
 }
 
 // NOTE: This min(…) function is totally redundant since [Int] fulfills requirements of the generics
 //       based min(…) function below. However, this version is needed to work around a compiler bug
 //       which caused the compilation time to increase +5 seconds per call.
 public func min(range: [Int]) -> Int {
-    return Swift.minElement(range)
+    return range.minElement()!
 }
 
 public func min<R : SequenceType where R.Generator.Element : Comparable>(range: R) -> R.Generator.Element {
-    return Swift.minElement(range)
+    return range.minElement()!
 }
 
 public func oct(i: Int) -> String {
@@ -211,7 +215,7 @@ public func ord(s: String) -> Int {
     return Int((s as NSString).characterAtIndex(0))
 }
 
-public func pow(x: Int, y: Int) -> Int {
+public func pow(x: Int, _ y: Int) -> Int {
     return Int(math.pow(Double(x), Double(y)))
 }
 
@@ -219,22 +223,22 @@ public func range(stop: Int) -> [Int] {
     return range(0, stop)
 }
 
-public func range(start: Int, stop: Int, _ step: Int = 1) -> [Int] {
+public func range(start: Int, _ stop: Int, _ step: Int = 1) -> [Int] {
     if step <= 0 || start > stop {
         return [Int]()
     }
-    return Array(stride(from: start, to: stop, by: step))
+    return Array(start.stride(to: stop, by: step))
 }
 
 public func xrange(stop: Int) -> StrideTo<Int> {
     return xrange(0, stop)
 }
 
-public func xrange(start: Int, stop: Int, _ step: Int = 1) -> StrideTo<Int> {
+public func xrange(start: Int, _ stop: Int, _ step: Int = 1) -> StrideTo<Int> {
     if step <= 0 || start > stop {
-        return stride(from: 0, to: 0, by: 1)
+        return 0.stride(to: 0, by: 1)
     }
-    return stride(from: start, to: stop, by: step)
+    return start.stride(to: stop, by: step)
 }
 
 public func raw_input(prompt: String) -> String {
@@ -253,7 +257,7 @@ public func rawInput(prompt: String) -> String {
     }
     let stdin = NSFileHandle.fileHandleWithStandardInput()
     let data = stdin.availableData
-    let inputString: String = NSString(data: data, encoding: NSUTF8StringEncoding)!
+    let inputString = NSString(data: data, encoding: NSUTF8StringEncoding)! as String
     return inputString.rstrip()
 }
 
@@ -270,15 +274,21 @@ public func round(d: Float) -> Float {
 }
 
 public func sum(iterable: [Double], _ start: Double = 0) -> Double {
-    return Swift.reduce(iterable, start, { $0 + $1 })
+    return iterable.reduce(start, combine: { $0 + $1 })
 }
 
 public func sum(iterable: [Int], _ start: Int = 0) -> Int {
-    return Swift.reduce(iterable, start, { $0 + $1 })
+    return iterable.reduce(start, combine: { $0 + $1 })
 }
 
 public func zip<S1 : SequenceType, S2 : SequenceType>(s1: S1, s2: S2) -> [(S1.Generator.Element, S2.Generator.Element)] {
-    return Array(Swift.Zip2<S1, S2>(s1, s2))
+    return Array(Swift.zip(s1, s2))
+}
+
+extension Zip2Sequence {
+    subscript(i: Int) -> (Stream1.Element, Stream2.Element) {
+        return Array(self)[i]
+    }
 }
 
 public typealias bool = Swift.Bool
@@ -443,7 +453,7 @@ public func ==<T : Equatable>(tuple1:(T, T, T),tuple2:(T, T, T)) -> Bool {
 // viewvalues()
 
 public func %<A0 : CVarArgType>(lhs: String, rhs: (A0)) -> String {
-    return String(format: lhs.replace("%s", "%@"), rhs.0)
+    return String(format: lhs.replace("%s", "%@"), rhs)
 }
 
 public func %<A0 : CVarArgType, A1 : CVarArgType>(lhs: String, rhs: (A0, A1)) -> String {

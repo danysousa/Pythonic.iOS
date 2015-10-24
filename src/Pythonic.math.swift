@@ -242,7 +242,7 @@ public class math {
             return 1
         }
         var r: Double = 2
-        for i in 3...n {
+        for _ in 3...n {
             r = r * integerToDouble(n)
         }
         return r

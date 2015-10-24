@@ -23,16 +23,16 @@ import Foundation
 
 public class json {
     public class func dumps(obj: AnyObject) -> String {
-        var jsonData = NSJSONSerialization.dataWithJSONObject(obj, options: .PrettyPrinted, error: nil)
+        let jsonData = try? NSJSONSerialization.dataWithJSONObject(obj, options: .PrettyPrinted)
         if let jsonData = jsonData {
-            return NSString(data: jsonData, encoding: NSUTF8StringEncoding)!
+            return NSString(data: jsonData, encoding: NSUTF8StringEncoding)! as String
         }
         return ""
     }
 
     public class func loads(json: String) -> AnyObject {
-        var jsonData = json.dataUsingEncoding(NSUTF8StringEncoding)
-        var jsonObject: AnyObject = NSJSONSerialization.JSONObjectWithData(jsonData!, options: .MutableContainers, error: nil)!
+        let jsonData = json.dataUsingEncoding(NSUTF8StringEncoding)
+        let jsonObject: AnyObject = try! NSJSONSerialization.JSONObjectWithData(jsonData!, options: .MutableContainers)
         return jsonObject
     }
 }

@@ -180,7 +180,7 @@ public class os {
         public class func join(path: String...) -> String {
             var result = ""
             for pathItem in path {
-                result = result.stringByAppendingPathComponent(pathItem)
+                result = (result as NSString).stringByAppendingPathComponent(pathItem)
             }
             return result
         }
@@ -202,7 +202,10 @@ public class os {
     }
 
     public class func unlink(path: String) {
-        NSFileManager.defaultManager().removeItemAtPath(path, error: nil)
+        do {
+            try NSFileManager.defaultManager().removeItemAtPath(path)
+        } catch _ {
+        }
     }
 
     public class func system(command: String) -> Int {
@@ -215,7 +218,7 @@ public class os {
         if let first = parts.first {
             task.launchPath = first
         }
-        parts = Array(dropFirst(parts))
+        parts = Array(parts.dropFirst())
         if len(parts) > 0 {
             task.arguments = parts
         }
@@ -225,7 +228,7 @@ public class os {
     }
 
     public class func popen2(command: String) -> (NSFileHandle, NSFileHandle) {
-        let (stdin, stdout, stderr) = os.popen3(command)
+        let (stdin, stdout, _) = os.popen3(command)
         return (stdin, stdout)
     }
 
@@ -236,7 +239,7 @@ public class os {
         if let first = parts.first {
             task.launchPath = first
         }
-        parts = Array(dropFirst(parts))
+        parts = Array(parts.dropFirst())
         if len(parts) > 0 {
             task.arguments = parts
         }

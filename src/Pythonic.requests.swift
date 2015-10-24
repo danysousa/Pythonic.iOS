@@ -21,11 +21,11 @@ private class HttpUtils {
     private class func encodeDictionaryAsPercentEscapedString(dictionary: Dictionary<String, String>) -> String {
         var parts = [String]()
         for (key, value) in dictionary {
-            var encodedKey = (key as NSString).stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
-            var encodedValue = (value as NSString).stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
+            let encodedKey = (key as NSString).stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
+            let encodedValue = (value as NSString).stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
             parts += ["\(encodedKey)=\(encodedValue)"]
         }
-        return join("&", parts)
+        return parts.joinWithSeparator("&")
     }
 }
 
@@ -34,8 +34,8 @@ public class HttpSession {
 
     private func makeHttpRequest(methodType: HttpMethod, url: String, data: [String : String]? = nil, dataAsString: String? = nil, params: [String : String]? = nil, auth: (String, String)? = nil, headers: [String : String]? = nil, timeout: Double? = 600, cookies: [String : String]? = nil) -> HttpResponse {
         // TODO: Handle all options.
-        var nsUrl = NSURL(string: url)
-        var nsMutableUrlRequest = NSMutableURLRequest(URL: nsUrl!, cachePolicy: .ReloadIgnoringLocalCacheData, timeoutInterval: timeout!)
+        let nsUrl = NSURL(string: url)
+        let nsMutableUrlRequest = NSMutableURLRequest(URL: nsUrl!, cachePolicy: .ReloadIgnoringLocalCacheData, timeoutInterval: timeout!)
         switch (methodType) {
             case .GET:
                 nsMutableUrlRequest.HTTPMethod = "GET"
@@ -49,22 +49,22 @@ public class HttpSession {
                     assert(false)
                 }
                 nsMutableUrlRequest.HTTPMethod = "POST"
-                var postData: NSData = NSString(string: stringToPost).dataUsingEncoding(NSUTF8StringEncoding)!
+                let postData: NSData = NSString(string: stringToPost).dataUsingEncoding(NSUTF8StringEncoding)!
                 nsMutableUrlRequest.setValue("\(postData.length)", forHTTPHeaderField: "Content-Length")
                 nsMutableUrlRequest.setValue("application/x-www-form-urlencoded charset=utf-8", forHTTPHeaderField: "Content-Type")
                 nsMutableUrlRequest.HTTPBody = postData
         }
         var nsUrlResponse: NSURLResponse?
-        var nsError: NSError?
-        var nsData = NSURLConnection.sendSynchronousRequest(nsMutableUrlRequest, returningResponse: &nsUrlResponse, error: &nsError)
-        // TODO: Proper error checking. Read HTTP status code.
-        var text: String?
+        var text: String? = nil
         var ok = false
-        if let nsData = nsData {
-            text = NSString(data: nsData, encoding: NSUTF8StringEncoding)
+        do {
+            // TODO: Proper error checking. Read HTTP status code.
+            let nsData = try NSURLConnection.sendSynchronousRequest(nsMutableUrlRequest, returningResponse: &nsUrlResponse)
+            text = NSString(data: nsData, encoding: NSUTF8StringEncoding) as? String
             ok = true
-        }
+        } catch _ {}
         return HttpResponse(ok: ok, text: text)
+
     }
 
     public func get(url: String, params: [String : String]? = nil, auth: (String, String)? = nil, headers: [String : String]? = nil, timeout: Double? = nil, cookies: [String : String]? = nil) -> HttpResponse {

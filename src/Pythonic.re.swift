@@ -52,11 +52,11 @@ public class RegularExpressionMatch: BooleanType {
     private var matchedStrings = [String]()
 
     public init(_ matchedStrings: [String]) {
-        self.matchedStrings.extend(matchedStrings)
+        self.matchedStrings.appendContentsOf(matchedStrings)
     }
 
     public func groups() -> [String] {
-        return Array(dropFirst(self.matchedStrings))
+        return Array(self.matchedStrings.dropFirst())
     }
 
     public func group(i: Int) -> String? {
@@ -80,17 +80,16 @@ public class re {
         }
         // NOTE: Must use NSString:s below to avoid off-by-one issues when countElements(swiftString) != nsString.length.
         //       Example case: countElements("\r\n") [1] != ("\r\n" as NSString).length [2]
-        if let regex = NSRegularExpression(pattern: pattern, options: nil, error: nil) {
-            if let matches = regex.matchesInString(string, options: nil, range: NSMakeRange(0, (string as NSString).length)) as? [NSTextCheckingResult] {
-                for match in matches {
-                    for i in 0..<match.numberOfRanges {
-                        var range = match.rangeAtIndex(i)
-                        var matchString = ""
-                        if range.location != Int.max {
-                            matchString = (string as NSString).substringWithRange(range)
-                        }
-                        matchedStrings += [matchString]
+        if let regex = try? NSRegularExpression(pattern: pattern, options: []) {
+            let matches = regex.matchesInString(string, options: [], range: NSRange(location: 0, length: (string as NSString).length))
+            for match in matches {
+                for i in 0..<match.numberOfRanges {
+                    let range = match.rangeAtIndex(i)
+                    var matchString = ""
+                    if range.location != Int.max {
+                        matchString = (string as NSString).substringWithRange(range)
                     }
+                    matchedStrings += [matchString]
                 }
             }
         }
@@ -108,36 +107,35 @@ public class re {
         var returnedMatches = [String]()
         // NOTE: Must use NSString:s below to avoid off-by-one issues when countElements(swiftString) != nsString.length.
         //       Example case: countElements("\r\n") [1] != ("\r\n" as NSString).length [2]
-        if let regex = NSRegularExpression(pattern: pattern, options: nil, error: nil) {
-            if let matches = regex.matchesInString(string, options: nil, range: NSMakeRange(0, (string as NSString).length)) as? [NSTextCheckingResult] {
-                var includeDelimiters = false
-                // Heuristic detection of capture group(s) to try matching behaviour of Python's re.split. Room for improvement.
-                if "(".`in`(pattern.replace("\\(", "").replace("(?", "")) {
-                    includeDelimiters = true
-                }
-                var previousRange: NSRange?
-                var lastLocation = 0
-                for match in matches {
-                    if includeDelimiters {
-                        if let previousRange = previousRange {
-                            var previousString: String = (string as NSString).substringWithRange(NSMakeRange(previousRange.location, previousRange.length))
-                            returnedMatches += [previousString]
-                        }
-                    }
-                    var matchedString: String = (string as NSString).substringWithRange(NSMakeRange(lastLocation, match.range.location - lastLocation))
-                    returnedMatches += [matchedString]
-                    lastLocation = match.range.location + match.range.length
-                    previousRange = match.range
-                }
+        if let regex = try? NSRegularExpression(pattern: pattern, options: []) {
+            let matches = regex.matchesInString(string, options: [], range: NSMakeRange(0, (string as NSString).length))
+            var includeDelimiters = false
+            // Heuristic detection of capture group(s) to try matching behaviour of Python's re.split. Room for improvement.
+            if "(".`in`(pattern.replace("\\(", "").replace("(?", "")) {
+                includeDelimiters = true
+            }
+            var previousRange: NSRange?
+            var lastLocation = 0
+            for match in matches {
                 if includeDelimiters {
                     if let previousRange = previousRange {
-                        var previousString: String = (string as NSString).substringWithRange(NSMakeRange(previousRange.location, previousRange.length))
+                        let previousString: String = (string as NSString).substringWithRange(NSMakeRange(previousRange.location, previousRange.length))
                         returnedMatches += [previousString]
                     }
                 }
-                var matchedString: String = (string as NSString).substringWithRange(NSMakeRange(lastLocation, (string as NSString).length - lastLocation))
+                let matchedString: String = (string as NSString).substringWithRange(NSMakeRange(lastLocation, match.range.location - lastLocation))
                 returnedMatches += [matchedString]
+                lastLocation = match.range.location + match.range.length
+                previousRange = match.range
             }
+            if includeDelimiters {
+                if let previousRange = previousRange {
+                    let previousString: String = (string as NSString).substringWithRange(NSMakeRange(previousRange.location, previousRange.length))
+                    returnedMatches += [previousString]
+                }
+            }
+            let matchedString: String = (string as NSString).substringWithRange(NSMakeRange(lastLocation, (string as NSString).length - lastLocation))
+            returnedMatches += [matchedString]
         }
         return returnedMatches
     }
@@ -147,8 +145,8 @@ public class re {
         for i in 0...9 {
             replaceWithString = replaceWithString.replace("\\\(i)", "$\(i)")
         }
-        if let regex = NSRegularExpression(pattern: pattern, options: nil, error: nil) {
-            return regex.stringByReplacingMatchesInString(string, options: nil, range: NSMakeRange(0, (string as NSString).length), withTemplate: replaceWithString)
+        if let regex = try? NSRegularExpression(pattern: pattern, options: []) {
+            return regex.stringByReplacingMatchesInString(string, options: [], range: NSMakeRange(0, (string as NSString).length), withTemplate: replaceWithString)
         }
         return string
     }

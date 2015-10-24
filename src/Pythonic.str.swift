@@ -29,7 +29,7 @@
 //   isspace: Added.
 //   istitle: Added.
 //   isupper: Added.
-//   join: Already in Swift.
+//   join: Added.
 //   ljust: Added.
 //   lower: Added.
 //   lstrip: Added.
@@ -60,7 +60,7 @@ extension String : BooleanType {
 
     public func count(c: Character) -> Int {
         var counter = 0
-        for ch in self {
+        for ch in self.characters {
             if ch == c {
                 counter += 1
             }
@@ -81,6 +81,10 @@ extension String : BooleanType {
 
     public func endswith(suffix: String) -> Bool {
         return self.endsWith(suffix)
+    }
+    
+    public func join<S : SequenceType where S.Generator.Element == String>(strings: S) -> String {
+        return strings.joinWithSeparator(self)
     }
 
     public func lower() -> String {
@@ -128,7 +132,7 @@ extension String : BooleanType {
         if self == "" {
             return false
         }
-        for ch in self {
+        for ch in self.characters {
             if !characterSet.contains(String(ch)) {
                 return false
             }
@@ -218,8 +222,8 @@ extension String : BooleanType {
 
     public func swapCase() -> String {
         var returnString = ""
-        for ch in self {
-            var s = String(ch)
+        for ch in self.characters {
+            let s = String(ch)
             if s.isLower() {
                 returnString += s.upper()
             } else if s.isUpper() {
@@ -261,20 +265,20 @@ extension String : BooleanType {
     }
 
     private func _sliceIndexes(arg1: Int?, _ arg2: Int?) -> (Int, Int) {
-        let len = countElements(self)
-        var (start, end) = (0, len)
+        let length = len(self)
+        var (start, end) = (0, length)
         if let arg1 = arg1 {
             if arg1 < 0 {
-                start = max(len + arg1, 0)
+                start = max(length + arg1, 0)
             } else {
-                start = min(arg1, len)
+                start = min(arg1, length)
             }
         }
         if let arg2 = arg2 {
             if arg2 < 0 {
-                end = max(len + arg2, 0)
+                end = max(length + arg2, 0)
             } else {
-                end = min(arg2, len)
+                end = min(arg2, length)
             }
         }
         if start > end {
@@ -291,7 +295,7 @@ extension String : BooleanType {
     /// * Python: str[2:]  -> Swift: str[(2, nil)]
     /// * Python: str[:2]  -> Swift: str[(nil, 2)]
     public subscript (args: (Int?, Int?)) -> String {
-        let (arg1: Int?, arg2: Int?) = args
+        let (arg1, arg2): (Int?, Int?) = args
         let (start, end) = _sliceIndexes(arg1, arg2)
         return self[start..<end]
     }
@@ -299,7 +303,7 @@ extension String : BooleanType {
     /// Get a single-character string by Int index.
     public subscript (var index: Int) -> String {
         if index < 0 {
-            index += countElements(self)
+            index += self.characters.count
         }
         return self[index...index]
     }
@@ -311,8 +315,8 @@ extension String : BooleanType {
     /// * str[2..<4]
     /// * str[2...4]
     public subscript (range: Range<Int>) -> String {
-        let start = Swift.advance(self.startIndex, range.startIndex)
-        let end = Swift.advance(start, range.endIndex - range.startIndex)
+        let start = self.startIndex.advancedBy(range.startIndex)
+        let end = start.advancedBy(range.endIndex - range.startIndex)
         return self.substringWithRange(Range(start: start, end: end))
     }
 
@@ -368,18 +372,18 @@ extension String : BooleanType {
     //       according to Foundation can differ from string length according
     //       to Swift.
     public func find(sub: String) -> Int {
-        let subArr = Array(sub)
+        let subArr = Array(sub.characters)
         if subArr.count == 0 {
             return 0
         }
-        let stringArr = Array(self)
+        let stringArr = Array(self.characters)
         if subArr.count > stringArr.count {
             return -1
         }
         for i in 0..<stringArr.count - subArr.count + 1 {
             if stringArr[i] == subArr[0] {
                 let readAhead = stringArr[i..<i + subArr.count]
-                if equal(readAhead, subArr) {
+                if readAhead.elementsEqual(subArr) {
                     return i
                 }
             }
