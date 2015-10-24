@@ -82,7 +82,7 @@ extension String : BooleanType {
     public func endswith(suffix: String) -> Bool {
         return self.endsWith(suffix)
     }
-    
+
     public func join<S : SequenceType where S.Generator.Element == String>(strings: S) -> String {
         return strings.joinWithSeparator(self)
     }

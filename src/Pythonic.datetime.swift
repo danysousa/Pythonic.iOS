@@ -177,8 +177,8 @@ public extension NSDate {
     public func replace(year: Int? = nil, month: Int? = nil, day: Int? = nil, hour: Int? = nil, minute: Int? = nil, second: Int? = nil, microsecond: Int? = nil) -> NSDate {
         let components = NSCalendar.currentCalendar().components(
             [.Year, .Month, .Day, .Hour,
-             .Minute, .Second, .Nanosecond,
-             .Era, .Quarter, .TimeZone]
+                .Minute, .Second, .Nanosecond,
+                .Era, .Quarter, .TimeZone]
         , fromDate: self)
         if let year = year {
             components.year = year

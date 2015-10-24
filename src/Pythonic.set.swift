@@ -30,7 +30,7 @@ extension Set: BooleanType, Comparable {
         self.remove(element)
     }
 
-  mutating   public func clear() {
+    mutating public func clear() {
         self.removeAll()
     }
 

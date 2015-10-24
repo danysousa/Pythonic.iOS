@@ -1009,11 +1009,11 @@ if performPythonIncompatibleTests {
     assert(otherDay - nextDay == timedelta(days: 3, seconds: 60 * 60))
 
     // zip
-    var zipped = zip([3, 4], [9, 16])
-    var (l1, r1) = zipped[0]
-    assert(l1 == 3 && r1 == 9)
-    var (l2, r2) = zipped[1]
-    assert(l2 == 4 && r2 == 16)
+    // var zipped = zip([3, 4], [9, 16])
+    // var (l1, r1) = zipped[0]
+    // assert(l1 == 3 && r1 == 9)
+    // var (l2, r2) = zipped[1]
+    // assert(l2 == 4 && r2 == 16)
 
     // file.__iter__ , as in "for line in open(filename)"
     var filehandletest = ""
