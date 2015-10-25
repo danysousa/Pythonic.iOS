@@ -218,7 +218,7 @@ public class os {
         if let first = parts.first {
             task.launchPath = first
         }
-        parts = Array(parts.dropFirst())
+        parts.removeAtIndex(0)
         if len(parts) > 0 {
             task.arguments = parts
         }
@@ -239,7 +239,7 @@ public class os {
         if let first = parts.first {
             task.launchPath = first
         }
-        parts = Array(parts.dropFirst())
+        parts.removeAtIndex(0)
         if len(parts) > 0 {
             task.arguments = parts
         }

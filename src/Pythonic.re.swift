@@ -80,17 +80,18 @@ public class re {
         }
         // NOTE: Must use NSString:s below to avoid off-by-one issues when countElements(swiftString) != nsString.length.
         //       Example case: countElements("\r\n") [1] != ("\r\n" as NSString).length [2]
-        if let regex = try? NSRegularExpression(pattern: pattern, options: []) {
-            let matches = regex.matchesInString(string, options: [], range: NSRange(location: 0, length: (string as NSString).length))
-            for match in matches {
-                for i in 0..<match.numberOfRanges {
-                    let range = match.rangeAtIndex(i)
-                    var matchString = ""
-                    if range.location != Int.max {
-                        matchString = (string as NSString).substringWithRange(range)
-                    }
-                    matchedStrings += [matchString]
+        guard let regex = try? NSRegularExpression(pattern: pattern, options: []) else {
+            return RegularExpressionMatch(matchedStrings)
+        }
+        let matches = regex.matchesInString(string, options: [], range: NSRange(location: 0, length: (string as NSString).length))
+        for match in matches {
+            for i in 0..<match.numberOfRanges {
+                let range = match.rangeAtIndex(i)
+                var matchString = ""
+                if range.location != Int.max {
+                    matchString = (string as NSString).substringWithRange(range)
                 }
+                matchedStrings += [matchString]
             }
         }
         return RegularExpressionMatch(matchedStrings)

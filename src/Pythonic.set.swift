@@ -1,12 +1,3 @@
-// The Swift standard library currently lacks a Set class. This is an
-// attempt to fix that :-)
-//
-//  "A set object is an unordered collection of distinct hashable
-//   objects. Common uses include membership testing, removing
-//   duplicates from a Sequence, and computing mathematical
-//   operations such as intersection, union, difference, and symmetric
-//   difference."
-//
 // Usage:
 //
 //   var set1 = Set([0, 1, 2])
@@ -56,15 +47,7 @@ extension Set: BooleanType, Comparable {
 
 // Implement Comparable (allows for "if set1 < set2 { … }")
 public func <<T : Hashable>(lhs: Set<T>, rhs: Set<T>) -> Bool {
-    if lhs == rhs {
-        return false
-    }
-    for element in lhs {
-        if !rhs.contains(element) {
-            return false
-        }
-    }
-    return true
+    return lhs.isStrictSubsetOf(rhs)
 }
 
 public func +<T : Hashable>(lhs: Set<T>, rhs: Set<T>) -> Set<T> {
@@ -96,7 +79,7 @@ public func &=<T : Hashable>(inout lhs: Set<T>, rhs: Set<T>) {
 }
 
 public func +=<T : Hashable>(inout lhs: Set<T>, rhs: T) {
-    lhs.add(rhs)
+    lhs.insert(rhs)
 }
 
 public func -=<T : Hashable>(inout lhs: Set<T>, rhs: Set<T>) {

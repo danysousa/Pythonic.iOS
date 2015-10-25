@@ -152,12 +152,12 @@ public func hex(i: Int) -> String {
     return "0x" + o
 }
 
-public func len<C : CollectionType>(x: C) -> Int {
-    return x.count as! Int
+public func len(x: String) -> Int {
+    return len(x.characters)
 }
 
-public func len(str: String) -> Int {
-    return str.characters.count
+public func len<C : CollectionType>(x: C) -> Int {
+    return x.count as! Int
 }
 
 // NOTE: This max(…) function is totally redundant since [Int] fulfills requirements of the generics
@@ -192,18 +192,18 @@ public func oct(i: Int) -> String {
 
 public func open(path: String, _ mode: String = "") -> NSFileHandle {
     switch mode {
-        case "r":
-            return NSFileHandle(forReadingAtPath: path)!
-        case "w":
-            os.unlink(path)
-            shutil.copyFile("/dev/null", path)
-            return NSFileHandle(forWritingAtPath: path)!
-        case "a":
-            let fh = NSFileHandle(forWritingAtPath: path)!
-            fh.seekToEndOfFile()
-            return fh
-        default:
-            return NSFileHandle(forReadingAtPath: path)!
+    case "r":
+        return NSFileHandle(forReadingAtPath: path)!
+    case "w":
+        os.unlink(path)
+        shutil.copyFile("/dev/null", path)
+        return NSFileHandle(forWritingAtPath: path)!
+    case "a":
+        let fh = NSFileHandle(forWritingAtPath: path)!
+        fh.seekToEndOfFile()
+        return fh
+    default:
+        return NSFileHandle(forReadingAtPath: path)!
     }
 }
 
@@ -452,7 +452,7 @@ public func ==<T : Equatable>(tuple1:(T, T, T),tuple2:(T, T, T)) -> Bool {
 // viewkeys()
 // viewvalues()
 
-public func %<A0 : CVarArgType>(lhs: String, rhs: (A0)) -> String {
+public func %<A0 : CVarArgType>(lhs: String, rhs: A0) -> String {
     return String(format: lhs.replace("%s", "%@"), rhs)
 }
 

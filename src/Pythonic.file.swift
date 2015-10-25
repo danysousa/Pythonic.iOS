@@ -69,7 +69,7 @@ extension NSFileHandle : SequenceType {
         if data.length == 0 {
             return nil
         } else {
-            return NSString(data: data, encoding: NSUTF8StringEncoding) as? String
+            return String(data: data, encoding: NSUTF8StringEncoding)
         }
     }
 

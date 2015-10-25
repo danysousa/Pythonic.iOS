@@ -55,7 +55,7 @@ public typealias str = Swift.String
 
 extension String : BooleanType {
     public var boolValue: Bool {
-        return len(self) != 0
+        return len(self.characters) != 0
     }
 
     public func count(c: Character) -> Int {
@@ -69,10 +69,10 @@ extension String : BooleanType {
     }
 
     public func capitalize() -> String {
-        if len(self) == 0 {
+        if len(self.characters) == 0 {
             return self
         }
-        return self[0].upper() + self[1..<len(self)].lower()
+        return self[0].upper() + self[1..<len(self.characters)].lower()
     }
 
     public func endsWith(suffix: String) -> Bool {
@@ -125,7 +125,7 @@ extension String : BooleanType {
     }
 
     private var HEX_SET: Set<String> {
-        return DIGITS_SET + Set(["a", "A", "b", "B", "c", "C", "d", "D", "e", "E", "f", "F"])
+        return DIGITS_SET.union(Set(["a", "A", "b", "B", "c", "C", "d", "D", "e", "E", "f", "F"]))
     }
 
     private func isComposedOnlyOfCharacterSet(characterSet: Set<String>) -> Bool {
@@ -189,7 +189,7 @@ extension String : BooleanType {
     }
 
     private var ASCII_ALPHA_SET: Set<String> {
-        return ASCII_UPPERCASE_SET + ASCII_LOWERCASE_SET
+        return ASCII_UPPERCASE_SET.union(ASCII_LOWERCASE_SET)
     }
 
     public func isAlpha() -> Bool {
@@ -201,7 +201,7 @@ extension String : BooleanType {
     }
 
     private var ASCII_ALPHANUMERIC_SET: Set<String> {
-        return ASCII_ALPHA_SET + DIGITS_SET
+        return ASCII_ALPHA_SET.union(DIGITS_SET)
     }
 
     public func isAlnum() -> Bool {
@@ -295,7 +295,7 @@ extension String : BooleanType {
     /// * Python: str[2:]  -> Swift: str[(2, nil)]
     /// * Python: str[:2]  -> Swift: str[(nil, 2)]
     public subscript (args: (Int?, Int?)) -> String {
-        let (arg1, arg2): (Int?, Int?) = args
+        let (arg1, arg2) = args
         let (start, end) = _sliceIndexes(arg1, arg2)
         return self[start..<end]
     }
@@ -303,7 +303,7 @@ extension String : BooleanType {
     /// Get a single-character string by Int index.
     public subscript (var index: Int) -> String {
         if index < 0 {
-            index += self.characters.count
+            index += len(self.characters)
         }
         return self[index...index]
     }
@@ -315,38 +315,35 @@ extension String : BooleanType {
     /// * str[2..<4]
     /// * str[2...4]
     public subscript (range: Range<Int>) -> String {
-        let start = self.startIndex.advancedBy(range.startIndex)
-        let end = start.advancedBy(range.endIndex - range.startIndex)
-        return self.substringWithRange(Range(start: start, end: end))
+        let range = Range(start: self.startIndex.advancedBy(range.startIndex), end: self.startIndex.advancedBy(range.endIndex))
+        return self.substringWithRange(range)
     }
 
     /// Split the string at the first occurrence of sep, and return a 3-tuple containing the part before the separator, the separator itself, and the part after the separator. If the separator is not found, return a 3-tuple containing the string itself, followed by two empty strings.
     public func partition(separator: String) -> (String, String, String) {
-        if let separatorRange = self.rangeOfString(separator) {
-            if !separatorRange.isEmpty {
-                let firstpart = self[self.startIndex ..< separatorRange.startIndex]
-                let secondpart = self[separatorRange.endIndex ..< self.endIndex]
-                return (firstpart, separator, secondpart)
-            }
+        guard let separatorRange = self.rangeOfString(separator) where !separatorRange.isEmpty else {
+            return (self,"","")
         }
-        return (self,"","")
+        let firstpart = self[self.startIndex ..< separatorRange.startIndex]
+        let secondpart = self[separatorRange.endIndex ..< self.endIndex]
+        return (firstpart, separator, secondpart)
     }
 
     // justification
     public func ljust(width: Int, _ fillchar: Character = " ") -> String {
-        let length = len(self)
+        let length = len(self.characters)
         if length >= width { return self }
         return self + String(count: width - length, repeatedValue: fillchar)
     }
 
     public func rjust(width: Int, _ fillchar: Character = " ") -> String {
-        let length = len(self)
+        let length = len(self.characters)
         if length >= width { return self }
         return String(count: width - length, repeatedValue: fillchar) + self
     }
 
     public func center(width: Int, _ fillchar: Character = " ") -> String {
-        let length = len(self)
+        let length = len(self.characters)
         let oddShift = length % 2 == 1 ? 0.5 : 0.0 // Python is weird about string centering
         let left = Int((Double(width) + Double(length)) / 2.0 + oddShift)
         return self.ljust(left, fillchar).rjust(width, fillchar)
@@ -396,7 +393,7 @@ extension String : BooleanType {
     }
 
     public func zfill(length: Int) -> String {
-        return "0" * (length - len(self)) + self
+        return "0" * (length - len(self.characters)) + self
     }
 
     // Python: if "foo" in "foobar": …
@@ -406,6 +403,10 @@ extension String : BooleanType {
             return true
         }
         return s.find(self) != -1
+    }
+
+    public func join(s: [String]) -> String {
+        return s.joinWithSeparator(self)
     }
 }
 

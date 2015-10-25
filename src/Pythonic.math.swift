@@ -211,28 +211,28 @@ public class math {
 
     private class func integerToDouble<T: IntegerType>(n: T) -> Double {
         switch n {
-            case let x as Int8:
-                return Double(x)
-            case let x as Int16:
-                return Double(x)
-            case let x as Int32:
-                return Double(x)
-            case let x as Int64:
-                return Double(x)
-            case let x as Int:
-                return Double(x)
-            case let x as UInt8:
-                return Double(x)
-            case let x as UInt16:
-                return Double(x)
-            case let x as UInt32:
-                return Double(x)
-            case let x as UInt64:
-                return Double(x)
-            case let x as UInt:
-                return Double(x)
-            default:
-                return 0
+        case let x as Int8:
+            return Double(x)
+        case let x as Int16:
+            return Double(x)
+        case let x as Int32:
+            return Double(x)
+        case let x as Int64:
+            return Double(x)
+        case let x as Int:
+            return Double(x)
+        case let x as UInt8:
+            return Double(x)
+        case let x as UInt16:
+            return Double(x)
+        case let x as UInt32:
+            return Double(x)
+        case let x as UInt64:
+            return Double(x)
+        case let x as UInt:
+            return Double(x)
+        default:
+            return 0
         }
     }
 
