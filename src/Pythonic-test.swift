@@ -350,12 +350,12 @@ assert(set([1]) < set([1, 2, 3]))
 // assert(bool(set([1])))
 
 // set.isdisjoint
-// assert(!set([1, 2, 3]).isdisjoint(set([3, 4, 5])))
-// assert(set([1, 2, 3]).isdisjoint(set([4, 8, 16])))
+assert(!set([1, 2, 3]).isdisjoint(set([3, 4, 5])))
+assert(set([1, 2, 3]).isdisjoint(set([4, 8, 16])))
 
 // str (conversion)
 assert(str(123) == "123")
-// assert(str(1.23) == "1.23")
+assert(str(1.23) == "1.23")
 
 // str (indexing)
 assert("foobar"[0] == "f")
@@ -639,9 +639,13 @@ public extension Dictionary {
         return popItem()
     }
 
-    // public func items() -> [(Key, Value)] {
-    //    return zip(self.keys, self.values)
-    // }
+    public func items() -> [(Key, Value)] {
+        var ret: [(Key, Value)] = []
+        for (key, value) in zip(self.keys, self.values) {
+            ret.append((key, value))
+        }
+        return ret
+    }
 
     public static func fromKeys(sequence: [Key], _ defaultValue: Value) -> [Key : Value]{
         var dict = [Key : Value]()
@@ -707,13 +711,14 @@ if performPythonIncompatibleTests {
     assert(dict.fromkeys(["a", "b", "c"], 1) == ["a": 1, "c": 1, "b": 1])
 
     // dict.items
-    // var h = ["foo": 1, "bar": 2, "baz": 3]
-    // var arrayOfTuples = h.items()
-    // arrayOfTuples.sort() { $0.1 < $1.1 }
+    var h = ["foo": 1, "bar": 2, "baz": 3]
+    var arrayOfTuples = h.items()
+    // NOTE: list.sort() sorts in place in Python, but not in Swift.
+    arrayOfTuples.sortInPlace() { $0.1 < $1.1 }
 
-    // assert(arrayOfTuples[0].0 == "foo" && arrayOfTuples[0].1 == 1)
-    // assert(arrayOfTuples[1].0 == "bar" && arrayOfTuples[1].1 == 2)
-    // assert(arrayOfTuples[2].0 == "baz" && arrayOfTuples[2].1 == 3)
+    assert(arrayOfTuples[0].0 == "foo" && arrayOfTuples[0].1 == 1)
+    assert(arrayOfTuples[1].0 == "bar" && arrayOfTuples[1].1 == 2)
+    assert(arrayOfTuples[2].0 == "baz" && arrayOfTuples[2].1 == 3)
 
     // divmod
     assert(divmod(100, 9).0 == 11)
