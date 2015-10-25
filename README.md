@@ -10,33 +10,31 @@ Pythonic.swift is a Swift library implementating selected parts of [Python's sta
 import Pythonic
 
 if re.search("^foo", "foobar") {
-    println(["foo", "bar", "zonk"].index("foo")) // 0
-    println(["foo", "bar", "zonk"].count("bar")) // 1
-    println(["foo", "bar", "zonk"].count("zoo")) // 0
+    print("ok!")
 }
 
 if any(["foo", "bar", "zonk"]) {
-    println(chr(ord("a"))) // a
+    print(chr(ord("a"))) // a
 }
 
 var strings = ["foo", "bar"]
-println(":".join(strings)) // foo:bar
+print(":".join(strings)) // foo:bar
 if strings {
-    println(strings[0]) // foo
+    print(strings[0]) // foo
 }
 if len(strings) == 2 {
-    println(strings[1].upper()) // BAR
-    println(strings[1].split("a")) // ["b", "r"]
+    print(strings[1].upper()) // BAR
+    print(strings[1].split("a")) // ["b", "r"]
 }
 
 var greeting = "   hello pythonista   "
 if greeting.strip().startswith("hello") {
-    println(greeting.strip().title()) // Hello Pythonista
+    print(greeting.strip().title()) // Hello Pythonista
 }
 
 var numbers = [1, 2, 3, 4, 5]
-println(sum(numbers)) // 15
-println(max(numbers)) // 5
+print(sum(numbers)) // 15
+print(max(numbers)) // 5
 ```
 
 See the the test suite <a href="https://github.com/practicalswift/pythonic-swift/blob/master/src/Pythonic-test.swift">Pythonic-test.swift</a> and the <a href="https://github.com/practicalswift/Pythonic.swift/blob/master/src/swift-style-checker.swift">Swift syntax checker</a> for more examples. Questions? Get in touch on Twitter <a href="https://twitter.com/practicalswift">@practicalswift</a>.
