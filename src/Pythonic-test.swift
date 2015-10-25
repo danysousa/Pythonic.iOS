@@ -731,8 +731,8 @@ if performPythonIncompatibleTests {
     assert(divmod(103, 6.0).1 == 1.0)
 
     // double.isInteger
-    var d1 = 1.0
-    var d2 = 1.1
+    let d1 = 1.0
+    let d2 = 1.1
     assert(d1.isInteger())
     assert(!d2.isInteger())
 
@@ -742,10 +742,10 @@ if performPythonIncompatibleTests {
 
     // hasattr (commented out due to compiler bug)
     class Baz {
-        var foo = "foobar"
+        let foo = "foobar"
         let bar = "foobar"
     }
-    var baz = Baz()
+    let baz = Baz()
     assert(hasattr(baz, "foo"))
     assert(hasattr(baz, "baz") == false)
 
@@ -861,8 +861,8 @@ if performPythonIncompatibleTests {
     assert(foundOutput)
 
     // random.choice
-    var array = ["foo", "bar"]
-    var randomChoice = random.choice(array)
+    let array = ["foo", "bar"]
+    let randomChoice = random.choice(array)
     assert(randomChoice == "foo" || randomChoice == "bar")
 
     // re.search
@@ -1031,7 +1031,7 @@ if performPythonIncompatibleTests {
     assert(bool("x" as Character))
 }
 
-var performTestsRequiringNetworkConnectivity = false
+let performTestsRequiringNetworkConnectivity = false
 if performTestsRequiringNetworkConnectivity &&
     performPythonIncompatibleTests {
     let getTest = requests.get("http://httpbin.org/get")
