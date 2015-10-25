@@ -75,12 +75,13 @@ public func +(lhs: NSDate, rhs: NSTimeInterval) -> NSDate {
     return lhs.dateByAddingTimeInterval(rhs)
 }
 
-extension NSDate : Equatable, Comparable { }
-
 public extension NSTimeInterval {
     public init(days: Int = 0, seconds: Int = 0, microseconds: Int = 0, milliseconds: Int = 0, minutes: Int = 0, hours: Int = 0, weeks: Int = 0) {
-        var seconds = (((weeks * 7 + days) * 24 + hours) * 60 + minutes) * 60 + seconds
-        self = Double(seconds) + Double(milliseconds) / 1_000 + Double(microseconds) / 1_000_000
+        let seconds = (((weeks * 7 + days) * 24 + hours) * 60 + minutes) * 60 + seconds
+        let part1 = Double(seconds)
+        let part2 = Double(milliseconds) / 1_000
+        let part3 = Double(microseconds) / 1_000_000
+        self = part1 + part2 + part3
     }
 
     private static var oneDay = 86400.0
@@ -90,7 +91,7 @@ public extension NSTimeInterval {
             return Int(self / NSTimeInterval.oneDay)
         } else {
             return Int(self / NSTimeInterval.oneDay) - 1
-            }
+        }
     }
 
     public var seconds: Int {
@@ -98,7 +99,7 @@ public extension NSTimeInterval {
             return Int(self % NSTimeInterval.oneDay)
         } else {
             return Int((self - (Double(self.days) * NSTimeInterval.oneDay)) % NSTimeInterval.oneDay)
-            }
+        }
     }
 
     public var microseconds: Int {
@@ -113,7 +114,7 @@ public extension NSTimeInterval {
 
 public extension NSDate {
     public convenience init(_ year: Int, _ month: Int, _ day: Int, hour: Int = 0, minute: Int = 0, second: Int = 0, microsecond: Int = 0) {
-        var components = NSDateComponents()
+        let components = NSDateComponents()
         components.year = year
         components.month = month
         components.day = day
@@ -137,53 +138,43 @@ public extension NSDate {
     }
 
     public var year: Int {
-        let components = NSCalendar.currentCalendar().components(.CalendarUnitYear, fromDate: self)
-            return components.year
+        let components = NSCalendar.currentCalendar().components(.Year, fromDate: self)
+        return components.year
     }
 
     public var month: Int {
-        let components = NSCalendar.currentCalendar().components(.CalendarUnitMonth, fromDate: self)
-            return components.month
+        let components = NSCalendar.currentCalendar().components(.Month, fromDate: self)
+        return components.month
     }
 
     public var day: Int {
-        let components = NSCalendar.currentCalendar().components(.CalendarUnitDay, fromDate: self)
-            return components.day
+        let components = NSCalendar.currentCalendar().components(.Day, fromDate: self)
+        return components.day
     }
 
     public var hour: Int {
-        let components = NSCalendar.currentCalendar().components(.CalendarUnitHour, fromDate: self)
-            return components.hour
+        let components = NSCalendar.currentCalendar().components(.Hour, fromDate: self)
+        return components.hour
     }
 
     public var minute: Int {
-        let components = NSCalendar.currentCalendar().components(.CalendarUnitMinute, fromDate: self)
-            return components.minute
+        let components = NSCalendar.currentCalendar().components(.Minute, fromDate: self)
+        return components.minute
     }
 
     public var second: Int {
-        let components = NSCalendar.currentCalendar().components(.CalendarUnitSecond, fromDate: self)
-            return components.second
+        let components = NSCalendar.currentCalendar().components(.Second, fromDate: self)
+        return components.second
     }
 
     public var microsecond: Int {
-        let components = NSCalendar.currentCalendar().components(.CalendarUnitNanosecond, fromDate: self)
-            return components.nanosecond / 1000
+        let components = NSCalendar.currentCalendar().components(.Nanosecond, fromDate: self)
+        return components.nanosecond / 1000
     }
 
     public func replace(year: Int? = nil, month: Int? = nil, day: Int? = nil, hour: Int? = nil, minute: Int? = nil, second: Int? = nil, microsecond: Int? = nil) -> NSDate {
-        var components = NSCalendar.currentCalendar().components(
-            NSCalendarUnit.CalendarUnitYear |
-                NSCalendarUnit.CalendarUnitMonth |
-                NSCalendarUnit.CalendarUnitDay |
-                NSCalendarUnit.CalendarUnitHour |
-                NSCalendarUnit.CalendarUnitMinute |
-                NSCalendarUnit.CalendarUnitSecond |
-                NSCalendarUnit.CalendarUnitNanosecond |
-                NSCalendarUnit.CalendarUnitEra |
-                NSCalendarUnit.CalendarUnitQuarter |
-                NSCalendarUnit.CalendarUnitTimeZone
-            , fromDate: self)
+        let unitFlags: NSCalendarUnit = [.Year, .Month, .Day, .Hour, .Minute, .Second, .Nanosecond, .Era, .Quarter, .TimeZone]
+        let components = NSCalendar.currentCalendar().components(unitFlags, fromDate: self)
         if let year = year {
             components.year = year
         }
@@ -209,7 +200,7 @@ public extension NSDate {
     }
 
     public func weekday() -> Int {
-        let components = NSCalendar.currentCalendar().components(.CalendarUnitWeekday, fromDate: self)
+        let components = NSCalendar.currentCalendar().components(.Weekday, fromDate: self)
         return (components.weekday + 5) % 7
     }
 
@@ -294,7 +285,7 @@ public extension NSDate {
                 }
                 newFormat += symbolForToken(token)
             } else {
-                if contains("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", format[i]) {
+                if "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".characters.contains(format[i]) {
                     if !inQuotedText {
                         newFormat += "'"
                         inQuotedText = true
@@ -332,7 +323,7 @@ public extension NSDate {
         return dateFormatter.stringFromDate(self)
     }
 
-    public func isoformat(_ sep: String = "T") -> String {
+    public func isoformat(sep: String = "T") -> String {
         var format = "%Y-%m-%d\(sep)%H:%M:%S"
         if self.microsecond != 0 {
             format += ".%f"

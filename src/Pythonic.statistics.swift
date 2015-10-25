@@ -9,7 +9,7 @@ public class statistics {
     }
 
     public class func median(data: [Double]) -> Double {
-        let sortedData = sorted(data)
+        let sortedData = data.sort()
         let n = len(sortedData)
         assert(n > 0, "no median for empty data")
         if n % 2 == 1 {
@@ -21,7 +21,7 @@ public class statistics {
     }
 
     public class func medianLow(data: [Double]) -> Double {
-        let sortedData = sorted(data)
+        let sortedData = data.sort()
         let n = len(sortedData)
         assert(n > 0, "no median for empty data")
         if n % 2 == 1 {
@@ -36,7 +36,7 @@ public class statistics {
     }
 
     public class func medianHigh(data: [Double]) -> Double {
-        let sortedData = sorted(data)
+        let sortedData = data.sort()
         let n = len(sortedData)
         assert(n > 0, "no median for empty data")
         return sortedData[n / 2]

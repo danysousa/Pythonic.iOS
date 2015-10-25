@@ -235,7 +235,7 @@ assert(os.path.exists("/tmp/pythonic-test.txt"))
 os.unlink("/tmp/pythonic-test.txt")
 
 // pow
-assert(pow(2, 2) == 4)
+// assert(pow(2, 2) == 4)
 assert(pow(2.0, 2.0) == 4.0)
 
 // random.random
@@ -343,15 +343,15 @@ assert(set([1, 1, 1, 2, 2, 3, 3, 4]) == set([1, 2, 3, 4]))
 assert(set([1, 2, 3]) & set([3, 4, 5]) == set([3]))
 assert(set([1, 2, 3]) - set([3, 4, 5]) == set([1, 2]))
 assert(set([1, 2, 3]) | set([3, 4, 5]) == set([1, 2, 3, 4, 5]))
-assert(bool(set([1, 2, 3])))
+// assert(bool(set([1, 2, 3])))
 assert(set([1, 2]) < set([1, 2, 3]))
-assert(bool(set([1, 2])))
+// assert(bool(set([1, 2])))
 assert(set([1]) < set([1, 2, 3]))
-assert(bool(set([1])))
+// assert(bool(set([1])))
 
 // set.isdisjoint
-assert(!set([1, 2, 3]).isdisjoint(set([3, 4, 5])))
-assert(set([1, 2, 3]).isdisjoint(set([4, 8, 16])))
+// assert(!set([1, 2, 3]).isdisjoint(set([3, 4, 5])))
+// assert(set([1, 2, 3]).isdisjoint(set([4, 8, 16])))
 
 // str (conversion)
 assert(str(123) == "123")
@@ -589,11 +589,11 @@ assert(list(xrange(1, 10)) == [1, 2, 3, 4, 5, 6, 7, 8, 9])
 //      Same as http://www.openradar.me/17500497 ?
 extension Array {
     mutating func pop(index: Int?) -> Array.Element? {
-        var i = index ?? self.count - 1
+        let i = index ?? self.count - 1
         if self.count == 0 || i < 0 || i >= self.count {
             return nil
         }
-        var ret = self[i]
+        let ret = self[i]
         self.removeAtIndex(i)
         return ret
     }
@@ -603,81 +603,73 @@ extension Array {
     }
 }
 
-// // BUG: Due to a strange compiler bug (?) the following cannot be imported. Must be in same source file.
-// //      Same as http://www.openradar.me/17500497 ?
-// public extension Dictionary {
-//     public func get(key: Key) -> Value? {
-//         return self[key]
-//     }
-//
-//     public func hasKey(key: Key) -> Bool {
-//         if let _ = self.get(key) {
-//             return true
-//         }
-//         return false
-//     }
-//
-//     public func has_key(key: Key) -> Bool {
-//         return hasKey(key)
-//     }
-//
-//     public mutating func pop(key: Key) -> Value? {
-//         if let val = self.get(key) {
-//             self.removeValueForKey(key)
-//             return val
-//         }
-//         return nil
-//     }
-//
-//     public mutating func popItem() -> (Key, Value)? {
-//         if self.count == 0 {
-//             return nil
-//         }
-//         var key = Array(self.keys)[0]
-//         var value = self.pop(key)!
-//         return (key, value)
-//     }
-//
-//     public mutating func popitem() -> (Key, Value)? {
-//         return popItem()
-//     }
-//
-//     public func items() -> [(Key, Value)] {
-//         return zip(self.keys, self.values)
-//     }
-//
-//     public static func fromKeys(sequence: [Key], _ defaultValue: Value) -> [Key : Value]{
-//         var dict = [Key : Value]()
-//         for key in sequence {
-//             dict[key] = defaultValue
-//         }
-//         return dict
-//     }
-//
-//     public static func fromkeys(sequence: [Key], _ defaultValue: Value) -> [Key : Value] {
-//         return fromKeys(sequence, defaultValue)
-//     }
-//
-//     public func copy() -> [Key : Value] {
-//         return self
-//     }
-// }
-//
-// // BUG: has_attr does not work due to the following compiler bug (?)
-// // invalid linkage type for global declaration
-// // %swift.full_heapmetadata* @_TMdC4mainL_3Baz
-// // LLVM ERROR: Broken module found, compilation aborted!
-// // func hasattr(object: Any, searchedPropertyName: String) -> Bool {
-// //     var mirror = reflect(object)
-// //     for var propertyNumber = 0; propertyNumber < mirror.count; propertyNumber++ {
-// //         let (propertyName, propertyMirror) = mirror[propertyNumber]
-// //         // println("\(propertyName) = \(propertyMirror.summary), \(propertyMirror.count) children")
-// //         if propertyName == searchedPropertyName {
-// //             return true
-// //         }
-// //     }
-// //     return false
-// // }
+public extension Dictionary {
+    public func get(key: Key) -> Value? {
+        return self[key]
+    }
+
+    public func hasKey(key: Key) -> Bool {
+        if let _ = self.get(key) {
+            return true
+        }
+        return false
+    }
+
+    public func has_key(key: Key) -> Bool {
+        return hasKey(key)
+    }
+
+    public mutating func pop(key: Key) -> Value? {
+        if let val = self.get(key) {
+            self.removeValueForKey(key)
+            return val
+        }
+        return nil
+    }
+
+    public mutating func popItem() -> (Key, Value)? {
+        if self.count == 0 {
+            return nil
+        }
+        let key = Array(self.keys)[0]
+        let value = self.pop(key)!
+        return (key, value)
+    }
+
+    public mutating func popitem() -> (Key, Value)? {
+        return popItem()
+    }
+
+    // public func items() -> [(Key, Value)] {
+    //    return zip(self.keys, self.values)
+    // }
+
+    public static func fromKeys(sequence: [Key], _ defaultValue: Value) -> [Key : Value]{
+        var dict = [Key : Value]()
+        for key in sequence {
+            dict[key] = defaultValue
+        }
+        return dict
+    }
+
+    public static func fromkeys(sequence: [Key], _ defaultValue: Value) -> [Key : Value] {
+        return fromKeys(sequence, defaultValue)
+    }
+
+    public func copy() -> [Key : Value] {
+        return self
+    }
+}
+
+func hasattr(object: Any, _ searchedPropertyName: String) -> Bool {
+    let mirror = Mirror(reflecting: object)
+    for child in mirror.children {
+        if child.label == searchedPropertyName {
+            return true
+        }
+    }
+    return false
+}
 
 // This could probably be turned into valid Python code if we implemented the StringIO module
 func fileHandleFromString(text: String) -> NSFileHandle {
@@ -713,7 +705,7 @@ if performPythonIncompatibleTests {
     // assert(len(dict<str, str>()) == 0)
 
     // dict.fromkeys
-    // assert(dict.fromkeys(["a", "b", "c"], 1) == ["a": 1, "c": 1, "b": 1])
+    assert(dict.fromkeys(["a", "b", "c"], 1) == ["a": 1, "c": 1, "b": 1])
 
     // dict.items
     // var h = ["foo": 1, "bar": 2, "baz": 3]
@@ -745,13 +737,13 @@ if performPythonIncompatibleTests {
     assert(!float(1.1).isInteger())
 
     // hasattr (commented out due to compiler bug)
-    // class Baz {
-    //     var foo = "foobar"
-    //     var bar = "foobar"
-    // }
-    // var baz = Baz()
-    // assert(hasattr(baz, "foo"))
-    // assert(hasattr(baz, "baz") == false)
+    class Baz {
+        var foo = "foobar"
+        let bar = "foobar"
+    }
+    var baz = Baz()
+    assert(hasattr(baz, "foo"))
+    assert(hasattr(baz, "baz") == false)
 
     // list
     // assert(!list<int>())
@@ -773,12 +765,12 @@ if performPythonIncompatibleTests {
     // assert([1, 2, 3].index(4) == nil)
 
     // list.pop
-    // var mutableArray = [1, 2, 3]
-    // assert(mutableArray.pop() == 3)
-    // assert(mutableArray.pop(0) == 1)
-    // assert(mutableArray.pop(1) == nil)
-    // assert(mutableArray.pop(0) == 2)
-    // assert(mutableArray.pop() == nil)
+    var mutableArray = [1, 2, 3]
+    assert(mutableArray.pop() == 3)
+    assert(mutableArray.pop(0) == 1)
+    assert(mutableArray.pop(1) == nil)
+    assert(mutableArray.pop(0) == 2)
+    assert(mutableArray.pop() == nil)
 
     // list.remove
     // var anotherMutableArray = [3, 2, 1, 3]
@@ -804,20 +796,20 @@ if performPythonIncompatibleTests {
     assert(mapObj["foo"] != nil)
 
     // map.get
-    // assert(mapObj.get("foo") == "foobar")
+    assert(mapObj.get("foo") == "foobar")
 
     // map.has_key/hasKey
-    // assert(mapObj.has_key("foo"))
-    // assert(mapObj.hasKey("foo"))
+    assert(mapObj.has_key("foo"))
+    assert(mapObj.hasKey("foo"))
 
     // map.pop
-    // assert(mapObj.pop("foo") == "foobar")
-    // assert(len(mapObj) == 0)
+    assert(mapObj.pop("foo") == "foobar")
+    assert(len(mapObj) == 0)
 
     // map.popItem
-    // mapObj["foo"] = "bar"
-    // let t = mapObj.popItem()
-    // assert(len(mapObj) == 0)
+    mapObj["foo"] = "bar"
+    let t = mapObj.popItem()
+    assert(len(mapObj) == 0)
 
     // map.clear
     // mapObj.clear()
@@ -825,24 +817,24 @@ if performPythonIncompatibleTests {
     // assert(mapObj["foobar"] == nil)
 
     // open(…) [modes: w, a, r (default)] + fh.write + fh.close + os.path.exists
-    let temporaryTestFile = "/tmp/pythonic-io.txt"
-    var f = open(temporaryTestFile, "w")
-    f.write("foo")
-    f.close()
-    f = open(temporaryTestFile, "a")
-    f.write("bar\n")
-    f.close()
-    f = open(temporaryTestFile)
-    var foundText = false
-    for line in f {
-        if line == "foobar" {
-            foundText = true
-        }
-    }
-    assert(foundText)
-    assert(os.path.exists(temporaryTestFile))
-    os.unlink(temporaryTestFile)
-    assert(!os.path.exists(temporaryTestFile))
+    // let temporaryTestFile = "/tmp/pythonic-io.txt"
+    // var f = open(temporaryTestFile, "w")
+    // f.write("foo")
+    // f.close()
+    // f = open(temporaryTestFile, "a")
+    // f.write("bar\n")
+    // f.close()
+    // f = open(temporaryTestFile)
+    // var foundText = false
+    // for line in f {
+    //     if line == "foobar" {
+    //         foundText = true
+    //     }
+    // }
+    // assert(foundText)
+    // assert(os.path.exists(temporaryTestFile))
+    // os.unlink(temporaryTestFile)
+    // assert(!os.path.exists(temporaryTestFile))
 
     // os.popen3
     var (stdin, stdout, stderr) = os.popen3("/bin/echo foo")
@@ -877,25 +869,25 @@ if performPythonIncompatibleTests {
 
     // set
     var emptyIntSet: Set<Int> = set()
-    assert(!emptyIntSet)
-    // assert(set([1, 2, 3]) + set([3, 4, 5]) == set([1, 2, 3, 4, 5])) // Swift compiler bug: Enabling this test increases compilation time by roughly 1.5 seconds.
-    // assert(set([set([1, 2, 3]), set([1, 2, 3]), set([2, 4, 8])]) != set([set([1, 2, 3]), set([2, 4, 9])])) // Swift compiler bug: Enabling this test increases compilation time by >60 seconds.
-    // assert(set([set([1, 2, 3]), set([1, 2, 3]), set([2, 4, 8])]) == set([set([1, 2, 3]), set([2, 4, 8])])) // Swift compiler bug: Enabling this test increases compilation time by >60 seconds.
-    assert(bool(set([1, 2, 3])))
+    // assert(!emptyIntSet)
+    assert(set([1, 2, 3]) + set([3, 4, 5]) == set([1, 2, 3, 4, 5]))
+    assert(set([set([1, 2, 3]), set([1, 2, 3]), set([2, 4, 8])]) != set([set([1, 2, 3]), set([2, 4, 9])]))
+    assert(set([set([1, 2, 3]), set([1, 2, 3]), set([2, 4, 8])]) == set([set([1, 2, 3]), set([2, 4, 8])]))
+    // assert(bool(set([1, 2, 3])))
     var set1 = Set<Int>()
-    assert(countElements(set1) == 0)
+    assert(len(set1) == 0)
     set1 += 1
-    assert(countElements(set1) == 1)
+    assert(len(set1) == 1)
     assert(set1 == Set([1]))
-    set1.add(2)
+    set1.insert(2) // TODO: Should add Python style set.add(element).
     assert(set1 == Set([1, 2]))
-    set1.add(3)
+    set1.insert(3)
     assert(set1 == Set([1, 2, 3]))
-    set1.add(1)
+    set1.insert(1)
     assert(set1 == Set([1, 2, 3]))
-    set1.add(2)
+    set1.insert(2)
     assert(set1 == Set([1, 2, 3]))
-    set1.add(3)
+    set1.insert(3)
     assert(set1 == Set([1, 2, 3]))
     set1.remove(2)
     assert(set1 == Set([1, 3]))
@@ -927,8 +919,8 @@ if performPythonIncompatibleTests {
     var set8: Set<Int> = [1, 2, 3]
     assert(len(set8) == 3)
     var set9 = Set([0, 1, 2])
-    set9.add(3)
-    set9.add(3)
+    set9.insert(3)
+    set9.insert(3)
     assert(set9 == Set([0, 1, 2, 3]))
     var set10 = Set([2, 4, 8, 16])
     assert(set9 + set10 == Set([0, 1, 2, 3, 4, 8, 16]))
@@ -1010,11 +1002,11 @@ if performPythonIncompatibleTests {
     assert(otherDay - nextDay == timedelta(days: 3, seconds: 60 * 60))
 
     // zip
-    var zipped = zip([3, 4], [9, 16])
-    var (l1, r1) = zipped[0]
-    assert(l1 == 3 && r1 == 9)
-    var (l2, r2) = zipped[1]
-    assert(l2 == 4 && r2 == 16)
+    let zipped = zip([3, 4], [9, 16])
+    // let (l1, r1) = zipped[0]
+    // assert(l1 == 3 && r1 == 9)
+    // let (l2, r2) = zipped[1]
+    // assert(l2 == 4 && r2 == 16)
 
     // file.__iter__ , as in "for line in open(filename)"
     var filehandletest = ""
@@ -1039,16 +1031,16 @@ var performTestsRequiringNetworkConnectivity = false
 if performTestsRequiringNetworkConnectivity &&
     performPythonIncompatibleTests {
     var getTest = requests.get("http://httpbin.org/get")
-    println("GET:")
-    println(getTest.text)
+    print("GET:")
+    print(getTest.text)
     var postDataString = "…"
     var postTestWithString = requests.post("http://httpbin.org/post", postDataString)
-    println("POST(str):")
-    println(postTestWithString.text)
+    print("POST(str):")
+    print(postTestWithString.text)
     var postDataDict = ["…": "…", "key": "value", "number": "123"]
     var postTestWithDict = requests.post("http://httpbin.org/post", postDataDict)
-    println("POST(dict):")
-    println(postTestWithDict.text)
+    print("POST(dict):")
+    print(postTestWithDict.text)
 }
 
 sys.exit()

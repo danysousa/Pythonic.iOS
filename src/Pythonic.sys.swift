@@ -111,7 +111,7 @@ public class sys {
         return "darwin"
     }
 
-    public class func exit(_ exitCode: Int = 0) {
+    public class func exit(exitCode: Int = 0) {
         Darwin.exit(Int32(exitCode))
     }
 }
