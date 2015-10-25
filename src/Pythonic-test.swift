@@ -235,7 +235,6 @@ assert(os.path.exists("/tmp/pythonic-test.txt"))
 os.unlink("/tmp/pythonic-test.txt")
 
 // pow
-// assert(pow(2, 2) == 4)
 assert(pow(2.0, 2.0) == 4.0)
 
 // random.random
@@ -674,15 +673,6 @@ func hasattr(object: Any, _ searchedPropertyName: String) -> Bool {
     return false
 }
 
-// This could probably be turned into valid Python code if we implemented the StringIO module
-func fileHandleFromString(text: String) -> NSFileHandle {
-    let pipe = NSPipe()
-    let input = pipe.fileHandleForWriting
-    input.writeData(text.dataUsingEncoding(NSUTF8StringEncoding)!)
-    input.closeFile()
-    return pipe.fileHandleForReading
-}
-
 let performPythonIncompatibleTests = true
 if performPythonIncompatibleTests {
     // dict (semantics + copy())
@@ -985,7 +975,7 @@ if performPythonIncompatibleTests {
     time.sleep(0.001)
 
     // datetime
-    let day = NSDate.strptime("11/08/14 21:13", "%d/%m/%y %H:%M")
+    let day = datetime.strptime("11/08/14 21:13", "%d/%m/%y %H:%M")
     assert(day.strftime("%a %A %w %d %b %B %m %y %Y") == "Mon Monday 1 11 Aug August 08 14 2014")
     assert(day.strftime("%H %I %p %M %S %f %j %%") == "21 09 pm 13 00 000000 223 %" || day.strftime("%H %I %p %M %S %f %j %%") == "21 09 PM 13 00 000000 223 %")
     assert(day.strftime("It's day number %d; the month is %B.") == "It's day number 11; the month is August.")

@@ -469,3 +469,12 @@ public func %<A0 : CVarArgType, A1 : CVarArgType, A2 : CVarArgType, A3 : CVarArg
 public func %<A0 : CVarArgType, A1 : CVarArgType, A2 : CVarArgType, A3 : CVarArgType, A4 : CVarArgType, A5 : CVarArgType, A6 : CVarArgType>(lhs: String, rhs: (A0, A1, A2, A3, A4, A5, A6)) -> String {
     return String(format: lhs.replace("%s", "%@"), rhs.0, rhs.1, rhs.2, rhs.3, rhs.4, rhs.5, rhs.6)
 }
+
+// This could probably be turned into valid Python code if we implemented the StringIO module
+public func fileHandleFromString(text: String) -> NSFileHandle {
+    let pipe = NSPipe()
+    let input = pipe.fileHandleForWriting
+    input.writeData(text.dataUsingEncoding(NSUTF8StringEncoding)!)
+    input.closeFile()
+    return pipe.fileHandleForReading
+}
