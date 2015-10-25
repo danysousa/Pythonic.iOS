@@ -37,22 +37,22 @@ public class HttpSession {
         let nsUrl = NSURL(string: url)
         let nsMutableUrlRequest = NSMutableURLRequest(URL: nsUrl!, cachePolicy: .ReloadIgnoringLocalCacheData, timeoutInterval: timeout!)
         switch (methodType) {
-            case .GET:
-                nsMutableUrlRequest.HTTPMethod = "GET"
-            case .POST:
-                var stringToPost: String!
-                if let data = data {
-                    stringToPost = HttpUtils.encodeDictionaryAsPercentEscapedString(data)
-                } else if dataAsString != nil {
-                    stringToPost = dataAsString!
-                } else {
-                    assert(false)
-                }
-                nsMutableUrlRequest.HTTPMethod = "POST"
-                let postData: NSData = NSString(string: stringToPost).dataUsingEncoding(NSUTF8StringEncoding)!
-                nsMutableUrlRequest.setValue("\(postData.length)", forHTTPHeaderField: "Content-Length")
-                nsMutableUrlRequest.setValue("application/x-www-form-urlencoded charset=utf-8", forHTTPHeaderField: "Content-Type")
-                nsMutableUrlRequest.HTTPBody = postData
+        case .GET:
+            nsMutableUrlRequest.HTTPMethod = "GET"
+        case .POST:
+            var stringToPost: String!
+            if let data = data {
+                stringToPost = HttpUtils.encodeDictionaryAsPercentEscapedString(data)
+            } else if dataAsString != nil {
+                stringToPost = dataAsString!
+            } else {
+                assert(false)
+            }
+            nsMutableUrlRequest.HTTPMethod = "POST"
+            let postData: NSData = NSString(string: stringToPost).dataUsingEncoding(NSUTF8StringEncoding)!
+            nsMutableUrlRequest.setValue("\(postData.length)", forHTTPHeaderField: "Content-Length")
+            nsMutableUrlRequest.setValue("application/x-www-form-urlencoded charset=utf-8", forHTTPHeaderField: "Content-Type")
+            nsMutableUrlRequest.HTTPBody = postData
         }
         var nsUrlResponse: NSURLResponse?
         var text: String? = nil
