@@ -125,7 +125,7 @@ extension String : BooleanType {
     }
 
     private var HEX_SET: Set<String> {
-        return DIGITS_SET.union(Set(["a", "A", "b", "B", "c", "C", "d", "D", "e", "E", "f", "F"]))
+        return DIGITS_SET + Set(["a", "A", "b", "B", "c", "C", "d", "D", "e", "E", "f", "F"])
     }
 
     private func isComposedOnlyOfCharacterSet(characterSet: Set<String>) -> Bool {
@@ -189,7 +189,7 @@ extension String : BooleanType {
     }
 
     private var ASCII_ALPHA_SET: Set<String> {
-        return ASCII_UPPERCASE_SET.union(ASCII_LOWERCASE_SET)
+        return ASCII_UPPERCASE_SET + ASCII_LOWERCASE_SET
     }
 
     public func isAlpha() -> Bool {
@@ -201,7 +201,7 @@ extension String : BooleanType {
     }
 
     private var ASCII_ALPHANUMERIC_SET: Set<String> {
-        return ASCII_ALPHA_SET.union(DIGITS_SET)
+        return ASCII_ALPHA_SET + DIGITS_SET
     }
 
     public func isAlnum() -> Bool {
