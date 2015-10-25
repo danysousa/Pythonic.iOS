@@ -281,16 +281,6 @@ public func sum(iterable: [Int], _ start: Int = 0) -> Int {
     return iterable.reduce(start, combine: { $0 + $1 })
 }
 
-public func zip<S1 : SequenceType, S2 : SequenceType>(s1: S1, _ s2: S2) -> [(S1.Generator.Element, S2.Generator.Element)] {
-    return Array(Swift.zip(s1, s2))
-}
-
-extension Zip2Sequence {
-    subscript(i: Int) -> (Stream1.Element, Stream2.Element) {
-        return Array(self)[i]
-    }
-}
-
 public typealias bool = Swift.Bool
 public typealias long = Swift.Int
 public typealias object = NSObject

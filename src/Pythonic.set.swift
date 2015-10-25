@@ -33,7 +33,7 @@ extension Set: BooleanType, Comparable {
     public func isdisjoint(other: Set<Element>) -> Bool {
         return self.isDisjointWith(other)
     }
-    
+
     // Implement CollectionType
     public mutating func append(element: Element) {
         self.add(element)

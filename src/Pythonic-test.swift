@@ -590,7 +590,7 @@ assert(list(xrange(1, 10)) == [1, 2, 3, 4, 5, 6, 7, 8, 9])
 extension Array {
     mutating func pop(index: Int?) -> Array.Element? {
         let i = index ?? self.count - 1
-        guard self.count == 0 || i < 0 || i >= self.count else {
+        guard self.count > 0 && i >= 0 && i < self.count else {
             return nil
         }
         defer { self.removeAtIndex(i) }
