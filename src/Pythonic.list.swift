@@ -21,12 +21,12 @@
 
 public typealias list = Swift.Array
 
-// // TODO: Add negative indexing.
-// extension Array : BooleanType {
-//     public var boolValue: Bool {
-//         return len(self) != 0
-//     }
-//
+extension Array : BooleanType {
+    public var boolValue: Bool {
+        return len(self) != 0
+    }
+}
+
 //     public mutating func clear() {
 //         self.removeAll()
 //     }
@@ -60,4 +60,3 @@ public typealias list = Swift.Array
 //     }
 //
 //     // NOTE: pop(…) implemented directly in Pythonic-test.swift to work around compiler bug.
-// }
