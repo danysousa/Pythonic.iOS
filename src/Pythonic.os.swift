@@ -202,8 +202,10 @@ public class os {
     }
 
     public class func unlink(path: String) {
-        let manager = NSFileManager.defaultManager()
-        try! manager.removeItemAtPath(path)
+        do {
+            try NSFileManager.defaultManager().removeItemAtPath(path)
+        } catch _ {
+        }
     }
 
     public class func system(command: String) -> Int {

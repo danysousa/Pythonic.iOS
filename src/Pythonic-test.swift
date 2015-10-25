@@ -590,12 +590,11 @@ assert(list(xrange(1, 10)) == [1, 2, 3, 4, 5, 6, 7, 8, 9])
 extension Array {
     mutating func pop(index: Int?) -> Array.Element? {
         let i = index ?? self.count - 1
-        if self.count == 0 || i < 0 || i >= self.count {
+        guard self.count == 0 || i < 0 || i >= self.count else {
             return nil
         }
-        let ret = self[i]
-        self.removeAtIndex(i)
-        return ret
+        defer { self.removeAtIndex(i) }
+        return self[i]
     }
 
     mutating func pop() -> Array.Element? {
@@ -1030,15 +1029,15 @@ if performPythonIncompatibleTests {
 var performTestsRequiringNetworkConnectivity = false
 if performTestsRequiringNetworkConnectivity &&
     performPythonIncompatibleTests {
-    var getTest = requests.get("http://httpbin.org/get")
+    let getTest = requests.get("http://httpbin.org/get")
     print("GET:")
     print(getTest.text)
-    var postDataString = "…"
-    var postTestWithString = requests.post("http://httpbin.org/post", postDataString)
+    let postDataString = "…"
+    let postTestWithString = requests.post("http://httpbin.org/post", postDataString)
     print("POST(str):")
     print(postTestWithString.text)
-    var postDataDict = ["…": "…", "key": "value", "number": "123"]
-    var postTestWithDict = requests.post("http://httpbin.org/post", postDataDict)
+    let postDataDict = ["…": "…", "key": "value", "number": "123"]
+    let postTestWithDict = requests.post("http://httpbin.org/post", postDataDict)
     print("POST(dict):")
     print(postTestWithDict.text)
 }

@@ -215,7 +215,7 @@ public func ord(s: String) -> Int {
     return Int((s as NSString).characterAtIndex(0))
 }
 
-public func pow(x: Int, y: Int) -> Int {
+public func pow(x: Int, _ y: Int) -> Int {
     return Int(math.pow(Double(x), Double(y)))
 }
 
@@ -257,7 +257,7 @@ public func rawInput(prompt: String) -> String {
     }
     let stdin = NSFileHandle.fileHandleWithStandardInput()
     let data = stdin.availableData
-    let inputString: String = NSString(data: data, encoding: NSUTF8StringEncoding)! as String
+    let inputString = NSString(data: data, encoding: NSUTF8StringEncoding)! as String
     return inputString.rstrip()
 }
 
@@ -281,9 +281,15 @@ public func sum(iterable: [Int], _ start: Int = 0) -> Int {
     return iterable.reduce(start, combine: { $0 + $1 })
 }
 
-// public func zip<S1 : SequenceType, S2 : SequenceType>(s1: S1, s2: S2) -> [(S1.Generator.Element, S2.Generator.Element)] {
-//     return Array(Swift.zip(s1, s2))
-// }
+public func zip<S1 : SequenceType, S2 : SequenceType>(s1: S1, _ s2: S2) -> [(S1.Generator.Element, S2.Generator.Element)] {
+    return Array(Swift.zip(s1, s2))
+}
+
+extension Zip2Sequence {
+    subscript(i: Int) -> (Stream1.Element, Stream2.Element) {
+        return Array(self)[i]
+    }
+}
 
 public typealias bool = Swift.Bool
 public typealias long = Swift.Int

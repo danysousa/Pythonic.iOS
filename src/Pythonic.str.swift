@@ -29,7 +29,7 @@
 //   isspace: Added.
 //   istitle: Added.
 //   isupper: Added.
-//   join: Already in Swift.
+//   join: Added.
 //   ljust: Added.
 //   lower: Added.
 //   lstrip: Added.
@@ -81,6 +81,10 @@ extension String : BooleanType {
 
     public func endswith(suffix: String) -> Bool {
         return self.endsWith(suffix)
+    }
+
+    public func join<S : SequenceType where S.Generator.Element == String>(strings: S) -> String {
+        return strings.joinWithSeparator(self)
     }
 
     public func lower() -> String {
@@ -261,20 +265,20 @@ extension String : BooleanType {
     }
 
     private func _sliceIndexes(arg1: Int?, _ arg2: Int?) -> (Int, Int) {
-        let l = len(self.characters)
-        var (start, end) = (0, l)
+        let length = len(self)
+        var (start, end) = (0, length)
         if let arg1 = arg1 {
             if arg1 < 0 {
-                start = max(l + arg1, 0)
+                start = max(length + arg1, 0)
             } else {
-                start = min(arg1, l)
+                start = min(arg1, length)
             }
         }
         if let arg2 = arg2 {
             if arg2 < 0 {
-                end = max(l + arg2, 0)
+                end = max(length + arg2, 0)
             } else {
-                end = min(arg2, l)
+                end = min(arg2, length)
             }
         }
         if start > end {
@@ -317,14 +321,12 @@ extension String : BooleanType {
 
     /// Split the string at the first occurrence of sep, and return a 3-tuple containing the part before the separator, the separator itself, and the part after the separator. If the separator is not found, return a 3-tuple containing the string itself, followed by two empty strings.
     public func partition(separator: String) -> (String, String, String) {
-        if let separatorRange = self.rangeOfString(separator) {
-            if !separatorRange.isEmpty {
-                let firstpart = self[self.startIndex ..< separatorRange.startIndex]
-                let secondpart = self[separatorRange.endIndex ..< self.endIndex]
-                return (firstpart, separator, secondpart)
-            }
+        guard let separatorRange = self.rangeOfString(separator) where !separatorRange.isEmpty else {
+            return (self,"","")
         }
-        return (self,"","")
+        let firstpart = self[self.startIndex ..< separatorRange.startIndex]
+        let secondpart = self[separatorRange.endIndex ..< self.endIndex]
+        return (firstpart, separator, secondpart)
     }
 
     // justification

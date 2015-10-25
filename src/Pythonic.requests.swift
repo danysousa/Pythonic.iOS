@@ -55,15 +55,16 @@ public class HttpSession {
             nsMutableUrlRequest.HTTPBody = postData
         }
         var nsUrlResponse: NSURLResponse?
-        let nsData = try? NSURLConnection.sendSynchronousRequest(nsMutableUrlRequest, returningResponse: &nsUrlResponse)
-        // TODO: Proper error checking. Read HTTP status code.
-        var text: String?
+        var text: String? = nil
         var ok = false
-        if let nsData = nsData {
-            text = String(NSString(data: nsData, encoding: NSUTF8StringEncoding))
+        do {
+            // TODO: Proper error checking. Read HTTP status code.
+            let nsData = try NSURLConnection.sendSynchronousRequest(nsMutableUrlRequest, returningResponse: &nsUrlResponse)
+            text = NSString(data: nsData, encoding: NSUTF8StringEncoding) as? String
             ok = true
-        }
+        } catch _ {}
         return HttpResponse(ok: ok, text: text)
+
     }
 
     public func get(url: String, params: [String : String]? = nil, auth: (String, String)? = nil, headers: [String : String]? = nil, timeout: Double? = nil, cookies: [String : String]? = nil) -> HttpResponse {

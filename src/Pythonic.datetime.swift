@@ -75,6 +75,8 @@ public func +(lhs: NSDate, rhs: NSTimeInterval) -> NSDate {
     return lhs.dateByAddingTimeInterval(rhs)
 }
 
+extension NSDate : Comparable { }
+
 public extension NSTimeInterval {
     public init(days: Int = 0, seconds: Int = 0, microseconds: Int = 0, milliseconds: Int = 0, minutes: Int = 0, hours: Int = 0, weeks: Int = 0) {
         let seconds = (((weeks * 7 + days) * 24 + hours) * 60 + minutes) * 60 + seconds
