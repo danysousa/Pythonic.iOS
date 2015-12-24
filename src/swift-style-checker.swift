@@ -1,4 +1,4 @@
-#!/usr/bin/env xcrun swift -I .
+#!/usr/bin/env swift -I .
 
 // Usage: swift-style-checker.swift [FILE...]
 //

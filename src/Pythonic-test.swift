@@ -1,4 +1,4 @@
-#!/usr/bin/env xcrun swift -I .
+#!/usr/bin/env swift -I .
 
 import Pythonic
 
