@@ -35,10 +35,10 @@
 //   lstrip: Added.
 //   partition: Added.
 //   replace: Added.
-//   rfind: TODO.
-//   rindex: TODO.
+//   rfind: Added.
+//   rindex: Added.
 //   rjust: Added.
-//   rpartition: TODO.
+//   rpartition: Added.
 //   rsplit: Added.
 //   rstrip: Added.
 //   split: Added.
@@ -329,6 +329,22 @@ extension String : BooleanType {
         return (firstpart, separator, secondpart)
     }
 
+    // Split the string at the last occurrence of sep, and return a 3-tuple containing the part before the separator, the separator itself, and the part after the separator. If the separator is not found, return a 3-tuple containing two empty strings, followed by the string itself.
+    public func rpartition(separator: String) -> (String, String, String) {
+        let rindex = self.rindex(separator)
+        if rindex == -1 {
+            return ("", "", self)
+        }
+        let array = self.split(separator)
+        if array.count == 2 {
+            return (array.first!, separator, array.last!)
+        } else {
+            let rindex = self.startIndex.advancedBy(rindex)
+            let firstpart = self[self.startIndex..<rindex]
+            return (firstpart, separator, array.last!)
+        }
+    }
+
     // justification
     public func ljust(width: Int, _ fillchar: Character = " ") -> String {
         let length = len(self.characters)
@@ -388,8 +404,34 @@ extension String : BooleanType {
         return -1
     }
 
+    public func rfind(sub: String) -> Int {
+        if len(sub) == 1 {
+            var rindex = self.endIndex
+            for character in self.characters.reverse() {
+                rindex = rindex.predecessor()
+                if character == Character(sub) {
+                    return self.startIndex.distanceTo(rindex)
+                }
+            }
+        }
+        if self.containsString(sub) {
+            var copy = self
+            let array = self.split(sub)
+            if let range = copy.rangeOfString(array.last!) {
+                copy.removeRange(range)
+            }
+            let rindex = copy.endIndex.advancedBy(-len(sub))
+            return self.startIndex.distanceTo(rindex)
+        }
+        return -1
+    }
+
     public func index(sub: String) -> Int {
         return self.find(sub)
+    }
+
+    public func rindex(sub: String) -> Int {
+        return self.rfind(sub)
     }
 
     public func zfill(length: Int) -> String {
