@@ -494,10 +494,34 @@ assert("\nthe second part".partition("\n") == ("", "\n", "the second part"))
 // str.replace
 assert("fzzbar".replace("z", "o") == "foobar")
 
+// str.rfind
+// assert("Foo Bar Baz Baz Qux".rfind("fubar") == -1) - Python raises ValueError
+assert("Foo Bar Baz Baz Qux".rfind("Bar") == 4)
+assert("Foo Bar Baz Baz Qux".rfind("Baz") == 12)
+// assert("Foo Bar Baz Baz Qux".rfind("y") == -1) - Python raises ValueError
+assert("Foo Bar Baz Baz Qux".rfind("Q") == 16)
+assert("Foo Bar Baz Baz Qux".rfind("z") == 14)
+
+// str.rindex
+// assert("Foo Bar Baz Baz Qux".rindex("fubar") == -1) - Python raises ValueError
+assert("Foo Bar Baz Baz Qux".rindex("Bar") == 4)
+assert("Foo Bar Baz Baz Qux".rindex("Baz") == 12)
+// assert("Foo Bar Baz Baz Qux".rindex("y") == -1) - Python raises ValueError
+assert("Foo Bar Baz Baz Qux".rindex("Q") == 16)
+assert("Foo Bar Baz Baz Qux".rindex("z") == 14)
+
 // str.rjust
 assert("foo".rjust(5) == "  foo")
 assert("foo".rjust(10, "-") == "-------foo")
 assert("foobar".rjust(4) == "foobar")
+
+// str.rpartition
+assert("Foo Bar Baz Baz Qux".rpartition("fubar") == ("", "", "Foo Bar Baz Baz Qux"))
+assert("Foo Bar Baz Baz Qux".rpartition("Bar") == ("Foo ", "Bar", " Baz Baz Qux"))
+assert("Foo Bar Baz Baz Qux".rpartition("Baz") == ("Foo Bar Baz ", "Baz", " Qux"))
+assert("Foo Bar Baz Baz Qux".rpartition("y") == ("", "", "Foo Bar Baz Baz Qux"))
+assert("Foo Bar Baz Baz Qux".rpartition("Q") == ("Foo Bar Baz Baz ", "Q", "ux"))
+assert("Foo Bar Baz Baz Qux".rpartition("z") == ("Foo Bar Baz Ba", "z", " Qux"))
 
 // str.rstrip
 assert(" \n\t foobar \n\t ".rstrip() == " \n\t foobar")
