@@ -301,11 +301,12 @@ extension String : BooleanType {
     }
 
     /// Get a single-character string by Int index.
-    public subscript (var index: Int) -> String {
-        if index < 0 {
-            index += len(self.characters)
+    public subscript (index: Int) -> String {
+        var i = index
+        if i < 0 {
+            i += len(self.characters)
         }
-        return self[index...index]
+        return self[i...i]
     }
 
     /// Get a substring using an integer range.
@@ -315,7 +316,7 @@ extension String : BooleanType {
     /// * str[2..<4]
     /// * str[2...4]
     public subscript (range: Range<Int>) -> String {
-        let range = Range(start: self.startIndex.advancedBy(range.startIndex), end: self.startIndex.advancedBy(range.endIndex))
+        let range = self.startIndex.advancedBy(range.startIndex)..<self.startIndex.advancedBy(range.endIndex)
         return self.substringWithRange(range)
     }
 

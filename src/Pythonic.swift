@@ -76,7 +76,7 @@
 //   xrange
 //   zip: Added.
 
-@exported import Foundation
+@_exported import Foundation
 
 infix operator ** {
     associativity right precedence 160
