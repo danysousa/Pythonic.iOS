@@ -131,9 +131,9 @@ assert([1, 2, 2, 3, 3, 3].count(3) == 3)
 assert([1, 2, 3].count(4) == 0)
 
 // list.index
-// assert(["foo", "bar", "baz"].index("baz") == 2)
-// assert([1, 2, 3].index(3) == 2)
-// assert(list(["a", "b", "c"]).index("b") == 1)
+assert(["foo", "bar", "baz"].index("baz") == 2)
+assert([1, 2, 3].index(3) == 2)
+assert(list(["a", "b", "c"]).index("b") == 1)
 
 // literals
 assert(0b0 == 0)
@@ -767,20 +767,20 @@ if performPythonIncompatibleTests {
     // assert(!list<int>())
 
     // list.count + list.index + list.reverseInPlace
-    // var arr: [String] = ["foo", "bar", "baz", "foo"]
-    // assert(arr.count("foo") == 2)
-    // arr.remove("foo")
-    // assert(arr.count("foo") == 1)
-    // assert(arr.index("bar") == 0)
-    // arr.append("hello")
-    // assert(arr.index("hello") == 3)
-    // arr.reverseInPlace()
-    // assert(arr.index("hello") == 0)
+    var arr: [String] = ["foo", "bar", "baz", "foo"]
+    assert(arr.count("foo") == 2)
+    arr.remove("foo")
+    assert(arr.count("foo") == 1)
+    assert(arr.index("bar") == 0)
+    arr.append("hello")
+    assert(arr.index("hello") == 3)
+    arr.reverseInPlace()
+    assert(arr.index("hello") == 0)
 
     // list.index
-    // assert(["foo", "bar", "baz"].index(1) == nil)
-    // assert([1, 2, 3].index("foo") == nil)
-    // assert([1, 2, 3].index(4) == nil)
+    assert(["foo", "bar", "baz"].index(1) == nil)
+    assert([1, 2, 3].index("foo") == nil)
+    assert([1, 2, 3].index(4) == nil)
 
     // list.pop
     var mutableArray = [1, 2, 3]
@@ -791,17 +791,17 @@ if performPythonIncompatibleTests {
     assert(mutableArray.pop() == nil)
 
     // list.remove
-    // var anotherMutableArray = [3, 2, 1, 3]
-    // anotherMutableArray.remove(0)
-    // assert(anotherMutableArray == [3, 2, 1, 3])
-    // anotherMutableArray.remove(2)
-    // assert(anotherMutableArray == [3, 1, 3])
-    // anotherMutableArray.remove(1)
-    // assert(anotherMutableArray == [3, 3])
-    // anotherMutableArray.remove(3)
-    // assert(anotherMutableArray == [3])
-    // anotherMutableArray.remove(3)
-    // assert(anotherMutableArray == [])
+    var anotherMutableArray = [3, 2, 1, 3]
+    anotherMutableArray.remove(0)
+    assert(anotherMutableArray == [3, 2, 1, 3])
+    anotherMutableArray.remove(2)
+    assert(anotherMutableArray == [3, 1, 3])
+    anotherMutableArray.remove(1)
+    assert(anotherMutableArray == [3, 3])
+    anotherMutableArray.remove(3)
+    assert(anotherMutableArray == [3])
+    anotherMutableArray.remove(3)
+    assert(anotherMutableArray == [])
 
     // len
     assert(len(list<str>()) == 0)
