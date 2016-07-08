@@ -17,7 +17,7 @@ extension Double: BooleanType {
     }
 }
 
-extension Double {
+public extension Double {
     public func isInteger() -> Bool {
         return math.floor(self) == self
     }
@@ -33,7 +33,7 @@ extension Float: BooleanType {
     }
 }
 
-extension Float {
+public extension Float {
     public func isInteger() -> Bool {
         return math.floor(Double(self)) == Double(self)
     }

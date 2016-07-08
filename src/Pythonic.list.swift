@@ -27,7 +27,7 @@ extension Array: BooleanType {
     }
 }
 
-extension Array {
+public extension Array {
     public mutating func clear() {
         self.removeAll()
     }

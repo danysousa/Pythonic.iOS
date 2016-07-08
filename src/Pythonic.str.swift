@@ -59,7 +59,7 @@ extension String: BooleanType {
     }
 }
 
-extension String {
+public extension String {
     public func count(c: Character) -> Int {
         var counter = 0
         for ch in self.characters {

@@ -12,7 +12,22 @@
 //
 //   assert(Set([1, 1, 1, 2, 2, 3, 3, 4]) == Set([1, 2, 3, 4]))
 
-extension Set: BooleanType, Comparable {
+extension Set: BooleanType {
+    // Implement LogicValue (allows for "if set { … }")
+    public var boolValue: Bool {
+        return self.count != 0
+    }
+}
+
+extension Set: Comparable {
+}
+
+// Implement Comparable (allows for "if set1 < set2 { … }")
+public func <<T: Hashable>(lhs: Set<T>, rhs: Set<T>) -> Bool {
+    return lhs.isStrictSubsetOf(rhs)
+}
+
+public extension Set {
     public mutating func add(element: Element) {
         self.insert(element)
     }
@@ -38,16 +53,6 @@ extension Set: BooleanType, Comparable {
     public mutating func append(element: Element) {
         self.add(element)
     }
-
-    // Implement LogicValue (allows for "if set { … }")
-    public var boolValue: Bool {
-        return self.count != 0
-    }
-}
-
-// Implement Comparable (allows for "if set1 < set2 { … }")
-public func <<T: Hashable>(lhs: Set<T>, rhs: Set<T>) -> Bool {
-    return lhs.isStrictSubsetOf(rhs)
 }
 
 public func +<T: Hashable>(lhs: Set<T>, rhs: Set<T>) -> Set<T> {
