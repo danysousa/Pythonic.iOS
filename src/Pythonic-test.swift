@@ -342,11 +342,11 @@ assert(set([1, 1, 1, 2, 2, 3, 3, 4]) == set([1, 2, 3, 4]))
 assert(set([1, 2, 3]) & set([3, 4, 5]) == set([3]))
 assert(set([1, 2, 3]) - set([3, 4, 5]) == set([1, 2]))
 assert(set([1, 2, 3]) | set([3, 4, 5]) == set([1, 2, 3, 4, 5]))
-// assert(bool(set([1, 2, 3])))
+assert(bool(set([1, 2, 3])))
 assert(set([1, 2]) < set([1, 2, 3]))
-// assert(bool(set([1, 2])))
+assert(bool(set([1, 2])))
 assert(set([1]) < set([1, 2, 3]))
-// assert(bool(set([1])))
+assert(bool(set([1])))
 
 // set.isdisjoint
 assert(!set([1, 2, 3]).isdisjoint(set([3, 4, 5])))
@@ -802,7 +802,7 @@ if performPythonIncompatibleTests {
     assert(set([1, 2, 3]) + set([3, 4, 5]) == set([1, 2, 3, 4, 5]))
     assert(set([set([1, 2, 3]), set([1, 2, 3]), set([2, 4, 8])]) != set([set([1, 2, 3]), set([2, 4, 9])]))
     assert(set([set([1, 2, 3]), set([1, 2, 3]), set([2, 4, 8])]) == set([set([1, 2, 3]), set([2, 4, 8])]))
-    // assert(bool(set([1, 2, 3])))
+    assert(bool(set([1, 2, 3])))
     var set1 = Set<Int>()
     assert(len(set1) == 0)
     set1 += 1
