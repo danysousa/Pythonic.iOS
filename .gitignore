@@ -8,3 +8,5 @@ Pythonic.swiftmodule
 libPythonic.dylib
 pythonic-test
 .DS_Store
+*~
+*#
