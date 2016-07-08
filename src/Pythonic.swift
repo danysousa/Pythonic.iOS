@@ -478,3 +478,13 @@ public func fileHandleFromString(text: String) -> NSFileHandle {
     input.closeFile()
     return pipe.fileHandleForReading
 }
+
+public func hasattr(object: Any, _ searchedPropertyName: String) -> Bool {
+    let mirror = Mirror(reflecting: object)
+    for child in mirror.children {
+        if child.label == searchedPropertyName {
+            return true
+        }
+    }
+    return false
+}

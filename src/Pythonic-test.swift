@@ -625,16 +625,6 @@ extension Array {
     }
 }
 
-func hasattr(object: Any, _ searchedPropertyName: String) -> Bool {
-    let mirror = Mirror(reflecting: object)
-    for child in mirror.children {
-        if child.label == searchedPropertyName {
-            return true
-        }
-    }
-    return false
-}
-
 let performPythonIncompatibleTests = true
 if performPythonIncompatibleTests {
     // dict (semantics + copy())
