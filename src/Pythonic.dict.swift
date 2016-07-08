@@ -29,24 +29,17 @@
 
 public typealias dict = Swift.Dictionary
 
-// extension Dictionary : BooleanType {
-//     public var boolValue: Bool {
-//         return len(self) != 0
-//     }
-//     // NOTE: get(…) implemented directly in Pythonic-test.swift to work around compiler bug.
-//     // NOTE: hasKey(…) implemented directly in Pythonic-test.swift to work around compiler bug.
-//     // NOTE: items() implemented directly in Pythonic-test.swift to work around compiler bug.
-//     // NOTE: pop(…) implemented directly in Pythonic-test.swift to work around compiler bug.
-//     // NOTE: popItem(…) implemented directly in Pythonic-test.swift to work around compiler bug.
-// }
-
-// public extension Dictionary {
-//     public mutating func clear() {
-//         self.removeAll()
-//     }
-// }
+extension Dictionary : BooleanType {
+    public var boolValue: Bool {
+        return len(self) != 0
+    }
+}
 
 public extension Dictionary {
+    public mutating func clear() {
+        self.removeAll()
+    }
+
     public func get(key: Key) -> Value? {
         return self[key]
     }

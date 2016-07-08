@@ -631,9 +631,15 @@ if performPythonIncompatibleTests {
     assert(dict3["bar"] != nil)
 
     // dict
-    // assert(!dict<str, str>())
+    assert(!dict<str, str>())
     assert(bool(["foo": "bar"]))
-    // assert(len(dict<str, str>()) == 0)
+    assert(len(dict<str, str>()) == 0)
+
+    // dict.clear
+    var dict4 = ["foo": "bar"]
+    assert(bool(dict4))
+    dict4.clear()
+    assert(!bool(dict4))
 
     // dict.fromkeys
     assert(dict.fromkeys(["a", "b", "c"], 1) == ["a": 1, "c": 1, "b": 1])
