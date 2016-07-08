@@ -348,6 +348,9 @@ assert(bool(set([1, 2])))
 assert(set([1]) < set([1, 2, 3]))
 assert(bool(set([1])))
 
+// set + split
+assert(set("foo bar".split(" ")) == set(["foo", "bar"]))
+
 // set.isdisjoint
 assert(!set([1, 2, 3]).isdisjoint(set([3, 4, 5])))
 assert(set([1, 2, 3]).isdisjoint(set([4, 8, 16])))
