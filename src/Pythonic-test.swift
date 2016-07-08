@@ -625,68 +625,6 @@ extension Array {
     }
 }
 
-public extension Dictionary {
-    public func get(key: Key) -> Value? {
-        return self[key]
-    }
-
-    public func hasKey(key: Key) -> Bool {
-        if let _ = self.get(key) {
-            return true
-        }
-        return false
-    }
-
-    public func has_key(key: Key) -> Bool {
-        return hasKey(key)
-    }
-
-    public mutating func pop(key: Key) -> Value? {
-        if let val = self.get(key) {
-            self.removeValueForKey(key)
-            return val
-        }
-        return nil
-    }
-
-    public mutating func popItem() -> (Key, Value)? {
-        if self.count == 0 {
-            return nil
-        }
-        let key = Array(self.keys)[0]
-        let value = self.pop(key)!
-        return (key, value)
-    }
-
-    public mutating func popitem() -> (Key, Value)? {
-        return popItem()
-    }
-
-    public func items() -> [(Key, Value)] {
-        var ret: [(Key, Value)] = []
-        for (key, value) in zip(self.keys, self.values) {
-            ret.append((key, value))
-        }
-        return ret
-    }
-
-    public static func fromKeys(sequence: [Key], _ defaultValue: Value) -> [Key : Value]{
-        var dict = [Key : Value]()
-        for key in sequence {
-            dict[key] = defaultValue
-        }
-        return dict
-    }
-
-    public static func fromkeys(sequence: [Key], _ defaultValue: Value) -> [Key : Value] {
-        return fromKeys(sequence, defaultValue)
-    }
-
-    public func copy() -> [Key : Value] {
-        return self
-    }
-}
-
 func hasattr(object: Any, _ searchedPropertyName: String) -> Bool {
     let mirror = Mirror(reflecting: object)
     for child in mirror.children {
