@@ -37,12 +37,16 @@ extension Array : BooleanType {
 //         self.extend(newArrayElements)
 //     }
 //
-//     public func count<T where T : Equatable>(element: T) -> Int {
-//         if element is Array.Element {
-//             return Swift.countElements(Swift.filter(Swift.unsafeBitCast(self, [T].self), { $0 == element }))
-//         }
-//         return 0
-//     }
+
+extension Array {
+    public func count<T where T : Equatable>(element: T) -> Int {
+        if element is Array.Element {
+            return Swift.unsafeBitCast(self, [T].self).filter({ $0 == element }).count
+        }
+        return 0
+    }
+}
+
 //
 //     public mutating func remove<T where T : Equatable>(element: T) {
 //         if let i = index(element) {
