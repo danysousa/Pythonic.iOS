@@ -608,23 +608,6 @@ assert(len(uuid.uuid4().hex) == 32)
 assert(list(xrange(10)) == [0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
 assert(list(xrange(1, 10)) == [1, 2, 3, 4, 5, 6, 7, 8, 9])
 
-// BUG: Due to a strange compiler bug (?) the following cannot be imported. Must be in same source file.
-//      Same as http://www.openradar.me/17500497 ?
-extension Array {
-    mutating func pop(index: Int?) -> Array.Element? {
-        let i = index ?? self.count - 1
-        guard self.count > 0 && i >= 0 && i < self.count else {
-            return nil
-        }
-        defer { self.removeAtIndex(i) }
-        return self[i]
-    }
-
-    mutating func pop() -> Array.Element? {
-        return self.pop(nil)
-    }
-}
-
 let performPythonIncompatibleTests = true
 if performPythonIncompatibleTests {
     // dict (semantics + copy())

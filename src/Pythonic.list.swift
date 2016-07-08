@@ -59,6 +59,17 @@ extension Array {
         }
         return nil
     }
-}
 
-// NOTE: pop(…) implemented directly in Pythonic-test.swift to work around compiler bug.
+    public mutating func pop(index: Int?) -> Array.Element? {
+        let i = index ?? self.count - 1
+        guard self.count > 0 && i >= 0 && i < self.count else {
+            return nil
+        }
+        defer { self.removeAtIndex(i) }
+        return self[i]
+    }
+
+    public mutating func pop() -> Array.Element? {
+        return self.pop(nil)
+    }
+}
