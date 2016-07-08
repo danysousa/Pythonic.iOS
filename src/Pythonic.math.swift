@@ -58,7 +58,7 @@
 
 import Darwin
 
-public protocol FloatArithmetic : FloatLiteralConvertible {
+public protocol FloatArithmetic: FloatLiteralConvertible {
     func +(lhs: Self, rhs: Self) -> Self
     func -(lhs: Self, rhs: Self) -> Self
     func *(lhs: Self, rhs: Self) -> Self
@@ -68,10 +68,10 @@ public protocol FloatArithmetic : FloatLiteralConvertible {
     init(_ value: Float)
 }
 
-extension Float : FloatArithmetic {
+extension Float: FloatArithmetic {
 }
 
-extension Double : FloatArithmetic {
+extension Double: FloatArithmetic {
 }
 
 public class math {

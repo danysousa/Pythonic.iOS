@@ -30,9 +30,9 @@ private class HttpUtils {
 }
 
 public class HttpSession {
-    private var cookies: [String : String] = [:]
+    private var cookies: [String: String] = [:]
 
-    private func makeHttpRequest(methodType: HttpMethod, url: String, data: [String : String]? = nil, dataAsString: String? = nil, params: [String : String]? = nil, auth: (String, String)? = nil, headers: [String : String]? = nil, timeout: Double? = 600, cookies: [String : String]? = nil) -> HttpResponse {
+    private func makeHttpRequest(methodType: HttpMethod, url: String, data: [String: String]? = nil, dataAsString: String? = nil, params: [String: String]? = nil, auth: (String, String)? = nil, headers: [String: String]? = nil, timeout: Double? = 600, cookies: [String: String]? = nil) -> HttpResponse {
         // TODO: Handle all options.
         let nsUrl = NSURL(string: url)
         let nsMutableUrlRequest = NSMutableURLRequest(URL: nsUrl!, cachePolicy: .ReloadIgnoringLocalCacheData, timeoutInterval: timeout!)
@@ -67,15 +67,15 @@ public class HttpSession {
 
     }
 
-    public func get(url: String, params: [String : String]? = nil, auth: (String, String)? = nil, headers: [String : String]? = nil, timeout: Double? = nil, cookies: [String : String]? = nil) -> HttpResponse {
+    public func get(url: String, params: [String: String]? = nil, auth: (String, String)? = nil, headers: [String: String]? = nil, timeout: Double? = nil, cookies: [String: String]? = nil) -> HttpResponse {
         return makeHttpRequest(.GET, url: url, params: params, auth: auth, headers: headers, timeout: timeout, cookies: cookies)
     }
 
-    public func post(url: String, _ data: [String : String], auth: (String, String)? = nil, headers: [String : String]? = nil, timeout: Double? = nil, cookies: [String : String]? = nil) -> HttpResponse {
+    public func post(url: String, _ data: [String: String], auth: (String, String)? = nil, headers: [String: String]? = nil, timeout: Double? = nil, cookies: [String: String]? = nil) -> HttpResponse {
         return makeHttpRequest(.POST, url: url, data: data, auth: auth, headers: headers, timeout: timeout, cookies: cookies)
     }
 
-    public func post(url: String, _ data: String, auth: (String, String)? = nil, headers: [String : String]? = nil, timeout: Double? = nil, cookies: [String : String]? = nil) -> HttpResponse {
+    public func post(url: String, _ data: String, auth: (String, String)? = nil, headers: [String: String]? = nil, timeout: Double? = nil, cookies: [String: String]? = nil) -> HttpResponse {
         return makeHttpRequest(.POST, url: url, dataAsString: data, auth: auth, headers: headers, timeout: timeout, cookies: cookies)
     }
 }
@@ -89,11 +89,11 @@ public class requests {
         return Session()
     }
 
-    public class func get(url: String, params: [String: String]? = nil, auth: (String, String)? = nil, headers: [String : String]? = nil, timeout: Double? = nil, cookies: [String : String]? = nil) -> HttpResponse {
+    public class func get(url: String, params: [String: String]? = nil, auth: (String, String)? = nil, headers: [String: String]? = nil, timeout: Double? = nil, cookies: [String: String]? = nil) -> HttpResponse {
         return HttpSession().get(url, params: params, auth: auth, headers: headers, timeout: timeout, cookies: cookies)
     }
 
-    public class func post(url: String, data: [String: String], auth: (String, String)? = nil, headers: [String : String]? = nil, timeout: Double? = nil, cookies: [String : String]? = nil) -> HttpResponse {
+    public class func post(url: String, data: [String: String], auth: (String, String)? = nil, headers: [String: String]? = nil, timeout: Double? = nil, cookies: [String: String]? = nil) -> HttpResponse {
         return HttpSession().post(url, data, auth: auth, headers: headers, timeout: timeout, cookies: cookies)
     }
 

@@ -53,11 +53,13 @@
 
 public typealias str = Swift.String
 
-extension String : BooleanType {
+extension String: BooleanType {
     public var boolValue: Bool {
         return len(self.characters) != 0
     }
+}
 
+extension String {
     public func count(c: Character) -> Int {
         var counter = 0
         for ch in self.characters {
@@ -83,7 +85,7 @@ extension String : BooleanType {
         return self.endsWith(suffix)
     }
 
-    public func join<S : SequenceType where S.Generator.Element == String>(strings: S) -> String {
+    public func join<S: SequenceType where S.Generator.Element == String>(strings: S) -> String {
         return strings.joinWithSeparator(self)
     }
 

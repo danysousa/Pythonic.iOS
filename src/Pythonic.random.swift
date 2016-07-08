@@ -59,7 +59,7 @@ public class random {
         return Pythonic.random.randRange(start, stop)
     }
 
-    public class func choice<R : SequenceType where R.Generator.Element : Comparable>(sequence: R) -> R.Generator.Element {
+    public class func choice<R: SequenceType where R.Generator.Element: Comparable>(sequence: R) -> R.Generator.Element {
         var arr = Array(sequence)
         return arr[Pythonic.random.randRange(0, len(arr))]
     }

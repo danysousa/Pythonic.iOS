@@ -11,11 +11,13 @@
 
 public typealias float = Swift.Double
 
-extension Double : BooleanType {
+extension Double: BooleanType {
     public var boolValue: Bool {
         return self != 0
     }
+}
 
+extension Double {
     public func isInteger() -> Bool {
         return math.floor(self) == self
     }
@@ -25,11 +27,13 @@ extension Double : BooleanType {
     }
 }
 
-extension Float : BooleanType {
+extension Float: BooleanType {
     public var boolValue: Bool {
         return self != 0
     }
+}
 
+extension Float {
     public func isInteger() -> Bool {
         return math.floor(Double(self)) == Double(self)
     }

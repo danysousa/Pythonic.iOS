@@ -21,7 +21,7 @@
 
 public typealias list = Swift.Array
 
-extension Array : BooleanType {
+extension Array: BooleanType {
     public var boolValue: Bool {
         return len(self) != 0
     }
@@ -38,20 +38,20 @@ extension Array {
         self.appendContentsOf(newArrayElements)
     }
 
-    public func count<T where T : Equatable>(element: T) -> Int {
+    public func count<T where T: Equatable>(element: T) -> Int {
         if element is Array.Element {
             return Swift.unsafeBitCast(self, [T].self).filter({ $0 == element }).count
         }
         return 0
     }
 
-    public mutating func remove<T where T : Equatable>(element: T) {
+    public mutating func remove<T where T: Equatable>(element: T) {
         if let i = index(element) {
             self.removeAtIndex(i)
         }
     }
 
-    public func index<T where T : Equatable>(element: T) -> Int? {
+    public func index<T where T: Equatable>(element: T) -> Int? {
         if element is Array.Element {
             if let idx = Swift.unsafeBitCast(self, [T].self).indexOf(element) {
                 return idx

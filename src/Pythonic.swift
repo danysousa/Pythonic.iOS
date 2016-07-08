@@ -86,7 +86,7 @@ public func **(lhs: Double, rhs: Double) -> Double {
     return Darwin.pow(lhs, rhs)
 }
 
-public func all<R : SequenceType where R.Generator.Element : BooleanType>(iterable: R) -> Bool {
+public func all<R: SequenceType where R.Generator.Element: BooleanType>(iterable: R) -> Bool {
     for element in iterable {
         if !element {
             return false
@@ -95,7 +95,7 @@ public func all<R : SequenceType where R.Generator.Element : BooleanType>(iterab
     return true
 }
 
-public func any<R : SequenceType where R.Generator.Element : BooleanType>(iterable: R) -> Bool {
+public func any<R: SequenceType where R.Generator.Element: BooleanType>(iterable: R) -> Bool {
     for element in iterable {
         if element {
             return true
@@ -125,7 +125,7 @@ public func chr(i: Int) -> String {
     return String(UnicodeScalar(i))
 }
 
-public func cmp<T : Comparable>(x: T, _ y: T) -> Int {
+public func cmp<T: Comparable>(x: T, _ y: T) -> Int {
     if x < y {
         return -1
     }
@@ -156,7 +156,7 @@ public func len(x: String) -> Int {
     return len(x.characters)
 }
 
-public func len<C : CollectionType>(x: C) -> Int {
+public func len<C: CollectionType>(x: C) -> Int {
     return x.count as! Int
 }
 
@@ -167,7 +167,7 @@ public func max(range: [Int]) -> Int {
     return range.maxElement()!
 }
 
-public func max<R : SequenceType where R.Generator.Element : Comparable>(range: R) -> R.Generator.Element {
+public func max<R: SequenceType where R.Generator.Element: Comparable>(range: R) -> R.Generator.Element {
     return range.maxElement()!
 }
 
@@ -178,7 +178,7 @@ public func min(range: [Int]) -> Int {
     return range.minElement()!
 }
 
-public func min<R : SequenceType where R.Generator.Element : Comparable>(range: R) -> R.Generator.Element {
+public func min<R: SequenceType where R.Generator.Element: Comparable>(range: R) -> R.Generator.Element {
     return range.minElement()!
 }
 
@@ -285,25 +285,25 @@ public typealias bool = Swift.Bool
 public typealias long = Swift.Int
 public typealias object = NSObject
 
-extension Character : BooleanType {
+extension Character: BooleanType {
     public var boolValue: Bool {
         return true
     }
 }
 
-extension NSObject : BooleanType {
+extension NSObject: BooleanType {
     public var boolValue: Bool {
         return true
     }
 }
 
 // Comparison of 2-part tuples
-public func ==<T : Equatable>(tuple1:(T, T),tuple2:(T, T)) -> Bool {
+public func ==<T: Equatable>(tuple1:(T, T),tuple2:(T, T)) -> Bool {
     return tuple1.0 == tuple2.0 && tuple1.1 == tuple2.1
 }
 
 // Comparison of 3-part tuples
-public func ==<T : Equatable>(tuple1:(T, T, T),tuple2:(T, T, T)) -> Bool {
+public func ==<T: Equatable>(tuple1:(T, T, T),tuple2:(T, T, T)) -> Bool {
     return tuple1.0 == tuple2.0 && tuple1.1 == tuple2.1 && tuple1.2 == tuple2.2
 }
 
@@ -442,31 +442,31 @@ public func ==<T : Equatable>(tuple1:(T, T, T),tuple2:(T, T, T)) -> Bool {
 // viewkeys()
 // viewvalues()
 
-public func %<A0 : CVarArgType>(lhs: String, rhs: A0) -> String {
+public func %<A0: CVarArgType>(lhs: String, rhs: A0) -> String {
     return String(format: lhs.replace("%s", "%@"), rhs)
 }
 
-public func %<A0 : CVarArgType, A1 : CVarArgType>(lhs: String, rhs: (A0, A1)) -> String {
+public func %<A0: CVarArgType, A1: CVarArgType>(lhs: String, rhs: (A0, A1)) -> String {
     return String(format: lhs.replace("%s", "%@"), rhs.0, rhs.1)
 }
 
-public func %<A0 : CVarArgType, A1 : CVarArgType, A2 : CVarArgType>(lhs: String, rhs: (A0, A1, A2)) -> String {
+public func %<A0: CVarArgType, A1: CVarArgType, A2: CVarArgType>(lhs: String, rhs: (A0, A1, A2)) -> String {
     return String(format: lhs.replace("%s", "%@"), rhs.0, rhs.1, rhs.2)
 }
 
-public func %<A0 : CVarArgType, A1 : CVarArgType, A2 : CVarArgType, A3 : CVarArgType>(lhs: String, rhs: (A0, A1, A2, A3)) -> String {
+public func %<A0: CVarArgType, A1: CVarArgType, A2: CVarArgType, A3: CVarArgType>(lhs: String, rhs: (A0, A1, A2, A3)) -> String {
     return String(format: lhs.replace("%s", "%@"), rhs.0, rhs.1, rhs.2, rhs.3)
 }
 
-public func %<A0 : CVarArgType, A1 : CVarArgType, A2 : CVarArgType, A3 : CVarArgType, A4 : CVarArgType>(lhs: String, rhs: (A0, A1, A2, A3, A4)) -> String {
+public func %<A0: CVarArgType, A1: CVarArgType, A2: CVarArgType, A3: CVarArgType, A4: CVarArgType>(lhs: String, rhs: (A0, A1, A2, A3, A4)) -> String {
     return String(format: lhs.replace("%s", "%@"), rhs.0, rhs.1, rhs.2, rhs.3, rhs.4)
 }
 
-public func %<A0 : CVarArgType, A1 : CVarArgType, A2 : CVarArgType, A3 : CVarArgType, A4 : CVarArgType, A5 : CVarArgType>(lhs: String, rhs: (A0, A1, A2, A3, A4, A5)) -> String {
+public func %<A0: CVarArgType, A1: CVarArgType, A2: CVarArgType, A3: CVarArgType, A4: CVarArgType, A5: CVarArgType>(lhs: String, rhs: (A0, A1, A2, A3, A4, A5)) -> String {
     return String(format: lhs.replace("%s", "%@"), rhs.0, rhs.1, rhs.2, rhs.3, rhs.4, rhs.5)
 }
 
-public func %<A0 : CVarArgType, A1 : CVarArgType, A2 : CVarArgType, A3 : CVarArgType, A4 : CVarArgType, A5 : CVarArgType, A6 : CVarArgType>(lhs: String, rhs: (A0, A1, A2, A3, A4, A5, A6)) -> String {
+public func %<A0: CVarArgType, A1: CVarArgType, A2: CVarArgType, A3: CVarArgType, A4: CVarArgType, A5: CVarArgType, A6: CVarArgType>(lhs: String, rhs: (A0, A1, A2, A3, A4, A5, A6)) -> String {
     return String(format: lhs.replace("%s", "%@"), rhs.0, rhs.1, rhs.2, rhs.3, rhs.4, rhs.5, rhs.6)
 }
 

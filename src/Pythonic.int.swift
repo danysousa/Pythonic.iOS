@@ -8,7 +8,7 @@
 
 public typealias int = Swift.Int
 
-extension Int : BooleanType {
+extension Int: BooleanType {
     public var boolValue: Bool {
         return self != 0
     }

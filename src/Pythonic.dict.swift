@@ -29,7 +29,7 @@
 
 public typealias dict = Swift.Dictionary
 
-extension Dictionary : BooleanType {
+extension Dictionary: BooleanType {
     public var boolValue: Bool {
         return len(self) != 0
     }
@@ -84,19 +84,19 @@ public extension Dictionary {
         return ret
     }
 
-    public static func fromKeys(sequence: [Key], _ defaultValue: Value) -> [Key : Value]{
-        var dict = [Key : Value]()
+    public static func fromKeys(sequence: [Key], _ defaultValue: Value) -> [Key: Value]{
+        var dict = [Key: Value]()
         for key in sequence {
             dict[key] = defaultValue
         }
         return dict
     }
 
-    public static func fromkeys(sequence: [Key], _ defaultValue: Value) -> [Key : Value] {
+    public static func fromkeys(sequence: [Key], _ defaultValue: Value) -> [Key: Value] {
         return fromKeys(sequence, defaultValue)
     }
 
-    public func copy() -> [Key : Value] {
+    public func copy() -> [Key: Value] {
         return self
     }
 }
