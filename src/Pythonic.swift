@@ -82,7 +82,7 @@ infix operator ** {
     associativity right precedence 160
 }
 
-public func **(lhs: Double, rhs: Double) -> Double {
+public func ** (lhs: Double, rhs: Double) -> Double {
     return Darwin.pow(lhs, rhs)
 }
 
@@ -167,22 +167,8 @@ public func len<C: CollectionType>(x: C) -> Int {
     return x.count as! Int
 }
 
-// NOTE: This max(…) function is totally redundant since [Int] fulfills requirements of the generics
-//       based max(…) function below. However, this version is needed to work around a compiler bug
-//       which caused the compilation time to increase +5 seconds per call.
-public func max(range: [Int]) -> Int {
-    return range.maxElement()!
-}
-
 public func max<R: SequenceType where R.Generator.Element: Comparable>(range: R) -> R.Generator.Element {
     return range.maxElement()!
-}
-
-// NOTE: This min(…) function is totally redundant since [Int] fulfills requirements of the generics
-//       based min(…) function below. However, this version is needed to work around a compiler bug
-//       which caused the compilation time to increase +5 seconds per call.
-public func min(range: [Int]) -> Int {
-    return range.minElement()!
 }
 
 public func min<R: SequenceType where R.Generator.Element: Comparable>(range: R) -> R.Generator.Element {
@@ -305,12 +291,12 @@ extension NSObject: BooleanType {
 }
 
 // Comparison of 2-part tuples
-public func ==<T: Equatable>(tuple1:(T, T),tuple2:(T, T)) -> Bool {
+public func == <T: Equatable>(tuple1:(T, T),tuple2:(T, T)) -> Bool {
     return tuple1.0 == tuple2.0 && tuple1.1 == tuple2.1
 }
 
 // Comparison of 3-part tuples
-public func ==<T: Equatable>(tuple1:(T, T, T),tuple2:(T, T, T)) -> Bool {
+public func == <T: Equatable>(tuple1:(T, T, T),tuple2:(T, T, T)) -> Bool {
     return tuple1.0 == tuple2.0 && tuple1.1 == tuple2.1 && tuple1.2 == tuple2.2
 }
 
