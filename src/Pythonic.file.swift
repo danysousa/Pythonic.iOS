@@ -74,33 +74,32 @@ extension NSFileHandle: SequenceType {
     }
 
     public func generate() -> _FileHandle_Generator {
-        return _FileHandle_Generator(filehandle: self)
+        return _FileHandle_Generator(fileHandle: self)
     }
 }
 
-// The Swift compiler (Beta 4) crashes when this is contained in the extension,
-// but this should definitely be moved to the "generate" function when that is fixed.
+// TODO: An older Swift compiler crashed when this is contained in the extension.
+// This should be moved to the "generate" function.
 public class _FileHandle_Generator: GeneratorType {
-    private let filehandle: NSFileHandle
+    private let fileHandle: NSFileHandle
     private var cache = ""
 
-    private init (filehandle: NSFileHandle) {
-        self.filehandle = filehandle
+    private init(fileHandle: NSFileHandle) {
+        self.fileHandle = fileHandle
     }
 
-    public func next () -> String? {
-        let (nextline, returnedseparator, remainder) = cache.partition("\n")
-        let newlinewasfound = returnedseparator != ""
+    public func next() -> String? {
+        let (nextLine, returnedSeparator, remainder) = cache.partition("\n")
+        let newLineWasFound = returnedSeparator != ""
         cache = remainder
-
-        if newlinewasfound {
-            return nextline
+        if newLineWasFound {
+            return nextLine
         } else {
-            if let newcache = filehandle.availableText() {
-                cache = nextline + newcache
+            if let newCache = fileHandle.availableText() {
+                cache = nextLine + newCache
                 return next()
             } else {
-                return nextline == "" ? nil : nextline
+                return nextLine == "" ? nil : nextLine
             }
         }
     }
