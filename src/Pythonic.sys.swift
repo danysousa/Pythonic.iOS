@@ -76,10 +76,9 @@
 
 import Foundation
 
-// Swift compiler issue: "class variables not yet supported" (this should be a class variable)
-var assignedArgv: [String]!
-
 public class sys {
+    public static var assignedArgv: [String]?
+
     public class var argv: [String] {
         get {
             return assignedArgv ?? Process.arguments
