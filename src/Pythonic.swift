@@ -87,25 +87,20 @@ public func ** (lhs: Double, rhs: Double) -> Double {
 }
 
 public func all<R: SequenceType where R.Generator.Element: BooleanType>(iterable: R) -> Bool {
-    for element in iterable {
-        if !element {
-            return false
-        }
+    for element in iterable where !element {
+        return false
     }
     return true
 }
 
 public func any<R: SequenceType where R.Generator.Element: BooleanType>(iterable: R) -> Bool {
-    for element in iterable {
-        if element {
-            return true
-        }
+    for element in iterable where element {
+        return true
     }
     return false
 }
 
 public func bin(x: Int) -> String {
-
     var i = x
     var ret = ""
     while i != 0 {
@@ -118,7 +113,6 @@ public func bin(x: Int) -> String {
     }
     ret = "0b" + ret
     return ret
-
 }
 
 public func chr(i: Int) -> String {
@@ -291,12 +285,12 @@ extension NSObject: BooleanType {
 }
 
 // Comparison of 2-part tuples
-public func == <T: Equatable>(tuple1:(T, T),tuple2:(T, T)) -> Bool {
+public func == <T: Equatable>(tuple1: (T, T),tuple2: (T, T)) -> Bool {
     return tuple1.0 == tuple2.0 && tuple1.1 == tuple2.1
 }
 
 // Comparison of 3-part tuples
-public func == <T: Equatable>(tuple1:(T, T, T),tuple2:(T, T, T)) -> Bool {
+public func == <T: Equatable>(tuple1: (T, T, T),tuple2: (T, T, T)) -> Bool {
     return tuple1.0 == tuple2.0 && tuple1.1 == tuple2.1 && tuple1.2 == tuple2.2
 }
 
