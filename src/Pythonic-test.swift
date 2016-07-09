@@ -54,7 +54,68 @@ assert(cmp("foo", "bar") == 1)
 assert(cmp(0, 0) == 0)
 assert(cmp(0, 1) == -1)
 assert(cmp(1, 0) == 1)
-// assert(cmp([1, 2, 3, 100], [2, 3, 4, 5]) == -1) – assertion fails
+assert(cmp([1, 2, 3, 100], [1, 2, 3, 100]) == 0)
+assert(cmp([1, 2, 3, 100], [1, 2, 3, 1]) == 1)
+assert(cmp([1, 2, 3, 100], [2, 3, 4, 5]) == -1)
+assert(cmp([8, 1, 9, 2], [100, 3, 7, 8]) == -1)
+assert(cmp([8, 1, 9, 2], [3, 7, 8, 1]) == 1)
+assert(cmp([8, 1, 9, 2], [7, 8, 1, 10000]) == 1)
+assert(cmp([8, 1, 9, 2], [8, 1, 100, 100]) == -1)
+assert(cmp([8, 1, 9, 2], [1, 100, 100, 100]) == 1)
+assert(cmp([8, 1, 9, 2], [100, 100, 100, 100]) == -1)
+assert(cmp([1, 9, 2, 100], [100, 100, 100, 100]) == -1)
+assert(cmp([9, 2, 100, 100], [100, 100, 100, 100]) == -1)
+assert(cmp([2, 100, 100, 100], [100, 100, 100, 100]) == -1)
+assert(cmp([100, 100, 100, 100], [100, 100, 100, 100]) == 0)
+assert(cmp([0, 0], [0, 0]) == 0)
+assert(cmp([0, 0], [0, 1]) == -1)
+assert(cmp([0, 0], [1, 0]) == -1)
+assert(cmp([0, 0], [1, 1]) == -1)
+assert(cmp([0, 1], [0, 0]) == 1)
+assert(cmp([0, 1], [0, 1]) == 0)
+assert(cmp([0, 1], [1, 0]) == -1)
+assert(cmp([0, 1], [1, 1]) == -1)
+assert(cmp([1, 0], [0, 0]) == 1)
+assert(cmp([1, 0], [0, 1]) == 1)
+assert(cmp([1, 0], [1, 0]) == 0)
+assert(cmp([1, 0], [1, 1]) == -1)
+assert(cmp([1, 1], [0, 0]) == 1)
+assert(cmp([1, 1], [0, 1]) == 1)
+assert(cmp([1, 1], [1, 0]) == 1)
+assert(cmp([1, 1], [1, 1]) == 0)
+
+assert(cmp([1, 1, 1], [0, 0]) == 1)
+assert(cmp([1, 1, 0], [0, 0]) == 1)
+assert(cmp([1, 1], [0, 0, 0]) == 1)
+assert(cmp([1, 1], [0, 0, 1]) == 1)
+assert(cmp([0, 1, 1, 1], [0, 0]) == 1)
+assert(cmp([1, 1, 1, 0], [0, 0]) == 1)
+assert(cmp([1, 1], [1, 0, 0, 0]) == 1)
+assert(cmp([1, 1], [0, 1, 0, 1]) == 1)
+assert(cmp([1, 1, 1], [0, 0, 0]) == 1)
+assert(cmp([1, 1, 0], [0, 1, 0]) == 1)
+assert(cmp([1, 1], [0, 1, 0, 0]) == 1)
+assert(cmp([1, 1, 0], [0, 0, 1]) == 1)
+assert(cmp([1, 1, 1], [0, 1, 0]) == 1)
+assert(cmp([1, 1, 0], [0, 0, 0]) == 1)
+assert(cmp([1, 1], [0, 0, 1, 0]) == 1)
+assert(cmp([1, 1], [1, 0, 0, 1]) == 1)
+assert(cmp([0, 1, 1, 1], [0, -1, 0]) == 1)
+assert(cmp([1, 1, -1, 1, 0], [0, 0]) == 1)
+assert(cmp([1, 1, -1], [1, 0, 0, 0]) == 1)
+assert(cmp([1, 1], [0, -1, 1, 0, 1]) == 1)
+assert(cmp([1, 1, 1], [0, -1, 0, 0]) == 1)
+assert(cmp([1, 1, 0], [0, 1, -1, 0]) == 1)
+assert(cmp([1, 1], [0, 1, 0, 0, -1]) == 1)
+assert(cmp([1, 1, 0], [0, -1, 0, 1]) == 1)
+assert(cmp([1, 1, 1], [-1, 0, 1, 0]) == 1)
+assert(cmp([1, 1, 0, -1], [0, 0, 0]) == 1)
+assert(cmp([1, -1, 1], [0, 0, 1, 0]) == 1)
+assert(cmp([-1, 1, 1], [1, 0, 0, 1]) == -1)
+assert(cmp([-1, -1, 1], [1, 0, 0, 1]) == -1)
+assert(cmp([-1, -1, -1], [1, 0, 0, 1]) == -1)
+assert(cmp([-1, -1, -1], [0, 0, 0, 1]) == -1)
+assert(cmp([-1, -1, -1], [0, 0, 0, 0]) == -1)
 
 // double (truthness)
 assert(bool(0.00000001))
@@ -207,7 +268,7 @@ assert(oct(1) == "01")
 assert(oct(10) == "012")
 assert(oct(100) == "0144")
 assert(oct(1000) == "01750")
-// assert(oct(100000000000) == "01351035564000") – assertion fails
+// assert(oct(100000000000) == "01351035564000")
 
 // open
 assert(open("Pythonic-test.txt").read().splitlines()[2] == "This test file is being read")
@@ -674,7 +735,7 @@ if performPythonIncompatibleTests {
     assert(float(1.0).isInteger())
     assert(!float(1.1).isInteger())
 
-    // hasattr (commented out due to compiler bug)
+    // hasattr
     class Baz {
         let foo = "foobar"
         let bar = "foobar"
@@ -684,7 +745,7 @@ if performPythonIncompatibleTests {
     assert(hasattr(baz, "baz") == false)
 
     // list
-    // assert(!list<int>())
+    assert(!list<int>())
 
     // list.count + list.index + list.reverseInPlace
     var arr: [String] = ["foo", "bar", "baz", "foo"]
@@ -750,29 +811,29 @@ if performPythonIncompatibleTests {
     assert(len(mapObj) == 0)
 
     // map.clear
-    // mapObj.clear()
-    // assert(len(mapObj) == 0)
-    // assert(mapObj["foobar"] == nil)
+    mapObj.clear()
+    assert(len(mapObj) == 0)
+    assert(mapObj["foobar"] == nil)
 
     // open(…) [modes: w, a, r (default)] + fh.write + fh.close + os.path.exists
-    // let temporaryTestFile = "/tmp/pythonic-io.txt"
-    // var f = open(temporaryTestFile, "w")
-    // f.write("foo")
-    // f.close()
-    // f = open(temporaryTestFile, "a")
-    // f.write("bar\n")
-    // f.close()
-    // f = open(temporaryTestFile)
-    // var foundText = false
-    // for line in f {
-    //     if line == "foobar" {
-    //         foundText = true
-    //     }
-    // }
-    // assert(foundText)
-    // assert(os.path.exists(temporaryTestFile))
-    // os.unlink(temporaryTestFile)
-    // assert(!os.path.exists(temporaryTestFile))
+    let temporaryTestFile = "/tmp/pythonic-io.txt"
+    var f = open(temporaryTestFile, "w")
+    f.write("foo")
+    f.close()
+    f = open(temporaryTestFile, "a")
+    f.write("bar\n")
+    f.close()
+    f = open(temporaryTestFile)
+    var foundText = false
+    for line in f {
+        if line == "foobar" {
+            foundText = true
+        }
+    }
+    assert(foundText)
+    assert(os.path.exists(temporaryTestFile))
+    os.unlink(temporaryTestFile)
+    assert(!os.path.exists(temporaryTestFile))
 
     // os.popen3
     var (stdin, stdout, stderr) = os.popen3("/bin/echo foo")
@@ -807,7 +868,7 @@ if performPythonIncompatibleTests {
 
     // set
     var emptyIntSet: Set<Int> = set()
-    // assert(!emptyIntSet)
+    assert(!emptyIntSet)
     assert(set([1, 2, 3]) + set([3, 4, 5]) == set([1, 2, 3, 4, 5]))
     assert(set([set([1, 2, 3]), set([1, 2, 3]), set([2, 4, 8])]) != set([set([1, 2, 3]), set([2, 4, 9])]))
     assert(set([set([1, 2, 3]), set([1, 2, 3]), set([2, 4, 8])]) == set([set([1, 2, 3]), set([2, 4, 8])]))

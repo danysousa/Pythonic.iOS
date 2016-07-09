@@ -125,6 +125,13 @@ public func chr(i: Int) -> String {
     return String(UnicodeScalar(i))
 }
 
+public func cmp<R: SequenceType where R.Generator.Element: Comparable>(xSequence: R, _ ySequence: R) -> Int {
+    for (x, y) in zip(xSequence, ySequence) where x != y {
+        return cmp(x, y)
+    }
+    return 0
+}
+
 public func cmp<T: Comparable>(x: T, _ y: T) -> Int {
     if x < y {
         return -1
