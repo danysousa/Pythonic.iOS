@@ -21,8 +21,8 @@ private class HttpUtils {
     private class func encodeDictionaryAsPercentEscapedString(dictionary: Dictionary<String, String>) -> String {
         var parts = [String]()
         for (key, value) in dictionary {
-            let encodedKey = (key as NSString).stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
-            let encodedValue = (value as NSString).stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
+            let encodedKey = (key as NSString).stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
+            let encodedValue = (value as NSString).stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
             parts += ["\(encodedKey)=\(encodedValue)"]
         }
         return parts.joinWithSeparator("&")
@@ -35,7 +35,7 @@ public class HttpSession {
     private func makeHttpRequest(methodType: HttpMethod, url: String, data: [String: String]? = nil, dataAsString: String? = nil, params: [String: String]? = nil, auth: (String, String)? = nil, headers: [String: String]? = nil, timeout: Double? = 600, cookies: [String: String]? = nil) -> HttpResponse {
         // TODO: Handle all options.
         let nsUrl = NSURL(string: url)
-        let nsMutableUrlRequest = NSMutableURLRequest(URL: nsUrl!, cachePolicy: .ReloadIgnoringLocalCacheData, timeoutInterval: timeout!)
+        let nsMutableUrlRequest = NSMutableURLRequest(URL: nsUrl!, cachePolicy: .ReloadIgnoringLocalCacheData, timeoutInterval: timeout ?? 600)
         switch (methodType) {
         case .GET:
             nsMutableUrlRequest.HTTPMethod = "GET"
