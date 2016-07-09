@@ -78,8 +78,6 @@ extension NSFileHandle: SequenceType {
     }
 }
 
-// TODO: An older Swift compiler crashed when this is contained in the extension.
-// This should be moved to the "generate" function.
 public class _FileHandle_Generator: GeneratorType {
     private let fileHandle: NSFileHandle
     private var cache = ""
@@ -90,17 +88,15 @@ public class _FileHandle_Generator: GeneratorType {
 
     public func next() -> String? {
         let (nextLine, returnedSeparator, remainder) = cache.partition("\n")
-        let newLineWasFound = returnedSeparator != ""
         cache = remainder
+        let newLineWasFound = returnedSeparator != ""
         if newLineWasFound {
             return nextLine
-        } else {
-            if let newCache = fileHandle.availableText() {
-                cache = nextLine + newCache
-                return next()
-            } else {
-                return nextLine == "" ? nil : nextLine
-            }
         }
+        if let newCache = fileHandle.availableText() {
+            cache = nextLine + newCache
+            return next()
+        }
+        return nextLine == "" ? nil : nextLine
     }
 }
