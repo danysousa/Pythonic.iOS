@@ -435,31 +435,31 @@ public func == <T: Equatable>(tuple1:(T, T, T),tuple2:(T, T, T)) -> Bool {
 // viewkeys()
 // viewvalues()
 
-public func %<A0: CVarArgType>(lhs: String, rhs: A0) -> String {
+public func % <A0: CVarArgType>(lhs: String, rhs: A0) -> String {
     return String(format: lhs.replace("%s", "%@"), rhs)
 }
 
-public func %<A0: CVarArgType, A1: CVarArgType>(lhs: String, rhs: (A0, A1)) -> String {
+public func % <A0: CVarArgType, A1: CVarArgType>(lhs: String, rhs: (A0, A1)) -> String {
     return String(format: lhs.replace("%s", "%@"), rhs.0, rhs.1)
 }
 
-public func %<A0: CVarArgType, A1: CVarArgType, A2: CVarArgType>(lhs: String, rhs: (A0, A1, A2)) -> String {
+public func % <A0: CVarArgType, A1: CVarArgType, A2: CVarArgType>(lhs: String, rhs: (A0, A1, A2)) -> String {
     return String(format: lhs.replace("%s", "%@"), rhs.0, rhs.1, rhs.2)
 }
 
-public func %<A0: CVarArgType, A1: CVarArgType, A2: CVarArgType, A3: CVarArgType>(lhs: String, rhs: (A0, A1, A2, A3)) -> String {
+public func % <A0: CVarArgType, A1: CVarArgType, A2: CVarArgType, A3: CVarArgType>(lhs: String, rhs: (A0, A1, A2, A3)) -> String {
     return String(format: lhs.replace("%s", "%@"), rhs.0, rhs.1, rhs.2, rhs.3)
 }
 
-public func %<A0: CVarArgType, A1: CVarArgType, A2: CVarArgType, A3: CVarArgType, A4: CVarArgType>(lhs: String, rhs: (A0, A1, A2, A3, A4)) -> String {
+public func % <A0: CVarArgType, A1: CVarArgType, A2: CVarArgType, A3: CVarArgType, A4: CVarArgType>(lhs: String, rhs: (A0, A1, A2, A3, A4)) -> String {
     return String(format: lhs.replace("%s", "%@"), rhs.0, rhs.1, rhs.2, rhs.3, rhs.4)
 }
 
-public func %<A0: CVarArgType, A1: CVarArgType, A2: CVarArgType, A3: CVarArgType, A4: CVarArgType, A5: CVarArgType>(lhs: String, rhs: (A0, A1, A2, A3, A4, A5)) -> String {
+public func % <A0: CVarArgType, A1: CVarArgType, A2: CVarArgType, A3: CVarArgType, A4: CVarArgType, A5: CVarArgType>(lhs: String, rhs: (A0, A1, A2, A3, A4, A5)) -> String {
     return String(format: lhs.replace("%s", "%@"), rhs.0, rhs.1, rhs.2, rhs.3, rhs.4, rhs.5)
 }
 
-public func %<A0: CVarArgType, A1: CVarArgType, A2: CVarArgType, A3: CVarArgType, A4: CVarArgType, A5: CVarArgType, A6: CVarArgType>(lhs: String, rhs: (A0, A1, A2, A3, A4, A5, A6)) -> String {
+public func % <A0: CVarArgType, A1: CVarArgType, A2: CVarArgType, A3: CVarArgType, A4: CVarArgType, A5: CVarArgType, A6: CVarArgType>(lhs: String, rhs: (A0, A1, A2, A3, A4, A5, A6)) -> String {
     return String(format: lhs.replace("%s", "%@"), rhs.0, rhs.1, rhs.2, rhs.3, rhs.4, rhs.5, rhs.6)
 }
 

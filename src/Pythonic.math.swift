@@ -59,11 +59,11 @@
 import Darwin
 
 public protocol FloatArithmetic: FloatLiteralConvertible {
-    func +(lhs: Self, rhs: Self) -> Self
-    func -(lhs: Self, rhs: Self) -> Self
-    func *(lhs: Self, rhs: Self) -> Self
-    func /(lhs: Self, rhs: Self) -> Self
-    func %(lhs: Self, rhs: Self) -> Self
+    func + (lhs: Self, rhs: Self) -> Self
+    func - (lhs: Self, rhs: Self) -> Self
+    func * (lhs: Self, rhs: Self) -> Self
+    func / (lhs: Self, rhs: Self) -> Self
+    func % (lhs: Self, rhs: Self) -> Self
     init(_ value: Double)
     init(_ value: Float)
 }

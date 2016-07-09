@@ -55,23 +55,23 @@ import Foundation
 public typealias datetime = NSDate
 public typealias timedelta = NSTimeInterval
 
-public func <(lhs: NSDate, rhs: NSDate) -> Bool {
+public func < (lhs: NSDate, rhs: NSDate) -> Bool {
     return lhs.compare(rhs) == NSComparisonResult.OrderedAscending
 }
 
-public func ==(lhs: NSDate, rhs: NSDate) -> Bool {
+public func == (lhs: NSDate, rhs: NSDate) -> Bool {
     return lhs.compare(rhs) == NSComparisonResult.OrderedSame
 }
 
-public func -(lhs: NSDate, rhs: NSDate) -> NSTimeInterval {
+public func - (lhs: NSDate, rhs: NSDate) -> NSTimeInterval {
     return lhs.timeIntervalSinceDate(rhs)
 }
 
-public func -(lhs: NSDate, rhs: NSTimeInterval) -> NSDate {
+public func - (lhs: NSDate, rhs: NSTimeInterval) -> NSDate {
     return lhs.dateByAddingTimeInterval(-1 * rhs)
 }
 
-public func +(lhs: NSDate, rhs: NSTimeInterval) -> NSDate {
+public func + (lhs: NSDate, rhs: NSTimeInterval) -> NSDate {
     return lhs.dateByAddingTimeInterval(rhs)
 }
 

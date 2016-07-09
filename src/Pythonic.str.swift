@@ -455,7 +455,7 @@ public extension String {
     }
 }
 
-public func *(lhs: Int, rhs: String) -> String {
+public func * (lhs: Int, rhs: String) -> String {
     if lhs < 0 {
         return ""
     }
@@ -466,6 +466,6 @@ public func *(lhs: Int, rhs: String) -> String {
     return ret
 }
 
-public func *(lhs: String, rhs: Int) -> String {
+public func * (lhs: String, rhs: Int) -> String {
     return rhs * lhs
 }

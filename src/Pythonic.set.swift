@@ -23,7 +23,7 @@ extension Set: Comparable {
 }
 
 // Implement Comparable (allows for "if set1 < set2 { … }")
-public func <<T: Hashable>(lhs: Set<T>, rhs: Set<T>) -> Bool {
+public func < <T: Hashable>(lhs: Set<T>, rhs: Set<T>) -> Bool {
     return lhs.isStrictSubsetOf(rhs)
 }
 
@@ -55,43 +55,43 @@ public extension Set {
     }
 }
 
-public func +<T: Hashable>(lhs: Set<T>, rhs: Set<T>) -> Set<T> {
+public func + <T: Hashable>(lhs: Set<T>, rhs: Set<T>) -> Set<T> {
     return lhs.union(rhs)
 }
 
-public func -<T: Hashable>(lhs: Set<T>, rhs: Set<T>) -> Set<T> {
+public func - <T: Hashable>(lhs: Set<T>, rhs: Set<T>) -> Set<T> {
     return lhs.subtract(rhs)
 }
 
-public func &<T: Hashable>(lhs: Set<T>, rhs: Set<T>) -> Set<T> {
+public func & <T: Hashable>(lhs: Set<T>, rhs: Set<T>) -> Set<T> {
     return lhs.intersect(rhs)
 }
 
-public func |<T: Hashable>(lhs: Set<T>, rhs: Set<T>) -> Set<T> {
+public func | <T: Hashable>(lhs: Set<T>, rhs: Set<T>) -> Set<T> {
     return lhs + rhs
 }
 
-public func +=<T: Hashable>(inout lhs: Set<T>, rhs: Set<T>) {
+public func += <T: Hashable>(inout lhs: Set<T>, rhs: Set<T>) {
     lhs.unionInPlace(rhs)
 }
 
-public func |=<T: Hashable>(inout lhs: Set<T>, rhs: Set<T>) {
+public func |= <T: Hashable>(inout lhs: Set<T>, rhs: Set<T>) {
     lhs.unionInPlace(rhs)
 }
 
-public func &=<T: Hashable>(inout lhs: Set<T>, rhs: Set<T>) {
+public func &= <T: Hashable>(inout lhs: Set<T>, rhs: Set<T>) {
     lhs.intersectInPlace(rhs)
 }
 
-public func +=<T: Hashable>(inout lhs: Set<T>, rhs: T) {
+public func += <T: Hashable>(inout lhs: Set<T>, rhs: T) {
     lhs.insert(rhs)
 }
 
-public func -=<T: Hashable>(inout lhs: Set<T>, rhs: Set<T>) {
+public func -= <T: Hashable>(inout lhs: Set<T>, rhs: Set<T>) {
     lhs.subtractInPlace(rhs)
 }
 
-public func -=<T: Hashable>(inout lhs: Set<T>, rhs: T) {
+public func -= <T: Hashable>(inout lhs: Set<T>, rhs: T) {
     lhs.remove(rhs)
 }
 
