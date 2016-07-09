@@ -214,7 +214,6 @@ public class os {
             return 0
         }
         let task = NSTask()
-        // TODO: Use .pop() when we no longer have to work around compiler bug.
         if let first = parts.first {
             task.launchPath = first
         }
