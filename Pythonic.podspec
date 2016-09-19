@@ -1,11 +1,11 @@
 Pod::Spec.new do |s|
   s.name             = "Pythonic"
   s.version          = "1.0.0"
-  s.summary          = "Pythonic.swift is a Swift library implementating selected parts of Python's standard library and making them available to your Swift code."
-  s.homepage         = "https://github.com/practicalswift/Pythonic.swift"
+  s.summary          = "Pythonic tool-belt for iOS – a Swift implementation of selected parts of Python standard library."
+  s.homepage         = "https://github.com/danysousa/Pythonic.iOS.git"
   s.license          = { :type => 'MIT' }
   s.author           = { "Pythonic" => "Pythonic@yopmail.com" }
-  s.source           = { :git => "https://github.com/danysousa/Pythonic.swift.git", :tag => "1.0.0"}
+  s.source           = { :git => "https://github.com/danysousa/Pythonic.iOS.git", :tag => "1.0.0"}
 
   s.source_files  = 'src/*.swift'
 
