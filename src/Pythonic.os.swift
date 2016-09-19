@@ -208,50 +208,56 @@ public class os {
         }
     }
 
-    public class func system(command: String) -> Int {
-        var parts = command.split(" ")
-        if len(parts) == 0 {
-            return 0
-        }
-        let task = NSTask()
-        if let first = parts.first {
-            task.launchPath = first
-        }
-        parts.removeAtIndex(0)
-        if len(parts) > 0 {
-            task.arguments = parts
-        }
-        task.launch()
-        task.waitUntilExit()
-        return Int(task.terminationStatus)
-    }
+    /**
+       Unavailable on iOS
+     */
+    // public class func system(command: String) -> Int {
+    //     var parts = command.split(" ")
+    //     if len(parts) == 0 {
+    //         return 0
+    //     }
+    //     let task = NSTask()
+    //     if let first = parts.first {
+    //         task.launchPath = first
+    //     }
+    //     parts.removeAtIndex(0)
+    //     if len(parts) > 0 {
+    //         task.arguments = parts
+    //     }
+    //     task.launch()
+    //     task.waitUntilExit()
+    //     return Int(task.terminationStatus)
+    // }
 
     public class func popen2(command: String) -> (NSFileHandle, NSFileHandle) {
         let (stdin, stdout, _) = os.popen3(command)
         return (stdin, stdout)
     }
 
-    public class func popen3(command: String) -> (NSFileHandle, NSFileHandle, NSFileHandle) {
-        var parts = command.split(" ")
-        assert(len(parts) > 0)
-        let task = NSTask()
-        if let first = parts.first {
-            task.launchPath = first
-        }
-        parts.removeAtIndex(0)
-        if len(parts) > 0 {
-            task.arguments = parts
-        }
-        let stdinPipe = NSPipe()
-        task.standardInput = stdinPipe
-        let stdin = stdinPipe.fileHandleForWriting
-        let stdoutPipe = NSPipe()
-        task.standardOutput = stdoutPipe
-        let stdout = stdoutPipe.fileHandleForReading
-        let stderrPipe = NSPipe()
-        task.standardError = stderrPipe
-        let stderr = stderrPipe.fileHandleForReading
-        task.launch()
-        return (stdin, stdout, stderr)
-    }
+    /**
+       Unavailable on iOS
+     */
+    // public class func popen3(command: String) -> (NSFileHandle, NSFileHandle, NSFileHandle) {
+    //     var parts = command.split(" ")
+    //     assert(len(parts) > 0)
+    //     let task = NSTask()
+    //     if let first = parts.first {
+    //         task.launchPath = first
+    //     }
+    //     parts.removeAtIndex(0)
+    //     if len(parts) > 0 {
+    //         task.arguments = parts
+    //     }
+    //     let stdinPipe = NSPipe()
+    //     task.standardInput = stdinPipe
+    //     let stdin = stdinPipe.fileHandleForWriting
+    //     let stdoutPipe = NSPipe()
+    //     task.standardOutput = stdoutPipe
+    //     let stdout = stdoutPipe.fileHandleForReading
+    //     let stderrPipe = NSPipe()
+    //     task.standardError = stderrPipe
+    //     let stderr = stderrPipe.fileHandleForReading
+    //     task.launch()
+    //     return (stdin, stdout, stderr)
+    // }
 }
