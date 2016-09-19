@@ -10,6 +10,7 @@ Pod::Spec.new do |s|
   s.source_files  = 'src/*.swift'
 
   s.platform = :ios
+  s.ios.deployment_target = '8.0'
 
   s.frameworks = 'Foundation', 'Darwin'
   s.module_name = 'Pythonic'

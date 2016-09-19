@@ -229,10 +229,13 @@ public class os {
     //     return Int(task.terminationStatus)
     // }
 
-    public class func popen2(command: String) -> (NSFileHandle, NSFileHandle) {
-        let (stdin, stdout, _) = os.popen3(command)
-        return (stdin, stdout)
-    }
+    /**
+       Unavailable on iOS
+     */
+    // public class func popen2(command: String) -> (NSFileHandle, NSFileHandle) {
+    //     let (stdin, stdout, _) = os.popen3(command)
+    //     return (stdin, stdout)
+    // }
 
     /**
        Unavailable on iOS
